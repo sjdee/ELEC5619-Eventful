@@ -16,4 +16,5 @@ public class EventfulFinalApplication extends SpringBootServletInitializer{
 	public static void main(String[] args) {
 		SpringApplication.run(EventfulFinalApplication.class, args);
 	}
+	
 }

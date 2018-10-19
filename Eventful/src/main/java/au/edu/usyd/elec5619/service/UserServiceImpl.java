@@ -1,29 +1,42 @@
 package au.edu.usyd.elec5619.service;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import au.edu.usyd.elec5619.dao.RoleDao;
 import au.edu.usyd.elec5619.dao.UserDao;
+import au.edu.usyd.elec5619.domain.Role;
 import au.edu.usyd.elec5619.domain.User;
 
 @Service(value="userService")
 public class UserServiceImpl implements UserService {
 	
 	private UserDao userDAO;
+	private RoleDao roleDAO;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@Autowired
-	public void setUserDAO(UserDao userDAO) {
+	public UserServiceImpl(UserDao userDAO, RoleDao roleDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userDAO = userDAO;
+		this.roleDAO = roleDAO;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
 	@Override
 	@Transactional
 	public void createUser(User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		Role userRole = roleDAO.findByRole("USER");
+		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		this.userDAO.addUser(user);
 	}
 
@@ -54,18 +67,6 @@ public class UserServiceImpl implements UserService {
 		// TODO:: implementation
 	}
 
-	@Override
-	@Transactional
-	public boolean validateUser(String email, String password) {
-		log.info(email + " " + password);
-
-		User user = getUserByEmail(email);
-		log.info(user.getEmail() + " " + user.getPassword());
-		if (user != null && user.getPassword().equals(password))
-			return true;
-		return false;
-	}
-	
 	public User getCurrentUser() {
 		// TODO:: this needs to be implemented to get the current record from somewhere
 		
@@ -73,5 +74,10 @@ public class UserServiceImpl implements UserService {
 		
 		return userDAO.getUserByEmail(fakeUserEmail);
 		
+	}
+
+	@Override
+	public User getUserById(long id) {
+		return userDAO.getUserById(id);
 	}
 }

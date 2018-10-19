@@ -19,6 +19,11 @@
 							<td>Bio:</td>
 							<td>${model.user.bio}</td>
 						</tr>
+						<tr style="border: none;">
+							<td>Rating:</td>
+							<td><fmt:formatNumber value="${model.user.avgEventRating}"
+									type="number" groupingUsed="false" maxFractionDigits="2"/>/5</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

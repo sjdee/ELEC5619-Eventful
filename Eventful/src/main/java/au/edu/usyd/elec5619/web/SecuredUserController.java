@@ -1,5 +1,6 @@
 package au.edu.usyd.elec5619.web;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,10 +36,26 @@ public class SecuredUserController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		Event event = eventService.getEventById(1);
-		User user = userService.getCurrentUser();
+		User user = userService.getUserById(id);
 
 		model.put("event", event);
 		model.put("user", user);
+		model.put("selfProfile", false);
+		
+		return new ModelAndView("profile", "model", model);
+		
+	}
+	
+	@RequestMapping(value = "/profile", method=RequestMethod.GET)
+	public ModelAndView viewProfile(Principal principal) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		Event event = eventService.getEventById(1);
+		User user = userService.getUserByEmail(principal.getName());
+
+		model.put("event", event);
+		model.put("user", user);
+		model.put("selfProfile", true);
 		
 		return new ModelAndView("profile", "model", model);
 		

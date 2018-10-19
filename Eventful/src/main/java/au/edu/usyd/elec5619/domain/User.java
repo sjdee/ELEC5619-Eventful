@@ -1,22 +1,20 @@
 package au.edu.usyd.elec5619.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+@Data
 @Entity
 @Access(AccessType.FIELD)
 @EnableAutoConfiguration
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
 		@UniqueConstraint(columnNames = "alias") })
-public class User implements UserDetails {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +43,11 @@ public class User implements UserDetails {
 	private double avgEventRating;
 
 	private boolean enabled = true;
-	
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "commenter")
 	private Set<Comment> comments;
 
@@ -54,20 +56,20 @@ public class User implements UserDetails {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "poster")
 	private Set<Post> posts;
-	
+
 	@JoinTable(name = "likedPosts")
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<Post> likedPosts;
-	
+
 	@JoinTable(name = "likedComments")
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<Comment> likedComments;
-	
+
 	// Getters
 	public Long getId() {
 		return this.id;
 	}
-	
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -75,24 +77,40 @@ public class User implements UserDetails {
 	public String getAlias() {
 		return this.alias;
 	}
-	
+
 	public String getPassword() {
 		return this.password;
 	}
-	
+
 	public String getBio() {
 		return this.bio;
 	}
-	
+
 	public double getAvgEventRating() {
 		return this.avgEventRating;
+	}
+
+	public boolean getEnabled() {
+		return this.enabled;
+	}
+	
+	public Set<Role> getRoles() {
+		return this.roles;
+	}
+
+	public Set<Post> getLikedPosts() {
+		return this.likedPosts;
+	}
+
+	public Set<Comment> getLikedComments() {
+		return this.likedComments;
 	}
 
 	// Setters
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
@@ -104,57 +122,25 @@ public class User implements UserDetails {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
-	
+
 	public void setAvgEventRating(double avgEventRating) {
 		this.avgEventRating = avgEventRating;
 	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = false;
+	}
 	
-	// Override UserDetail interface
-	@Override
-	public Collection<GrantedAuthority> getAuthorities() {
-		return new ArrayList<GrantedAuthority>();
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public Set<Post> getLikedPosts() {
-		return likedPosts;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public void setLikedPosts(Set<Post> likedPosts) {
 		this.likedPosts = likedPosts;
 	}
 
-	public Set<Comment> getLikedComments() {
-		return likedComments;
-	}
-
 	public void setLikedComments(Set<Comment> likedComments) {
 		this.likedComments = likedComments;
 	}
-	
-	
+
 }

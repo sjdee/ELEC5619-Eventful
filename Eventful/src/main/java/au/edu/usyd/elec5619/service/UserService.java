@@ -10,9 +10,9 @@ public interface UserService {
 	
 	public User getUserByEmail(String email);
 	
-	public boolean isUserExist(User user);
+	public User getUserById(long id);
 	
-	public boolean validateUser(String email, String password);
+	public boolean isUserExist(User user);
 	
 	public void deleteUser(String email);
 	

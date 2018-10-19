@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import au.edu.usyd.elec5619.domain.User;
+import au.edu.usyd.elec5619.service.UserAuthenticationService;
 import au.edu.usyd.elec5619.service.UserService;
 
 // http://websystique.com/springmvc/spring-mvc-4-restful-web-services-crud-example-resttemplate/
@@ -29,6 +30,9 @@ public class PublicUserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserAuthenticationService userAuthService;
 
 //	@Autowired
 //	private UserSecurityService userSecurityService;
@@ -57,19 +61,6 @@ public class PublicUserController {
 		return new ModelAndView("forgot_password");
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView validateUser(@RequestParam("email") String email, @RequestParam("password") String password)
-			throws Exception {
-		boolean isValid = userService.validateUser(email, password);
-		log.info("Is user valid, " + isValid);
-
-		if (isValid) {
-			return new ModelAndView("home");
-		} else {
-			return new ModelAndView("login", "msg", "Incorrect email or password");
-		}
-	}
-
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView submit(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
@@ -84,7 +75,7 @@ public class PublicUserController {
 			return new ModelAndView("register", "msg", "User already exist");
 		} else {
 			userService.createUser(user);
-			return new ModelAndView("home");
+			return new ModelAndView("redirect:/login"); 
 		}
 	}
 

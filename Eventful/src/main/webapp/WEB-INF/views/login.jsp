@@ -32,7 +32,7 @@
 				</div>
 				<div class="row">
 					<button class="btn waves-effect waves-light" type="submit"
-						name="action">Login</button>
+						name="Submit" value="Login">Login</button>
 				</div>
 			</form>
 		</div>
