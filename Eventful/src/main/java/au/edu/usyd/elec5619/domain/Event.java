@@ -14,12 +14,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 import lombok.Data;
 
 @Data
 @Entity
+@EnableAutoConfiguration
 @Table(name="Event")
 public class Event implements Serializable {
 	

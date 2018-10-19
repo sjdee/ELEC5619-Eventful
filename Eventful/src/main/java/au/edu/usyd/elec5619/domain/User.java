@@ -7,11 +7,13 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Access(AccessType.FIELD)
+@EnableAutoConfiguration
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(name = "email_user_uc", columnNames = "email"),
 		@UniqueConstraint(name = "alias_user_uc", columnNames = "alias") })
 public class User implements UserDetails {

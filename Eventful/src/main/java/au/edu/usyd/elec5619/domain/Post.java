@@ -17,8 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 @Data
 @Entity
+@EnableAutoConfiguration
 @Table(name="Post")
 public class Post implements Serializable {
 	

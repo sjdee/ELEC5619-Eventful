@@ -6,8 +6,11 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 @Data
 @Entity
+@EnableAutoConfiguration
 @Table(name = "Comment")
 public class Comment implements Serializable {
 
