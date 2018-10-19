@@ -55,6 +55,14 @@ public class User implements UserDetails {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "poster")
 	private Set<Post> posts;
 	
+	@JoinTable(name = "LikedPosts")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public Set<Post> likedPosts;
+	
+	@JoinTable(name = "LikedComments")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	public Set<Comment> likedComments;
+	
 	// Getters
 	public Long getId() {
 		return this.id;
@@ -131,4 +139,22 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return enabled;
 	}
+
+	public Set<Post> getLikedPosts() {
+		return likedPosts;
+	}
+
+	public void setLikedPosts(Set<Post> likedPosts) {
+		this.likedPosts = likedPosts;
+	}
+
+	public Set<Comment> getLikedComments() {
+		return likedComments;
+	}
+
+	public void setLikedComments(Set<Comment> likedComments) {
+		this.likedComments = likedComments;
+	}
+	
+	
 }

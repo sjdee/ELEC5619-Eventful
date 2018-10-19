@@ -13,48 +13,49 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 @Data
 @Entity
-@EnableAutoConfiguration
 @Table(name="Post")
 public class Post implements Serializable {
 	
 	@Id
 	@GeneratedValue
 	@Column(name="id")
-	public int id;
+	private int id;
 	
 	@Column(name="title")
-	public String title;
+	private String title;
 	
 	@Column(name="description")
-	public String description;
+	private String description;
 	
 	@Column(name="timeposted")
-	public Date timeposted;
+	private Date timeposted;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="post")
-	public Set<Comment> comments;
+	private Set<Comment> comments;
 	
 	@JoinColumn(name = "event_id")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public Event event;
+	private Event event;
 	
 	@JoinColumn(name = "poster_email")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public User poster;
+	private User poster;
+	
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likedPosts")
+    private Set<User> likedUsers;
 	
 	@Column(name="numcomments")
-	public int numcomments;
+	private int numcomments;
 	
 	@Column(name="numlikes")
-	public int numlikes;
+	private int numlikes;
 	
 	public String getDescription() {
 		return description;
@@ -115,5 +116,27 @@ public class Post implements Serializable {
 	public int getId() {
 		return id;
 	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public Set<User> getLikedUsers() {
+		return likedUsers;
+	}
+
+	public void setLikedUsers(Set<User> likedUsers) {
+		this.likedUsers = likedUsers;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 	
 }

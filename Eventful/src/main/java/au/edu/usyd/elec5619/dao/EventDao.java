@@ -11,13 +11,7 @@ public interface EventDao {
 	 * @param user
 	 */
 	public Event getEventById(int id);
-	
-	public Post getPostById(int id);
-	
+		
 	public void createEvent(Event event);
-	
-	public void createComment(Comment comment);
-	
-	public void createPost(Post post);
 		
 }

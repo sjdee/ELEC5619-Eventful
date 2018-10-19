@@ -36,18 +36,6 @@ public class EventDaoImpl implements EventDao {
 		
 		return entityManager.find(Event.class, id);
 	}
-
-	@Override
-	@Transactional
-	public Post getPostById(int id) {
-		// TODO Auto-generated method stub
-//		Session session = this.sessionFactory.getCurrentSession();		
-//		Post post = (Post) session.get(Post.class, id);
-//				
-//		return post;
-		
-		return entityManager.find(Post.class, id);
-	}
 	
 	@Override
 	public void createEvent(Event event) {
@@ -56,29 +44,5 @@ public class EventDaoImpl implements EventDao {
 //		sessionFactory.getCurrentSession().save(event);
 		entityManager.persist(event);
 	}
-
-	@Override
-	public void createComment(Comment comment) {
-		// TODO Auto-generated method stub
-		
-		System.out.println("Creating comment from dao");
-		
-//		sessionFactory.getCurrentSession().save(comment);
-		
-		entityManager.persist(comment);
-		
-	}
-
-	@Override
-	public void createPost(Post post) {
-		// TODO Auto-generated method stub
-		
-//		sessionFactory.getCurrentSession().save(post);
-		
-		entityManager.persist(post);
-		
-	}
-
-	
 	
 }

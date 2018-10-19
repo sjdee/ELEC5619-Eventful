@@ -1,0 +1,172 @@
+package au.edu.usyd_elec5619.dao;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import au.usyd_elec5619.eventful.domain.Comment;
+import au.usyd_elec5619.eventful.domain.Event;
+import au.usyd_elec5619.eventful.domain.Post;
+import au.usyd_elec5619.eventful.domain.User;
+
+@Service(value="postDao")
+public class PostDaoImpl implements PostDao {
+
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public void SetSessionFactory(SessionFactory sf) {
+		
+		sessionFactory = sf;
+		
+	}
+	
+	@Override
+	public void createPost(Post post) {
+		
+		sessionFactory.getCurrentSession().save(post);
+		
+	}
+	
+	@Override
+	public void incrementNumPosts(int eventId) {
+		
+		Session session = sessionFactory.getCurrentSession();		
+				
+		String hql = "UPDATE Event e set e.numPosts = e.numPosts + 1 WHERE e.id = :id";
+				
+		Query query = session.createQuery(hql);
+		
+		query.setString("id", String.valueOf(eventId));
+		
+		query.executeUpdate();
+						
+	}
+	
+	@Override
+	public void incrementNumComments(int postId) {
+		
+		Session session = sessionFactory.getCurrentSession();		
+				
+		String hql = "UPDATE Post p set p.numComments = p.numComments + 1 WHERE p.id = :id";
+				
+		Query query = session.createQuery(hql);
+		
+		query.setString("id", String.valueOf(postId));
+		
+		query.executeUpdate();
+						
+	}
+	
+	@Override
+	public void createComment(Comment comment) {
+				
+		sessionFactory.getCurrentSession().save(comment);
+		
+	}
+
+	@Override
+	public boolean getUserLikedComment(int commentId, long userId) {
+		Session session = sessionFactory.getCurrentSession();		
+		
+		String likesQuery = "FROM Comment c JOIN c.likedUsers u WHERE c.id = :commentId and u.id = :userId";
+		
+		Query likeQuery = session.createQuery(likesQuery);
+		likeQuery.setString("commentId", String.valueOf(commentId));
+		likeQuery.setString("userId", String.valueOf(1));
+		
+		// If we have already liked the post, return true
+		return (likeQuery.list().size() != 0);
+	}
+	
+	@Override
+	public void incrementNumCommentLikes(int commentId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();		
+		
+		Comment comment = (Comment) session.get(Comment.class, commentId);
+		
+		String hql = "UPDATE Comment c set c.numLikes = c.numLikes + 1 WHERE c.id = :id";
+				
+		Query query = session.createQuery(hql);
+		
+		query.setString("id", String.valueOf(commentId));
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void saveCommentLike(int commentId, long userId) {
+		Session session = sessionFactory.getCurrentSession();		
+
+		Comment comment = (Comment) session.get(Comment.class, commentId);
+		User user = (User) session.get(User.class, userId);
+		
+		System.out.println("user is " + user.email);
+		
+		user.getLikedComments().add(comment);
+		
+		session.save(user);
+	}
+
+	@Override
+	public void savePostLike(int postId, long userId) {
+		Session session = sessionFactory.getCurrentSession();		
+
+		Post post = (Post) session.get(Post.class, postId);
+		User user = (User) session.get(User.class, userId);
+				
+		user.getLikedPosts().add(post);
+		
+		session.save(user);
+	}
+	
+	@Override
+	public void incrementNumPostLikes(int postId) {
+		Session session = sessionFactory.getCurrentSession();		
+				
+		String hql = "UPDATE Post p set p.numLikes = p.numLikes + 1 WHERE p.id = :id";
+		
+		Query query = session.createQuery(hql);
+		
+		query.setString("id", String.valueOf(postId));
+		
+		query.executeUpdate();
+		
+	}
+	
+	@Override
+	public boolean getUserLikedPost(int postId, long userId) {
+		Session session = sessionFactory.getCurrentSession();		
+		
+		String likesQuery = "FROM Post p JOIN p.likedUsers u WHERE p.id = :postId and u.id = :userId";
+		
+		Query likeQuery = session.createQuery(likesQuery);
+		likeQuery.setString("postId", String.valueOf(postId));
+		likeQuery.setString("userId", String.valueOf(1));
+		
+		// If we have already liked the post
+		return (likeQuery.list().size() != 0);
+	}
+	
+	@Override
+	public Post getPostById(int id) {
+		Session session = sessionFactory.getCurrentSession();		
+		Post post = (Post) session.get(Post.class, id);
+				
+		return post;
+	}
+	
+	@Override
+	public Comment getCommentById(int id) {
+		Session session = sessionFactory.getCurrentSession();		
+		Comment comment = (Comment) session.get(Comment.class, id);
+				
+		return comment;
+	}
+	
+}

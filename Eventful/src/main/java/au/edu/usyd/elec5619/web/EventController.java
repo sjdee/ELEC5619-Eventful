@@ -52,7 +52,7 @@ public class EventController {
 
 	@RequestMapping(value="/createFake/{eventTitle}")
 	public ModelAndView createFakeEvent(@PathVariable("eventTitle") String eventTitle) throws Exception {
-	
+		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		User user = new User();
@@ -74,20 +74,20 @@ public class EventController {
 		
 		Post post = new Post();
 		
-		post.title = "Fake post";
-		post.description = "This is a fake post";
-		post.event = event;
-		post.poster = user;
+		post.setTitle("Fake post");
+		post.setDescription("This is a fake post");
+		post.setEvent(event);
+		post.setPoster(user);
 				
-		postService.createPost(post);
+		postService.createPost(post, event.getId());
 		
 		Comment comment = new Comment();
 		
-		comment.contents = "Fake comment";
-		comment.commenter = user;
-		comment.post = post;
+		comment.setContents("Fake comment");
+		comment.setCommenter(user);
+		comment.setPost(post);
 
-		postService.createComment(comment);
+		postService.createComment(comment, post.getId());
 		
 		model.put("event", event);
 		
@@ -108,12 +108,11 @@ public class EventController {
 	
 	@RequestMapping(value="/createPost/{eventId}", method=RequestMethod.POST)
 	public String createPost(@PathVariable("eventId") int eventId, HttpServletRequest httpServletRequest) throws Exception {				
-		
-		System.out.println("Event id is -" + eventId + "-");
+				
 		
 		Post post = new Post();
-		post.title = httpServletRequest.getParameter("title");
-		post.description = httpServletRequest.getParameter("description");
+		post.setTitle(httpServletRequest.getParameter("title"));
+		post.setDescription(httpServletRequest.getParameter("description"));
 		
 		postService.createPost(post, eventId);
 		
@@ -124,11 +123,11 @@ public class EventController {
 	public String createComment(@PathVariable("postId") int postId, HttpServletRequest httpServletRequest) throws Exception {				
 		
 		Comment comment = new Comment();
-		comment.contents = httpServletRequest.getParameter("contents");
+		comment.setContents(httpServletRequest.getParameter("contents"));
 		
 		postService.createComment(comment, postId);
 		
-		return "redirect:/event/" + comment.post.event.getId();
+		return "redirect:/event/" + comment.getPost().getEvent().getId();
 	}
 	
 	@RequestMapping(value="/event/{id}")
@@ -141,6 +140,41 @@ public class EventController {
 		model.put("event", event);
 		
 		return new ModelAndView("event", "model", model); 
+		
+	}
+	
+	@RequestMapping(value="/likePost/{postId}", method=RequestMethod.POST)
+	public ModelAndView likePost(@PathVariable("postId") int postId) throws Exception {
+		
+		postService.likePost(postId);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		Event event = postService.getPostById(postId).getEvent();
+		
+		//event.posts = new ArrayList<Post>();
+		
+		model.put("event", event);
+		
+		return new ModelAndView("redirect:/event/" + event.getId(), "model", model); 
+		
+	}
+	
+	@RequestMapping(value="/likeComment/{commentId}", method=RequestMethod.POST)
+	public ModelAndView likeComment(@PathVariable("commentId") int commentId) throws Exception {
+		
+		postService.likeComment(commentId);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		Event event = postService.getPostById(postService.getCommentById(commentId).getPost().getId()).getEvent();
+		
+		//event.posts = new ArrayList<Post>();
+		
+		model.put("event", event);
+		
+		return new ModelAndView("redirect:/event/" + event.getId(), "model", model); 
+		
 	}
 	
 }

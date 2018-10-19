@@ -40,7 +40,10 @@ public class Event implements Serializable {
 	@Column(name="description")
 	public String description;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="event")
+	@Column(name="numPosts")
+	public int numPosts;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="event")
 	public List<Post> posts;
 
 	@JoinColumn(name = "organiser_email")

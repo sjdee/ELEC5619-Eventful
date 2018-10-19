@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: eventful_final
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: josephringer
+Implementation-Vendor-Id: au.edu.usyd.elec5619
+Build-Jdk: 1.8.0_171
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/eventful_final
+Created-By: Maven Integration for Eclipse
+
