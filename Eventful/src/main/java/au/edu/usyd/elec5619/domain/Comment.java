@@ -24,11 +24,11 @@ public class Comment implements Serializable {
 	@Column(name = "contents")
 	private String contents;
 
-	@Column(name = "timeposted")
-	private Date timeposted;
+	@Column(name = "timePosted")
+	private Date timePosted;
 	
-	@Column(name="numlikes")
-	private int numlikes;
+	@Column(name="numLikes")
+	private int numLikes;
 	
 	@JoinColumn(name = "commenter_email")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -81,23 +81,23 @@ public class Comment implements Serializable {
 		this.id = id;
 	}
 
-	public void setTimeposted(Date date) {
+	public void setTimePosted(Date date) {
 
-		this.timeposted = date;
+		this.timePosted = date;
 		
 	}
 	
-	public Date getTimeposted() {
+	public Date getTimePosted() {
 		
-		return this.timeposted;
+		return this.timePosted;
 	}
 
-	public int getNumlikes() {
-		return numlikes;
+	public int getNumLikes() {
+		return numLikes;
 	}
 
-	public void setNumlikes(int numlikes) {
-		this.numlikes = numlikes;
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
 	}
 	
 }

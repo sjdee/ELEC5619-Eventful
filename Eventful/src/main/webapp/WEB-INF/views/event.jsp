@@ -36,7 +36,7 @@
 		                </div>
 		                <div class="col s10 push-7">
 			                <a href="#"><h5> ${post.poster.alias} </h5></a>
-			                <p class="grey-text"><fmt:formatDate value="${post.timeposted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
+			                <p class="grey-text"><fmt:formatDate value="${post.timePosted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
 		        		</div>
 			    	</div>
 				</div>
@@ -51,14 +51,14 @@
 					<div class="card-panel row valign-wrapper post-bar">
 						<div class="valign-wrapper col s6 push-s8">
 							<a href="/likePost/${post.id}" onclick="event.preventDefault(); document.getElementById('post-like-form-${post.id}').submit();" ><i class="small material-icons" style="margin-right: 0.5em;">thumb_up</i></a>
-							<span> ${post.numlikes} Likes </span>
+							<span> ${post.numLikes} Likes </span>
 							<form action="/likePost/${post.id}" method="post" id="post-like-form-${post.id}">
 							    <button name="foo" value="Like" style="display: none"></button>
 							</form>
 						</div>
 						<div class="valign-wrapper col s6 pull-s4">
 							<i class="small material-icons" style="margin-right: 0.5em;">comment</i>
-							<span> ${post.numcomments} Comments </span>
+							<span> ${post.numComments} Comments </span>
 						</div>
 					</div>
 				</div>
@@ -76,11 +76,11 @@
 						               		<a href="#">${comment.commenter.alias}</a><br> ${comment.contents}<br>
 						               		<div class="valign-wrapper">
 							               		<a href="/likeComment/${comment.id}" onclick="event.preventDefault(); document.getElementById('comment-like-form-${comment.id}').submit();" ><i class="material-icons" style="margin-right: 0.5em; font-size: 1.2em;">thumb_up</i></a>
-												<span style="font-size: 0.8em"> ${comment.numlikes} Likes </span>
+												<span style="font-size: 0.8em"> ${comment.numLikes} Likes </span>
 												<form action="/likeComment/${comment.id}" method="post" id="comment-like-form-${comment.id}">
 												    <button name="foo" value="Like" style="display: none"></button>
 												</form>
-												&nbsp;&middot;&nbsp;<p class="grey-text" style="font-size:0.8em"><fmt:formatDate value="${comment.timeposted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
+												&nbsp;&middot;&nbsp;<p class="grey-text" style="font-size:0.8em"><fmt:formatDate value="${comment.timePosted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
 						            		</div>
 						            	</span>
 					        		</div>

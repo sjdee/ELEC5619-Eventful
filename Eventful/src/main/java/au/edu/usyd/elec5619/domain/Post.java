@@ -34,8 +34,8 @@ public class Post implements Serializable {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="timeposted")
-	private Date timeposted;
+	@Column(name="timePosted")
+	private Date timePosted;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="post")
 	private Set<Comment> comments;
@@ -51,11 +51,11 @@ public class Post implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likedPosts")
     private Set<User> likedUsers;
 	
-	@Column(name="numcomments")
-	private int numcomments;
+	@Column(name="numComments")
+	private int numComments;
 	
-	@Column(name="numlikes")
-	private int numlikes;
+	@Column(name="numLikes")
+	private int numLikes;
 	
 	public String getDescription() {
 		return description;
@@ -65,12 +65,12 @@ public class Post implements Serializable {
 		this.description = description;
 	}
 
-	public Date getTimeposted() {
-		return timeposted;
+	public Date getTimePosted() {
+		return timePosted;
 	}
 
-	public void setTimeposted(Date timePosted) {
-		this.timeposted = timePosted;
+	public void setTimePosted(Date timePosted) {
+		this.timePosted = timePosted;
 	}
 
 	public String getTitle() {
@@ -89,20 +89,20 @@ public class Post implements Serializable {
 		this.comments = comments;
 	}
 
-	public int getNumcomments() {
-		return numcomments;
+	public int getNumComments() {
+		return numComments;
 	}
 
-	public void setNumcomments(int numComments) {
-		this.numcomments = numComments;
+	public void setNumComments(int numComments) {
+		this.numComments = numComments;
 	}
 
-	public int getNumlikes() {
-		return numlikes;
+	public int getNumLikes() {
+		return numLikes;
 	}
 
-	public void setNumlikes(int numLikes) {
-		this.numlikes = numLikes;
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
 	}
 
 	public User getPoster() {

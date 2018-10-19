@@ -145,6 +145,7 @@ public class EventController {
 	
 	@RequestMapping(value="/likePost/{postId}", method=RequestMethod.POST)
 	public ModelAndView likePost(@PathVariable("postId") int postId) throws Exception {
+		logger.info("got here");
 		
 		postService.likePost(postId);
 		

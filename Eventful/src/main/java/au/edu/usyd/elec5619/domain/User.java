@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @Access(AccessType.FIELD)
 @EnableAutoConfiguration
-@Table(name = "User", uniqueConstraints = { @UniqueConstraint(name = "email_user_uc", columnNames = "email"),
-		@UniqueConstraint(name = "alias_user_uc", columnNames = "alias") })
+@Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
+		@UniqueConstraint(columnNames = "alias") })
 public class User implements UserDetails {
 
 	@Id
@@ -41,8 +41,8 @@ public class User implements UserDetails {
 	@Column(name = "bio")
 	private String bio;
 
-	@Column(name = "avgeventrating", columnDefinition = "double default 0.0")
-	private double avgeventrating;
+	@Column(name = "avgEventRating", columnDefinition = "double default 0.0")
+	private double avgEventRating;
 
 	private boolean enabled = true;
 	
@@ -55,11 +55,11 @@ public class User implements UserDetails {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "poster")
 	private Set<Post> posts;
 	
-	@JoinTable(name = "LikedPosts")
+	@JoinTable(name = "likedPosts")
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<Post> likedPosts;
 	
-	@JoinTable(name = "LikedComments")
+	@JoinTable(name = "likedComments")
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<Comment> likedComments;
 	
@@ -84,8 +84,8 @@ public class User implements UserDetails {
 		return this.bio;
 	}
 	
-	public double getAvgeventrating() {
-		return this.avgeventrating;
+	public double getAvgEventRating() {
+		return this.avgEventRating;
 	}
 
 	// Setters
@@ -105,8 +105,8 @@ public class User implements UserDetails {
 		this.bio = bio;
 	}
 	
-	public void setAvgrating(double avgeventrating) {
-		this.avgeventrating = avgeventrating;
+	public void setAvgEventRating(double avgEventRating) {
+		this.avgEventRating = avgEventRating;
 	}
 	
 	// Override UserDetail interface

@@ -43,7 +43,7 @@ public class PostServiceImpl implements PostService {
 		
 		Date date = new Date();
 
-		post.setTimeposted(date);
+		post.setTimePosted(date);
 		
 		post.setEvent(eventDao.getEventById(eventId));
 		
@@ -61,7 +61,7 @@ public class PostServiceImpl implements PostService {
 		
 		Date date = new Date();
 
-		comment.setTimeposted(date);
+		comment.setTimePosted(date);
 				
 		comment.setCommenter(userService.getCurrentUser());
 		

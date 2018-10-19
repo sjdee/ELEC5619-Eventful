@@ -1,20 +1,13 @@
 package au.edu.usyd.elec5619.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import au.edu.usyd.elec5619.domain.Comment;
-import au.edu.usyd.elec5619.domain.Event;
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 
@@ -49,7 +42,7 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public void incrementNumComments(int postId) {
 		
-		String hql = "UPDATE Post p set p.numcomments = p.numcomments + 1 WHERE p.id = ?1";
+		String hql = "UPDATE Post p set p.numComments = p.numComments + 1 WHERE p.id = ?1";
 		
 		Query query = entityManager.createQuery(hql);
 		
@@ -83,7 +76,7 @@ public class PostDaoImpl implements PostDao {
 	public void incrementNumCommentLikes(int commentId) {
 		// TODO Auto-generated method stub
 				
-		String hql = "UPDATE Comment c set c.numlikes = c.numlikes + 1 WHERE c.id = ?1";
+		String hql = "UPDATE Comment c set c.numLikes = c.numLikes + 1 WHERE c.id = ?1";
 				
 		Query query = entityManager.createQuery(hql);
 		
