@@ -91,13 +91,13 @@
 	   		 	</div>
 	   		 	
 	   		 	<div class="card-action">
-	        		<form id="comment-form-${post.id}" action="/createComment/${post.id}" method="POST">
+	        		<form id="comment-form-${post.id}" action="/eventful/createComment/${post.id}" method="POST">
 
 						<input type="text" name="contents" placeholder="Comment"/>
 						<input type="submit" value="Comment" style="display: none"/>
 					
 					</form>
-					<a href="/createComment/${post.id}"
+					<a href="/eventful/createComment/${post.id}"
 					onclick="event.preventDefault(); document.getElementById('comment-form-${post.id}').submit();" >Post Comment</a>
 				</div>
 				

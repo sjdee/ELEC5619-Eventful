@@ -97,7 +97,7 @@
 						<input type="submit" value="Comment" style="display: none"/>
 					
 					</form>
-					<a href="/createComment/${post.id}"
+					<a href="/eventful/createComment/${post.id}"
 					onclick="event.preventDefault(); document.getElementById('comment-form-${post.id}').submit();" >Post Comment</a>
 				</div>
 				
