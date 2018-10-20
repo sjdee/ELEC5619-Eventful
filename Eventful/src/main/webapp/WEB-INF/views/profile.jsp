@@ -6,15 +6,26 @@
 </head>
 <body>
 	<div class="container">
+		<c:if test="${model.selfProfile}">
+			<div class="row">
+				<div class="col s3 push-s11">
+					<a class="waves-effect waves-light btn-large"
+						style="margin-top: 1em; margin-bottom: 1em;"
+						href="<c:url value="/profile/edit" />">Edit Profile</a>
+				</div>
+			</div>
+		</c:if>
 		<div class="row">
 			<div class="col s7 push-s5">
 				<h1 class="col s12" style="text-align: center;">${model.user.alias}</h1>
 				<table class="col s10 offset-s2">
 					<tbody>
-						<tr style="border: none;">
-							<td width="20%">Email:</td>
-							<td width="80%">${model.user.email}</td>
-						</tr>
+						<c:if test="${model.selfProfile}">
+							<tr style="border: none;">
+								<td width="20%">Email:</td>
+								<td width="80%">${model.user.email}</td>
+							</tr>
+						</c:if>
 						<tr style="border: none;">
 							<td>Bio:</td>
 							<td>${model.user.bio}</td>
@@ -22,7 +33,7 @@
 						<tr style="border: none;">
 							<td>Rating:</td>
 							<td><fmt:formatNumber value="${model.user.avgEventRating}"
-									type="number" groupingUsed="false" maxFractionDigits="2"/>/5</td>
+									type="number" groupingUsed="false" maxFractionDigits="2" />/5</td>
 						</tr>
 					</tbody>
 				</table>

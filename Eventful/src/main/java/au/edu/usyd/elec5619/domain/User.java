@@ -26,7 +26,7 @@ public class User {
 
 	@NotEmpty(message = "Please provide an email")
 	@Email(message = "Please provide a valid email")
-	@Column(name = "email", updatable=false, unique=true, nullable=false)
+	@Column(name = "email", updatable=false, nullable=false, unique=true)
 	public String email;
 
 	@NotEmpty(message = "Please provide a password")
@@ -37,10 +37,10 @@ public class User {
 	public String confirmPassword;
 
 	@NotEmpty(message = "Please provide an alias")
-	@Column(name = "alias", unique=true, nullable=false)
+	@Column(name = "alias", nullable=false)
 	public String alias;
 
-	@Column(name = "avatar")
+	@Column(name = "avatar", unique=true)
 	private byte[] avatar;
 
 	@Column(name = "bio")

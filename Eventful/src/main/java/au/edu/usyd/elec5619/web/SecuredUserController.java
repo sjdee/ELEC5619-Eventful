@@ -32,7 +32,7 @@ public class SecuredUserController {
 
 	@Transactional
 	@RequestMapping(value = "/profile/{Id}", method=RequestMethod.GET)
-	public ModelAndView viewProfile(@PathVariable("Id")long id) {
+	public ModelAndView viewProfile(@PathVariable("Id")long id) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		Event event = eventService.getEventById(1);
@@ -47,7 +47,7 @@ public class SecuredUserController {
 	}
 	
 	@RequestMapping(value = "/profile", method=RequestMethod.GET)
-	public ModelAndView viewProfile(Principal principal) {
+	public ModelAndView viewProfile(Principal principal) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		Event event = eventService.getEventById(1);
@@ -59,6 +59,11 @@ public class SecuredUserController {
 		
 		return new ModelAndView("profile", "model", model);
 		
+	}
+	
+	@RequestMapping(value = "/profile/edit", method=RequestMethod.GET)
+	public ModelAndView viewProfileEdit() throws Exception {
+		return new ModelAndView("editProfile");
 	}
 
 //	@RequestMapping(value = "/{email}", method=RequestMethod.PUT)

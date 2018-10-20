@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -36,4 +37,12 @@ public class HomeController {
 		return "home";
 	}
 	
+	// TODO:: to be removed
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView viewDashboard() throws Exception {
+		String now = (new Date()).toString();
+		logger.info("Returning dashboard view at " + now);
+
+		return new ModelAndView("dashboard");
+	}
 }
