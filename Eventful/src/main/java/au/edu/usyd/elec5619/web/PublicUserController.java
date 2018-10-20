@@ -65,7 +65,7 @@ public class PublicUserController {
 	public ModelAndView submit(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			log.info(result);
-			return new ModelAndView("register", "msg", "error");
+			return new ModelAndView("register", "msg", result);
 		}
 
 		boolean userExist = userService.isUserExist(user);

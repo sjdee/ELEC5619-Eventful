@@ -11,35 +11,35 @@
 	<h1>
 		Register page 
 	</h1>
-
 	<c:url var="registerUrl" value="/register" />
 	<div class="row" style="width: 50%;">
 		<form:form class="col s12" method="post" action="${registerUrl}" modelAttribute="user">
+			<form:errors cssClass="error" element="p"/>
 			<div class="row">
 				<div class="input-field col s12">
 					<form:input type="email" path="email" cssClass="validate"/>
-					<form:label path="email">Email*</form:label>
+					<form:label path="email">Email *</form:label>
 					<form:errors path="email" cssClass="error" element="p"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
 					<form:password path="password" cssClass="validate"/>
-					<form:label path="password">Password*</form:label>
+					<form:label path="password">Password *</form:label>
 					<form:errors path="password" cssClass="error" element="p"/>
 				</div>
 			</div>
-			<%-- <div class="row">
+			<div class="row">
 				<div class="input-field col s12">
-					<form:password path="confirmpassword" cssClass="validate"/>
-					<form:label path="confirmpassword">Confirm Password*</form:label>
-					<form:errors path="confirmpassword" cssClass="error" element="p"/>
+					<form:password path="confirmPassword" cssClass="validate"/>
+					<form:label path="confirmPassword">Confirm Password *</form:label>
+					<form:errors path="confirmPassword" cssClass="error" element="p"/>
 				</div>
-			</div> --%>
+			</div>
 			<div class="row">
 				<div class="input-field col s12">
 					<form:input path="alias" type="text" cssClass="validate"/>
-					<form:label path="alias">Alias</form:label>
+					<form:label path="alias">Alias *</form:label>
 					<form:errors path="alias" cssClass="error" element="p"/>
 				</div>
 			</div>

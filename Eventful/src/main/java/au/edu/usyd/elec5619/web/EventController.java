@@ -60,6 +60,7 @@ public class EventController {
 		user.alias = "John";
 		user.email = "john@gmail.com";
 		user.password = "password";
+		user.confirmPassword = "password";
 		
 		userService.createUser(user);
 		

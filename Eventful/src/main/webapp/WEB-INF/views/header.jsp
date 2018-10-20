@@ -4,6 +4,7 @@
 <nav>
 	<div class="nav-wrapper">
 		<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>eventful</a>
+		<c:if test="${empty model.loggedIn}">
 		<ul class="hide-on-med-and-down right">
 			<li>
 				<div class="center row">
@@ -22,5 +23,6 @@
 			<li><a href="/profile"><i class="material-icons">perm_contact_calendar</i></a></li>
 			<li><a href="/logout"><i class="material-icons">subdirectory_arrow_right</i></a></li>
 		</ul>
+		</c:if>
 	</div>
 </nav>

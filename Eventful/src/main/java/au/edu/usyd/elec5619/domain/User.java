@@ -4,33 +4,40 @@ import java.util.Set;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import au.edu.usyd.elec5619.domain.constraint.PasswordsEqualConstraint;
 
 @Data
 @Entity
 @Access(AccessType.FIELD)
 @EnableAutoConfiguration
-@Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
-		@UniqueConstraint(columnNames = "alias") })
+@Table(name = "User")
+@PasswordsEqualConstraint(message = "Passwords do not match.")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
+	@Column(name = "id", updatable=false, nullable=false)
 	private long id;
 
-	@NotEmpty
-	@Column(name = "email", updatable = false)
+	@NotEmpty(message = "Please provide an email")
+	@Email(message = "Please provide a valid email")
+	@Column(name = "email", updatable=false, unique=true, nullable=false)
 	public String email;
 
-	@NotEmpty
-	@Column(name = "password")
+	@NotEmpty(message = "Please provide a password")
+	@Column(name = "password", nullable=false)
 	public String password;
+	
+	@Transient
+	public String confirmPassword;
 
-	@NotEmpty
-	@Column(name = "alias")
+	@NotEmpty(message = "Please provide an alias")
+	@Column(name = "alias", unique=true, nullable=false)
 	public String alias;
 
 	@Column(name = "avatar")
@@ -81,6 +88,10 @@ public class User {
 	public String getPassword() {
 		return this.password;
 	}
+	
+	public String getConfirmPassword() {
+		return this.confirmPassword;
+	}
 
 	public String getBio() {
 		return this.bio;
@@ -117,6 +128,10 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public void setBio(String bio) {
