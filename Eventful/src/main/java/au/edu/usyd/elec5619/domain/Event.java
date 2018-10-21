@@ -1,6 +1,7 @@
 package au.edu.usyd.elec5619.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class Event implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name="id")
-	private int id;
+	public int id;
 	
 	@Column(name="title")
 	public String title;
@@ -37,8 +38,21 @@ public class Event implements Serializable {
 	@Column(name="location")
 	public String location;
 	
+	@Column(name="datetime")
+	public Date datetime;
+	
+	@Column(name="max_people")
+	public int max_people;
+	
 	@Column(name="description")
 	public String description;
+	
+	@Column(name="repetition")
+	// 0 = One off; 1 = Daily; 2 = Weekly; 3 = Monthly	
+	public int repetition;
+	
+	@Column(name="event_image")
+	public byte[] event_image;
 	
 	@Column(name="numPosts")
 	public int numPosts;
