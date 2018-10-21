@@ -64,6 +64,11 @@ public class Event implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public User organiser;
 	
+	
+	public int getId() {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -80,6 +85,22 @@ public class Event implements Serializable {
 		this.location = location;
 	}
 
+	public Date getDateTime() {
+		return this.datetime;
+	}
+	
+	public void setDateTime(Date datetime) {
+		this.datetime = datetime;
+	}
+	
+	public int getMaxPeople(){
+		return this.max_people;
+	}
+	
+	public void setMaxPeople(int max_people){
+		this.max_people = max_people;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -88,16 +109,28 @@ public class Event implements Serializable {
 		this.description = description;
 	}
 
+	public int getRepetition(){
+		return this.repetition;
+	}
+	
+	public void setRepetition(int repetition){
+		this.repetition = repetition;
+	}
+	
+	public byte[] getImage(){
+		return this.event_image;
+	}
+	
+	public void setImage(byte[] event_image){
+		this.event_image = event_image;
+	}
+	
 	public List<Post> getPosts() {
 		return posts;
 	}
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
-	}
-
-	public int getId() {
-		return id;
-	}
+	}	
 	
 }
