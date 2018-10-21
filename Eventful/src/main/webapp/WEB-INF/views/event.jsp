@@ -9,14 +9,16 @@
 <body>
 
 <div class="center">
-	<h1>
-		Event page 
-	</h1>
 	
-	<h5> <b>What:</b> ${model.event.title} </h5>
+	<h1> Event: ${model.event.title} </h1>
+	<h6> <b>Location:</b> ${model.event.location} </h6>
+	<h6> <b>When:</b> ${model.event.datetime} </h6>
 	<h6> <b>More info:</b> ${model.event.description} </h6>
 	
-	<h6> <b>Location:</b> ${model.event.location} </h6>
+	<h6> Maximum People allowed: ${model.event.max_people} </h6>
+	<h6> Frequency: ${model.event.repetition} </h6>
+	<img src="${model.event.event_image}" alt="Event Image"> <p>
+	
 	
 	<a class="waves-effect waves-light btn-large"
 	style="margin-top: 1em; margin-bottom: 1em;"
