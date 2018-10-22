@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col s7 push-s5">
 				<h1 class="col s12" style="text-align: center;">${model.user.alias}</h1>
-				<table class="col s10 offset-s2">
+				<table class="col s10 offset-s2"> <!-- TODO:: FIX THIS -->
 					<tbody>
 						<c:if test="${model.selfProfile}">
 							<tr style="border: none;">

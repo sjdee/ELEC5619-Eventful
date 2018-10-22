@@ -60,7 +60,7 @@ public class Event implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="event")
 	public List<Post> posts;
 
-	@JoinColumn(name = "organiser_email")
+	@JoinColumn(name = "organiserEmail")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public User organiser;
 	
@@ -85,11 +85,11 @@ public class Event implements Serializable {
 		this.location = location;
 	}
 
-	public Date getEventTime() {
+	public Date getDatetime() {
 		return this.datetime;
 	}
 	
-	public void setEventTime(Date eventTime) {
+	public void setDatetime(Date eventTime) {
 		this.datetime = eventTime;
 	}
 	
@@ -117,11 +117,11 @@ public class Event implements Serializable {
 		this.repetition = repetition;
 	}
 	
-	public byte[] getImage(){
+	public byte[] getEventImage(){
 		return this.eventImage;
 	}
 	
-	public void setImage(byte[] eventImage){
+	public void setEventImage(byte[] eventImage){
 		this.eventImage = eventImage;
 	}
 	

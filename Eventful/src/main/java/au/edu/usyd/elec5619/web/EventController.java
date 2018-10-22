@@ -125,7 +125,7 @@ public class EventController {
 		
 		event.setTitle(httpServletRequest.getParameter("title"));
 		event.setDescription(httpServletRequest.getParameter("description"));
-		event.setEventTime(new Date(2000, 8, 23));
+		event.setDatetime(new Date(2000, 8, 23));
 		event.setMaxPeople(5);
 		event.setLocation("Victoria's Park");
 		event.setRepetition(0);

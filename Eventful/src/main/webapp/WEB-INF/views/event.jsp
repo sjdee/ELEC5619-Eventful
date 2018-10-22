@@ -15,9 +15,9 @@
 	<h6> <b>When:</b> ${model.event.datetime} </h6>
 	<h6> <b>More info:</b> ${model.event.description} </h6>
 	
-	<h6> Maximum People allowed: ${model.event.maxpeople} </h6>
+	<h6> Maximum People allowed: ${model.event.maxPeople} </h6>
 	<h6> Frequency: ${model.event.repetition} </h6>
-	<img src="${model.event.eventimage}" alt="Event Image"> <p>
+	<img src="${model.event.eventImage}" alt="Event Image"> <p>
 	
 	
 	<a class="waves-effect waves-light btn-large"
