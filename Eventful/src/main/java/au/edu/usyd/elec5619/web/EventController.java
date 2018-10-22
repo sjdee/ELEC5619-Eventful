@@ -1,5 +1,7 @@
 package au.edu.usyd.elec5619.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,6 +97,45 @@ public class EventController {
 		return new ModelAndView("createPost", "model", model); 
 	}
 	
+	@RequestMapping(value="/event/{id}")
+	public ModelAndView viewEvent(@PathVariable("id") int id) throws Exception {
+				
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		Event event = eventService.getEventById(id);
+		
+		model.put("event", event);
+		
+		return new ModelAndView("event", "model", model); 
+		
+	}
+	
+	@RequestMapping(value="/createEvent")
+	public ModelAndView createEvent() throws Exception {
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		return new ModelAndView("createEvent", "model", model); 
+	}
+	
+	@RequestMapping(value="/createEvent", method=RequestMethod.POST)
+	public String createEvent( HttpServletRequest httpServletRequest) throws Exception {				
+		
+		Event event = new Event();
+		
+		event.setTitle(httpServletRequest.getParameter("title"));
+		event.setDescription(httpServletRequest.getParameter("description"));
+		event.setEventTime(new Date(2000, 8, 23));
+		event.setMaxPeople(5);
+		event.setLocation("Victoria's Park");
+		event.setRepetition(0);
+		
+		eventService.createEvent(event);
+		
+		return "redirect:/event/" + event.getId();
+	}
+	
+	
 	@RequestMapping(value="/createPost/{eventId}")
 	public ModelAndView createPost(@PathVariable("eventId") int eventId) throws Exception {
 		
@@ -129,19 +170,6 @@ public class EventController {
 		postService.createComment(comment, postId);
 		
 		return "redirect:/event/" + comment.getPost().getEvent().getId();
-	}
-	
-	@RequestMapping(value="/event/{id}")
-	public ModelAndView viewEvent(@PathVariable("id") int id) throws Exception {
-				
-		Map<String, Object> model = new HashMap<String, Object>();
-		
-		Event event = eventService.getEventById(id);
-		
-		model.put("event", event);
-		
-		return new ModelAndView("event", "model", model); 
-		
 	}
 	
 	@RequestMapping(value="/likePost/{postId}", method=RequestMethod.POST)

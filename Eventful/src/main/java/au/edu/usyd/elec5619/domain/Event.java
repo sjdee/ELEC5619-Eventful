@@ -41,8 +41,8 @@ public class Event implements Serializable {
 	@Column(name="datetime")
 	public Date datetime;
 	
-	@Column(name="max_people")
-	public int max_people;
+	@Column(name="maxPeople")
+	public int maxPeople;
 	
 	@Column(name="description")
 	public String description;
@@ -51,8 +51,8 @@ public class Event implements Serializable {
 	// 0 = One off; 1 = Daily; 2 = Weekly; 3 = Monthly	
 	public int repetition;
 	
-	@Column(name="event_image")
-	public byte[] event_image;
+	@Column(name="eventImage")
+	public byte[] eventImage;
 	
 	@Column(name="numPosts")
 	public int numPosts;
@@ -85,20 +85,20 @@ public class Event implements Serializable {
 		this.location = location;
 	}
 
-	public Date getDateTime() {
+	public Date getEventTime() {
 		return this.datetime;
 	}
 	
-	public void setDateTime(Date datetime) {
-		this.datetime = datetime;
+	public void setEventTime(Date eventTime) {
+		this.datetime = eventTime;
 	}
 	
 	public int getMaxPeople(){
-		return this.max_people;
+		return this.maxPeople;
 	}
 	
-	public void setMaxPeople(int max_people){
-		this.max_people = max_people;
+	public void setMaxPeople(int maxPeople){
+		this.maxPeople = maxPeople;
 	}
 	
 	public String getDescription() {
@@ -118,11 +118,11 @@ public class Event implements Serializable {
 	}
 	
 	public byte[] getImage(){
-		return this.event_image;
+		return this.eventImage;
 	}
 	
-	public void setImage(byte[] event_image){
-		this.event_image = event_image;
+	public void setImage(byte[] eventImage){
+		this.eventImage = eventImage;
 	}
 	
 	public List<Post> getPosts() {
