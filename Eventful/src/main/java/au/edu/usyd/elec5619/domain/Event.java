@@ -3,6 +3,7 @@ package au.edu.usyd.elec5619.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -48,7 +50,7 @@ public class Event implements Serializable {
 	public String description;
 	
 	@Column(name="repetition")
-	// 0 = One off; 1 = Daily; 2 = Weekly; 3 = Monthly	
+	// 0 = One off; 1 = Daily; 3 = Weekly; 2= Fortnightly; 4 = Monthly	
 	public int repetition;
 	
 	@Column(name="eventImage")
@@ -64,6 +66,8 @@ public class Event implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public User organiser;
 	
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribedEvents")
+//    private Set<User> subscribedUsers;
 	
 	public int getId() {
 		return id;
@@ -131,6 +135,10 @@ public class Event implements Serializable {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}	
+	
+	public void setOrganiser(User organiser) {
+		this.organiser = organiser;
 	}	
 	
 }
