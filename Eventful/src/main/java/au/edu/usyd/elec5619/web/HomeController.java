@@ -45,4 +45,12 @@ public class HomeController {
 
 		return new ModelAndView("dashboard");
 	}
+	
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public ModelAndView showErrorPage() throws Exception {
+		String now = (new Date()).toString();
+		logger.info("Returning Error page at " + now);
+
+		return new ModelAndView("error");
+	}
 }

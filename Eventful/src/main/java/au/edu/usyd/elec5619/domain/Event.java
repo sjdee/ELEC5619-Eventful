@@ -66,9 +66,16 @@ public class Event implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public User organiser;
 	
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribedEvents")
-//    private Set<User> subscribedUsers;
 	
+//    @ManyToMany(cascade = { CascadeType.ALL })
+//    @JoinTable(
+//        name = "subscribedEvents", 
+//        joinColumns = { @JoinColumn(name = "id") }, 
+//        inverseJoinColumns = { @JoinColumn(name = "id") }
+//    )
+//    private Set<User> subscribedUsers;
+//  @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribedEvents")
+    
 	public int getId() {
 		return id;
 	}
