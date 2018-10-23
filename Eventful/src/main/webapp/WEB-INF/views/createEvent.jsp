@@ -7,9 +7,12 @@
 <head>
 	<title>Create Event</title>
     <%@ include file="header.jsp" %>  
-</head>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/eventful_final/src/main/resources/static/materialize/js/createEvent.js"></script>
+ --></head>
 
 <body>
+
 <div class="center">
 	<h1>Create Event</h1>
 </div>
@@ -49,23 +52,23 @@
 		        	<label>Repetition</label>
 		        	<p>
 		        	<label>
-        				<input name="group1" type="radio" name="repetition" value="0" checked />
+        				<input type="radio" name="repetition" value="0" checked />
         				<span>One off</span>
      				 </label>
      				 <label>
-        				<input name="group1" type="radio" name="repetition" value="1" />
+        				<input type="radio" name="repetition" value="1" />
         				<span>Daily</span>
      				 </label>
      				 <label>
-        				<input name="group1" type="radio" name="repetition" value="2" />
+        				<input type="radio" name="repetition" value="2" />
         				<span>Weekly</span>
      				 </label>
      				 <label>
-        				<input name="group1" type="radio" name="repetition" value="3" />
+        				<input type="radio" name="repetition" value="3" />
         				<span>Fortnightly</span>
      				 </label>
      				 <label>
-        				<input name="group1" type="radio" name="repetition" value="4" />
+        				<input type="radio" name="repetition" value="4" />
         				<span>Montlhy</span>
      				 </label>
 		        </div>
@@ -90,7 +93,6 @@
 		</div>
 	</div>
 </form>
-
 <%@ include file="footer.jsp" %> 
 
 </body>

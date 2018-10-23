@@ -118,7 +118,7 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/createEvent", method=RequestMethod.POST)
-	public String createEvent( HttpServletRequest httpServletRequest) throws Exception {				
+	public String createEvent(HttpServletRequest httpServletRequest) throws Exception {				
 		
 		Event event = new Event();
 		
@@ -127,14 +127,21 @@ public class EventController {
 		event.setDatetime(new Date(2000, 8, 23));
 		event.setMaxPeople(Integer.parseInt(httpServletRequest.getParameter("maxPeople")));
 		event.setLocation(httpServletRequest.getParameter("location"));
-		event.setRepetition(0);
-		System.out.println("\n\n\n\n\n\n\n"+httpServletRequest.getParameter("repetition"));
+		event.setRepetition(Integer.parseInt(httpServletRequest.getParameter("repetition")));
+
 		event.setOrganiser(userService.getCurrentUser());
-		
 		
 		eventService.createEvent(event);
 		
 		return "redirect:/event/" + event.getId();
+	}
+	
+	@RequestMapping(value="/event/subscribe/{eventId}", method=RequestMethod.GET)
+	public String subscribe(@PathVariable("eventId") int eventId) throws Exception {
+		
+		
+		
+		return "redirect:/event/" + eventId; 
 	}
 	
 	

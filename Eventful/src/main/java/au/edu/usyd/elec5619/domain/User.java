@@ -72,6 +72,9 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<Comment> likedComments;
 
+	@ManyToMany(mappedBy = "subscribedUsers", cascade = CascadeType.MERGE,  fetch = FetchType.EAGER)
+	private Set<Event> subscribedEvents;
+	
 	// Getters
 	public Long getId() {
 		return this.id;
@@ -117,6 +120,10 @@ public class User {
 		return this.likedComments;
 	}
 
+	public Set<Event> getSubscribedEvents() {
+		return this.subscribedEvents;
+	}
+	
 	// Setters
 	public void setEmail(String email) {
 		this.email = email;
@@ -156,6 +163,10 @@ public class User {
 
 	public void setLikedComments(Set<Comment> likedComments) {
 		this.likedComments = likedComments;
+	}
+	
+	public void setSubscribedEvents(Set<Event> subscribedEvents) {
+		this.subscribedEvents = subscribedEvents;
 	}
 
 }

@@ -11,6 +11,11 @@
 <div class="center">
 	
 	<h1> Event: ${model.event.title} </h1>
+	
+	<a class="waves-effect waves-light btn-large"
+	style="margin-top: 1em; margin-bottom: 1em;"
+	href="<c:url value="/event/subscribe/${model.event.id}" />"><i class="material-icons left">cloud</i>Subscribe</a>
+	
 	<h6> <b>Location:</b> ${model.event.location} </h6>
 	<h6> <b>When:</b> ${model.event.datetime} </h6>
 	<h6> <b>More info:</b> ${model.event.description} </h6>

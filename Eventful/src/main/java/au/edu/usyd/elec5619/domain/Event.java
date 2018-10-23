@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -67,14 +68,14 @@ public class Event implements Serializable {
 	public User organiser;
 	
 	
-//    @ManyToMany(cascade = { CascadeType.ALL })
-//    @JoinTable(
-//        name = "subscribedEvents", 
-//        joinColumns = { @JoinColumn(name = "id") }, 
-//        inverseJoinColumns = { @JoinColumn(name = "id") }
-//    )
-//    private Set<User> subscribedUsers;
-//  @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribedEvents")
+    @ManyToMany(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "subscribedEvents", 
+        joinColumns = { @JoinColumn(name = "event_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private Set<User> subscribedUsers;
+
     
 	public int getId() {
 		return id;
@@ -148,4 +149,11 @@ public class Event implements Serializable {
 		this.organiser = organiser;
 	}	
 	
+	public Set<User> getSubcribedUsers() {
+		return subscribedUsers;
+	}
+	
+	public void setSubcribedUsers(Set<User> subscribedUsers) {
+		this.subscribedUsers = subscribedUsers;
+	}
 }

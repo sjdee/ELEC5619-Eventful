@@ -10,7 +10,7 @@
 
 <body>
 	<div class="center">
-		<h2>Woops..You've reached a dead end!</h2>>
+		<h2>Woops.. You've reached a dead end!</h2>>
 		<a href="<c:url value="/dashboard"/>">Go Back to Dashboard</a>
 	</div>
 
