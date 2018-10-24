@@ -21,7 +21,7 @@
 				<p style="text-align: center;">You haven't created any events yet! Create an event <a href="<c:url value="/createEvent"/>">here.</a></p>
 			</c:when>
 			<c:otherwise>
-				<div style="overflow: scroll;">			
+				<div style="width: 800px; height: 400px; overflow: scroll; overflow-x: scroll; overflow-y: scroll;">			
 				<c:forEach var="event" items="${model.events}">
 					<div class="row">
 						<div class="col s6 offset-s3">
@@ -29,7 +29,7 @@
 								<div class="card-image">
 									<img
 										src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
-									<span class="card-title"><b>Event:</b> ${event.title}</span>
+									<span class="card-title"><a style="color:white;" href="event/${event.getId()}"><b>Event:</b> ${event.title}</a></span>
 								</div>
 		
 								<div class="card-content">
