@@ -7,9 +7,8 @@
 <head>
 	<title>Create Event</title>
     <%@ include file="header.jsp" %>  
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/eventful_final/src/main/resources/static/materialize/js/createEvent.js"></script>
- --></head>
+	<script src="/js/createEvent.js"></script> 
+</head>
 
 <body>
 
