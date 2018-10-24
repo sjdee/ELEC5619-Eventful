@@ -63,8 +63,8 @@ public class HomeController {
 		
 		User user = userService.getCurrentUser();
 		List<Event> events = eventService.getCreatedEvents(user);
-		System.out.println(events);
 		
+		System.out.println(events);
 		model.put("serverTime", now);
 		model.put("events", events);
 		model.put("user", user);
