@@ -67,6 +67,8 @@ public class EventDaoImpl implements EventDao {
 	public boolean isSubscribed(User user, Event event) {
 		
 		return event.getSubcribedUsers().contains(user);
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
