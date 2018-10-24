@@ -9,11 +9,11 @@
 
 <div class="center">
 	<h1>
-		Register page 
+		Register as New User 
 	</h1>
 	<c:url var="registerUrl" value="/register" />
 	<div class="row" style="width: 50%;">
-		<form:form class="col s12" method="post" action="${registerUrl}" modelAttribute="user">
+		<form:form class="col s6 push-s3" method="post" action="${registerUrl}" modelAttribute="user">
 			<form:errors cssClass="error" element="p"/>
 			<div class="row">
 				<div class="input-field col s12">
@@ -65,9 +65,9 @@
 			<div class="row">
 				<button class="btn waves-effect waves-light" type="submit" value="Submit">Register</button>
 			</div>
+			<a href="<c:url value="/login"/>">Already a user?</a>
 		</form:form>
 	</div>
-	<a href="<c:url value="/login"/>">Already a user?</a>
 </div>
 
 

@@ -2,6 +2,7 @@ package au.edu.usyd.elec5619.web;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -18,6 +19,7 @@ import au.edu.usyd.elec5619.domain.Event;
 import au.edu.usyd.elec5619.domain.User;
 import au.edu.usyd.elec5619.service.EventService;
 import au.edu.usyd.elec5619.service.UserService;
+import ch.qos.logback.classic.Logger;
 
 @Controller
 public class SecuredUserController {
@@ -35,10 +37,10 @@ public class SecuredUserController {
 	public ModelAndView viewProfile(@PathVariable("Id")long id) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		Event event = eventService.getEventById(1);
 		User user = userService.getUserById(id);
+		List<Event> events = eventService.getCreatedEvents(user);
 
-		model.put("event", event);
+		model.put("events", events);
 		model.put("user", user);
 		model.put("selfProfile", false);
 		
@@ -47,13 +49,15 @@ public class SecuredUserController {
 	}
 	
 	@RequestMapping(value = "/profile", method=RequestMethod.GET)
-	public ModelAndView viewProfile(Principal principal) throws Exception {
+	public ModelAndView viewProfile() throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		Event event = eventService.getEventById(1);
-		User user = userService.getUserByEmail(principal.getName());
-
-		model.put("event", event);
+		User user = userService.getCurrentUser();
+		List<Event> events = eventService.getCreatedEvents(user);
+		
+		System.out.println(events);
+		
+		model.put("events", events);
 		model.put("user", user);
 		model.put("selfProfile", true);
 		

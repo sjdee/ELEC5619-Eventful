@@ -1,10 +1,13 @@
 package au.edu.usyd.elec5619.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import au.edu.usyd.elec5619.dao.EventDao;
 import au.edu.usyd.elec5619.domain.Event;
+import au.edu.usyd.elec5619.domain.User;
 
 @Service(value="eventService")
 public class EventServiceImpl implements EventService {
@@ -39,6 +42,11 @@ public class EventServiceImpl implements EventService {
 		
 		return eventDao.getEventById(id);
 		
+	}
+
+	@Override
+	public List<Event> getCreatedEvents(User user) {
+		return eventDao.getEventsByOrganiser(user);
 	}
 
 }
