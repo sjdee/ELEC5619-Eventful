@@ -1,7 +1,10 @@
 package au.edu.usyd.elec5619.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,5 +67,17 @@ public class EventDaoImpl implements EventDao {
 	public boolean isSubscribed(User user, Event event) {
 		
 		return event.getSubcribedUsers().contains(user);
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> getEventsByOrganiser(User user) {
+		
+		String hql = "FROM Event e WHERE e.organiser = ?1";
+		
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, user);
+		
+		return query.getResultList();
 	}
 }

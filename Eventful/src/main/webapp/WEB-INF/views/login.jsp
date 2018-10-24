@@ -17,7 +17,7 @@
 						username or password.</div>
 				</c:when>
 			</c:choose>
-			<form class="col s12" action="${loginUrl}" method="post">
+			<form class="col s6 push-s3" action="${loginUrl}" method="post">
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="email" type="email" name="email" class="validate"

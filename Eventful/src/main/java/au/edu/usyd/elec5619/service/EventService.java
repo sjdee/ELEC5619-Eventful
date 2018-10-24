@@ -1,5 +1,7 @@
 package au.edu.usyd.elec5619.service;
 
+import java.util.List;
+
 import au.edu.usyd.elec5619.domain.Event;
 import au.edu.usyd.elec5619.domain.User;
 
@@ -10,6 +12,8 @@ public interface EventService {
 	public Event getEventById(int id);
 	
 	public void subscribeEvent(User user, Event event);
+
+	public List<Event> getCreatedEvents(User user);
 
 	public void unsubscribeEvent(User user, Event event);
 	

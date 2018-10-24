@@ -1,5 +1,6 @@
 package au.edu.usyd.elec5619.service;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -70,14 +71,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User getCurrentUser() {
-		// TODO:: this needs to be implemented to get the current record from somewhere
-		
-		//String fakeUserEmail = "john@gmail.com";
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		return getUserByEmail(auth.getName());
-		
 	}
 
 	@Override

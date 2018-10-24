@@ -1,5 +1,7 @@
 package au.edu.usyd.elec5619.service;
 
+import java.security.Principal;
+
 import au.edu.usyd.elec5619.domain.User;
 
 public interface UserService {

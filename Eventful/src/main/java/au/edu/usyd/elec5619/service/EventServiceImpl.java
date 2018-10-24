@@ -1,6 +1,8 @@
 package au.edu.usyd.elec5619.service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,5 +63,9 @@ public class EventServiceImpl implements EventService {
 	public boolean checkSubscription(User user, Event event) {
 		return eventDao.isSubscribed(user, event);
 	}
-	
+
+	@Override
+	public List<Event> getCreatedEvents(User user) {
+		return eventDao.getEventsByOrganiser(user);
+	}
 }
