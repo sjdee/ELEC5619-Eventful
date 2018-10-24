@@ -105,6 +105,13 @@ public class EventController {
 		Event event = eventService.getEventById(id);
 
 		model.put("event", event);
+		
+		
+		//TODO:: use check Subscription
+		
+		//if unsubscribed
+		model.put("buttonValue", "Subscribe");
+		model.put("function", "subscribe");
 
 		return new ModelAndView("event", "model", model);
 
@@ -119,7 +126,7 @@ public class EventController {
 	}
 
 	@RequestMapping(value="/createEvent", method=RequestMethod.POST)
-	public String createEvent(HttpServletRequest httpServletRequest) throws Exception {
+	public String createEvent(HttpServletRequest httpServletRequest, Principal principal) throws Exception {
 
 		Event event = new Event();
 
@@ -129,8 +136,7 @@ public class EventController {
 		event.setMaxPeople(Integer.parseInt(httpServletRequest.getParameter("maxPeople")));
 		event.setLocation(httpServletRequest.getParameter("location"));
 		event.setRepetition(Integer.parseInt(httpServletRequest.getParameter("repetition")));
-
-		event.setOrganiser(userService.getCurrentUser());
+		event.setOrganiser(userService.getUserByEmail(principal.getName()));
 
 		eventService.createEvent(event);
 
@@ -138,11 +144,19 @@ public class EventController {
 	}
 
 	@RequestMapping(value="/event/subscribe/{eventId}", method=RequestMethod.GET)
-	public String subscribe(@PathVariable("eventId") int eventId) throws Exception {
+	public ModelAndView subscribe(@PathVariable("eventId") int eventId,  Principal principal) throws Exception {
 
+		Map<String, Object> model = new HashMap<String, Object>();
 
+		Event event = eventService.getEventById(eventId);
+		
+		String userId = principal.getName();
+		eventService.subscribeEvent(userService.getUserByEmail(userId), event);
 
-		return "redirect:/event/" + eventId;
+		model.put("event", event);
+		model.put("buttonValue", "Subscribe");
+		
+		return new ModelAndView("redirect:/event/{eventId}", "model", model);
 	}
 
 

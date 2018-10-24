@@ -14,7 +14,7 @@
 	
 	<a class="waves-effect waves-light btn-large"
 	style="margin-top: 1em; margin-bottom: 1em;"
-	href="<c:url value="/event/subscribe/${model.event.id}" />"><i class="material-icons left">cloud</i>Subscribe</a>
+	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">cloud</i>${model.buttonValue}</a>
 	
 	<h6> <b>Location:</b> ${model.event.location} </h6>
 	<h6> <b>When:</b> ${model.event.datetime} </h6>

@@ -63,7 +63,7 @@ public class Event implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="event")
 	public List<Post> posts;
 
-	@JoinColumn(name = "organiserEmail")
+	@JoinColumn(name = "organiser")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public User organiser;
 	

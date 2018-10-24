@@ -1,10 +1,13 @@
 package au.edu.usyd.elec5619.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import au.edu.usyd.elec5619.dao.EventDao;
 import au.edu.usyd.elec5619.domain.Event;
+import au.edu.usyd.elec5619.domain.User;
 
 @Service(value="eventService")
 public class EventServiceImpl implements EventService {
@@ -40,5 +43,23 @@ public class EventServiceImpl implements EventService {
 		return eventDao.getEventById(id);
 		
 	}
-
+	
+	@Override
+	@Transactional
+	public void subscribeEvent(User user, Event event) {
+		eventDao.subscribe(user, event);
+	}
+	
+	@Override
+	@Transactional
+	public void unsubscribeEvent(User user, Event event) {
+		eventDao.unsubscribe(user, event);
+	}
+	
+	@Override
+	@Transactional
+	public boolean checkSubscription(User user, Event event) {
+		return eventDao.isSubscribed(user, event);
+	}
+	
 }
