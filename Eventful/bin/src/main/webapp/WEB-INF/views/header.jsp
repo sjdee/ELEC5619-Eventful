@@ -3,7 +3,7 @@
 
 <nav>
 	<div class="nav-wrapper">
-		<a href="/dashboard" class="brand-logo"><i class="material-icons">cloud</i>eventful</a>
+		<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>eventful</a>
 		<ul class="hide-on-med-and-down right">
 			<li>
 				<div class="center row">

@@ -2,21 +2,37 @@ package au.edu.usyd.elec5619.web;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.security.Principal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import au.edu.usyd.elec5619.domain.Event;
+import au.edu.usyd.elec5619.domain.User;
+import au.edu.usyd.elec5619.service.EventService;
+import au.edu.usyd.elec5619.service.UserService;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private EventService eventService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -39,11 +55,22 @@ public class HomeController {
 	
 	// TODO:: to be removed
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public ModelAndView viewDashboard() throws Exception {
+	public ModelAndView viewDashboard(Principal principal) throws Exception {
 		String now = (new Date()).toString();
 		logger.info("Returning dashboard view at " + now);
 
-		return new ModelAndView("dashboard");
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		User user = userService.getCurrentUser();
+		List<Event> events = eventService.getCreatedEvents(user);
+		System.out.println(events);
+		
+		model.put("serverTime", now);
+		model.put("events", events);
+		model.put("user", user);
+		model.put("selfProfile", true);
+		
+		return new ModelAndView("dashboard", "model", model);
 	}
 	
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
