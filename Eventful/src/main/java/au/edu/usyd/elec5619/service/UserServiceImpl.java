@@ -6,6 +6,8 @@ import java.util.HashSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,9 +72,11 @@ public class UserServiceImpl implements UserService {
 	public User getCurrentUser() {
 		// TODO:: this needs to be implemented to get the current record from somewhere
 		
-		String fakeUserEmail = "john@gmail.com";
+		//String fakeUserEmail = "john@gmail.com";
 		
-		return userDAO.getUserByEmail(fakeUserEmail);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		return getUserByEmail(auth.getName());
 		
 	}
 
