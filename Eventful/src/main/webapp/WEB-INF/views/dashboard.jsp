@@ -35,7 +35,12 @@
 								<div class="card-content">
 									<p style="margin-top: 0.5em; margin-bottom: 1.5em;"><b>Description:</b><br>${event.description}</p>
 									<div class="card-panel row valign-wrapper post-bar">
-										<span>Rating: </span>
+										<ul>
+											<li>Location: ${event.location}</li>
+											<li>Time: ${event.datetime}</li>
+											<li>Maximum people: ${event.maxPeople} </li>
+											<li>Frequency: ${event.repetition}</li>
+										</ul>
 									</div>
 								</div>
 							</div>
