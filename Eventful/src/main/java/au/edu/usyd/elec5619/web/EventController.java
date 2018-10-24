@@ -1,5 +1,6 @@
 package au.edu.usyd.elec5619.web;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public class EventController {
 		post.setEvent(event);
 		post.setPoster(user);
 				
-		postService.createPost(post, event.getId());
+		postService.createPost(post, event.getId(), user.email);
 		
 		Comment comment = new Comment();
 		
@@ -88,7 +89,7 @@ public class EventController {
 		comment.setCommenter(user);
 		comment.setPost(post);
 
-		postService.createComment(comment, post.getId());
+		postService.createComment(comment, post.getId(), user.email);
 		
 		model.put("event", event);
 		
@@ -108,25 +109,29 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/createPost/{eventId}", method=RequestMethod.POST)
-	public String createPost(@PathVariable("eventId") int eventId, HttpServletRequest httpServletRequest) throws Exception {				
+	public String createPost(@PathVariable("eventId") int eventId, HttpServletRequest httpServletRequest, Principal principal) throws Exception {				
 				
 		
 		Post post = new Post();
 		post.setTitle(httpServletRequest.getParameter("title"));
 		post.setDescription(httpServletRequest.getParameter("description"));
 		
-		postService.createPost(post, eventId);
+		String userId = principal.getName();
+		
+		postService.createPost(post, eventId, userId);
 		
 		return "redirect:/event/" + eventId;
 	}
 	
 	@RequestMapping(value="/createComment/{postId}", method=RequestMethod.POST)
-	public String createComment(@PathVariable("postId") int postId, HttpServletRequest httpServletRequest) throws Exception {				
+	public String createComment(@PathVariable("postId") int postId, HttpServletRequest httpServletRequest, Principal principal) throws Exception {				
 		
 		Comment comment = new Comment();
 		comment.setContents(httpServletRequest.getParameter("contents"));
 		
-		postService.createComment(comment, postId);
+		String userId = principal.getName();
+		
+		postService.createComment(comment, postId, userId);
 		
 		return "redirect:/event/" + comment.getPost().getEvent().getId();
 	}
@@ -145,10 +150,14 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/likePost/{postId}", method=RequestMethod.POST)
-	public ModelAndView likePost(@PathVariable("postId") int postId) throws Exception {
+	public ModelAndView likePost(@PathVariable("postId") int postId, Principal principal) throws Exception {
 		logger.info("got here");
 		
-		postService.likePost(postId);
+		System.out.println(principal.getName());
+		
+		String userId = principal.getName();
+		
+		postService.likePost(postId, userId);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
@@ -163,9 +172,11 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/likeComment/{commentId}", method=RequestMethod.POST)
-	public ModelAndView likeComment(@PathVariable("commentId") int commentId) throws Exception {
+	public ModelAndView likeComment(@PathVariable("commentId") int commentId, Principal principal) throws Exception {
 		
-		postService.likeComment(commentId);
+		String userId = principal.getName();
+		
+		postService.likeComment(commentId, userId);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		

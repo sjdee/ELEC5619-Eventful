@@ -32,10 +32,10 @@
 				<div class="card-content">
 					<div class="row valign-wrapper">
 		                <div class="col s2 pull-5">
-		                	<a href="#"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
+		                	<a href="/profile/${post.poster.id}"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
 		                </div>
 		                <div class="col s10 push-7">
-			                <a href="#"><h5> ${post.poster.alias} </h5></a>
+			                <a href="/profile/${post.poster.id}"><h5> ${post.poster.alias} </h5></a>
 			                <p class="grey-text"><fmt:formatDate value="${post.timePosted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
 		        		</div>
 			    	</div>
@@ -69,11 +69,11 @@
 							<li>
 						    	<div class="row valign-wrapper comment-box">
 					                <div class="col s1 pull-11">
-					                	<a href="#"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
+					                	<a href="/profile/${comment.commenter.id}"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
 					                </div>
 					                <div class="col s11 push-1">
 						            	<span class="black-text">
-						               		<a href="#">${comment.commenter.alias}</a><br> ${comment.contents}<br>
+						               		<a href="/profile/${comment.commenter.id}">${comment.commenter.alias}</a><br> ${comment.contents}<br>
 						               		<div class="valign-wrapper">
 							               		<a href="/likeComment/${comment.id}" onclick="event.preventDefault(); document.getElementById('comment-like-form-${comment.id}').submit();" ><i class="material-icons" style="margin-right: 0.5em; font-size: 1.2em;">thumb_up</i></a>
 												<span style="font-size: 0.8em"> ${comment.numLikes} Likes </span>

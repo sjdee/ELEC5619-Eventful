@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	public void createPost(Post post, int eventId) {
+	public void createPost(Post post, int eventId, String userId) {
 		
 		Date date = new Date();
 
@@ -47,7 +47,7 @@ public class PostServiceImpl implements PostService {
 		
 		post.setEvent(eventDao.getEventById(eventId));
 		
-		post.setPoster(userService.getCurrentUser());
+		post.setPoster(userService.getUserByEmail(userId));
 				
 		postDao.createPost(post);
 				
@@ -56,14 +56,14 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void createComment(Comment comment, int postId) {
+	public void createComment(Comment comment, int postId, String userEmail) {
 		// TODO Auto-generated method stub
 		
 		Date date = new Date();
 
 		comment.setTimePosted(date);
 				
-		comment.setCommenter(userService.getCurrentUser());
+		comment.setCommenter(userService.getUserByEmail(userEmail));
 		
 		comment.setPost(postDao.getPostById(postId));
 				
@@ -74,9 +74,9 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	public void likePost(int postId) {
+	public void likePost(int postId, String userEmail) {
 						
-		User currentUser = userService.getCurrentUser();
+		User currentUser = userService.getUserByEmail(userEmail);
 		
 		// If user hasn't liked post
 		if (!postDao.getUserLikedPost(postId, currentUser.getId())) {
@@ -105,9 +105,9 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	@Transactional
-	public void likeComment(int commentId) {
+	public void likeComment(int commentId, String userEmail) {
 		
-		User currentUser = userService.getCurrentUser();
+		User currentUser = userService.getUserByEmail(userEmail);
 		
 		// If user hasn't liked post
 		if (!postDao.getUserLikedComment(commentId, currentUser.getId())) {

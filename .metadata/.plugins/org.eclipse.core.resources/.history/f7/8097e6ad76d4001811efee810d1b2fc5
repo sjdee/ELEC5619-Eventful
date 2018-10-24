@@ -1,0 +1,20 @@
+package au.edu.usyd.elec5619.service;
+
+import au.edu.usyd.elec5619.domain.Comment;
+import au.edu.usyd.elec5619.domain.Post;
+
+public interface PostService {
+
+	public void createPost(Post post, int eventId);
+	
+	public void createComment(Comment comment, int postId, int userId);
+	
+	public void likePost(int postId, int userId);
+	
+	public void likeComment(int commentId, int userId);
+	
+	public Post getPostById(int postId);
+	
+	public Comment getCommentById(int commentId);
+		
+}

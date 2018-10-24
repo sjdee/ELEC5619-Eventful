@@ -5,5 +5,6 @@
 
 <link href="<c:url value="/materialize/css/materialize.css" />" rel="stylesheet">
 <script src="<c:url value="/materialize/js/materialize.js" />"></script>
+<script src="<c:url value="/js/eventful.js" />"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="<c:url value="/css/eventful.css" />" rel="stylesheet">
