@@ -2,13 +2,16 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Eventful</title>
+	<%@ include file="include.jsp" %> 
+	<meta http-equiv="refresh" content="4; url=/login" />
 </head>
-<body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+<body class="red lighten-2">
+	<div class="center" style="margin-top:20vw">
+		<h1>
+			<span class="white-text" style="font-weight:200; font-size:90px;"><i class="medium material-icons">all_inclusive</i> eventful</span>
+		</h1>	
+		<h5><span class="white-text" style="font-weight:200">What will you do today?</span></h5>
+	</div>
 </body>
 </html>
