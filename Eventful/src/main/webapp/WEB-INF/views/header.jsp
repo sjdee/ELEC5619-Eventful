@@ -18,7 +18,7 @@
 					</div>
 				</div>
 			</li>
-			<li><a href="#"><i class="material-icons">view_module</i></a></li>
+			<li><a href="/dashboard"><i class="material-icons">dashboard</i></a></li>
 			<li><a href="/createEvent"><i class="material-icons">event</i></a></li>
 			<li><a href="/profile"><i class="material-icons">perm_contact_calendar</i></a></li>
 			<li><a href="/logout"><i class="material-icons">subdirectory_arrow_right</i></a></li>
