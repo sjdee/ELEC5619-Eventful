@@ -7,7 +7,7 @@
 <head>
 	<title>Create Event</title>
     <%@ include file="header.jsp" %>  
-	<script src="/js/createEvent.js"></script> 
+	<script src="<c:url value="/js/createEvent.js" />"></script>
 </head>
 
 <body>
@@ -39,11 +39,11 @@
 		        	<label for="people-field">Maximum People Allowed</label>
 		        </div>
 		        <div class="input-field col s12">
-		        	<input id="date-field" type="text" class="datepicker" format="ddmmyyyy">
+		        	<input id="date-field" type="text" class="datepicker" name="date" format="dd mm yyyy">
 		        	<label for="date-field">Pick date of the event</label>
 		        </div>
 		        <div class="input-field col s12">
-		        	<input id="time-field" type="text" class="timepicker">
+		        	<input id="time-field" type="text" class="timepicker" name="time">
 		        	<label for="time-field">Pick time of the event</label>
 		        </div>
 		        <div class="input-field col s12">

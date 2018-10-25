@@ -2,6 +2,9 @@ package au.edu.usyd.elec5619.web;
 
 import java.util.Date;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,6 +110,25 @@ public class EventController {
 
 		model.put("event", event);
 		
+		int rep = event.getRepetition();
+		
+		if(rep == 0) {
+			model.put("repetition", "Once");
+		}
+		else if(rep == 1){
+			model.put("repetition", "Daily");
+		}
+		else if(rep == 2){
+			model.put("repetition", "Weekly");
+		}
+		else if(rep == 3){
+			model.put("repetition", "Fortnightly");
+		}
+		else {
+			model.put("repetition", "Monthly");
+		}
+		
+		
 		//if event is cancelled
 		if(event.getCancelled()) {
 			model.put("ability", "disabled");
@@ -165,14 +187,21 @@ public class EventController {
 
 		event.setTitle(httpServletRequest.getParameter("title"));
 		event.setDescription(httpServletRequest.getParameter("description"));
-		event.setDatetime(new Date(2000, 8, 23));
 		event.setMaxPeople(Integer.parseInt(httpServletRequest.getParameter("maxPeople")));
 		event.setLocation(httpServletRequest.getParameter("location"));
 		event.setRepetition(Integer.parseInt(httpServletRequest.getParameter("repetition")));
 		event.setOrganiser(user);
 
-		eventService.createEvent(event);
-//		Giving issues		
+		//formatting date
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
+		String datetime= httpServletRequest.getParameter("date")+" "+httpServletRequest.getParameter("time");  // departureTime = departureTime + " 00:00:00";
+        LocalDateTime date = LocalDateTime.parse(datetime, formatter);
+        Date out = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());  
+        event.setDatetime(out);
+        
+        eventService.createEvent(event);
+        
+//		TODO: Giving issues		
 //		eventService.subscribeEvent(user, event);
 
 		return "redirect:/event/" + event.getId();
