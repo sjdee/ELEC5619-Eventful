@@ -98,7 +98,7 @@ public class EventController {
 	}
 
 	@RequestMapping(value="/event/{id}")
-	public ModelAndView viewEvent(@PathVariable("id") int id) throws Exception {
+	public ModelAndView viewEvent(@PathVariable("id") int id, Principal principal) throws Exception {
 
 		Map<String, Object> model = new HashMap<String, Object>();
 
@@ -106,12 +106,16 @@ public class EventController {
 
 		model.put("event", event);
 		
-		
-		//TODO:: use check Subscription
-		
-		//if unsubscribed
-		model.put("buttonValue", "Subscribe");
-		model.put("function", "subscribe");
+		if(eventService.checkSubscription(userService.getUserByEmail(principal.getName()),event)) {
+			model.put("buttonValue", "Unsubscribe");
+			model.put("function", "unsubscribe");
+			model.put("subscribeIcon", "remove_circle");
+		}
+		else {
+			model.put("buttonValue", "Subscribe");
+			model.put("function", "subscribe");
+			model.put("subscribeIcon", "add_circle");
+		}
 
 		return new ModelAndView("event", "model", model);
 
@@ -142,23 +146,31 @@ public class EventController {
 
 		return "redirect:/event/" + event.getId();
 	}
-
+	
 	@RequestMapping(value="/event/subscribe/{eventId}", method=RequestMethod.GET)
-	public ModelAndView subscribe(@PathVariable("eventId") int eventId,  Principal principal) throws Exception {
-
-		Map<String, Object> model = new HashMap<String, Object>();
+	public String subscribe(@PathVariable("eventId") int eventId,  Principal principal) throws Exception {
 
 		Event event = eventService.getEventById(eventId);
 		
 		String userId = principal.getName();
 		eventService.subscribeEvent(userService.getUserByEmail(userId), event);
-
-		model.put("event", event);
-		model.put("buttonValue", "Subscribe");
 		
-		return new ModelAndView("redirect:/event/{eventId}", "model", model);
+		return "redirect:/event/" + eventId;
+		
 	}
+	
+	@RequestMapping(value="/event/unsubscribe/{eventId}", method=RequestMethod.GET)
+	public String unsubscribe(@PathVariable("eventId") int eventId,  Principal principal) throws Exception {
 
+		Event event = eventService.getEventById(eventId);
+		
+		String userId = principal.getName();
+		eventService.unsubscribeEvent(userService.getUserByEmail(userId), event);
+		
+		return "redirect:/event/" + eventId;
+		
+	}
+	
 
 	@RequestMapping(value="/createPost/{eventId}")
 	public ModelAndView createPost(@PathVariable("eventId") int eventId) throws Exception {
