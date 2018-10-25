@@ -4,11 +4,12 @@
 <head>
 	<title>Eventful</title>
 	<%@ include file="include.jsp" %> 
-	<meta http-equiv="refresh" content="4; url=/login" />
+	<meta http-equiv="refresh" content="6; url=/login" />
+	<link href="<c:url value="/css/home.css" />" rel="stylesheet">
 </head>
 <body class="red lighten-2">
 	<div class="center" style="margin-top:20vw">
-		<h1>
+		<h1 class="wobble-hor-bottom">
 			<span class="white-text" style="font-weight:200; font-size:90px;"><i class="medium material-icons">all_inclusive</i> eventful</span>
 		</h1>	
 		<h5><span class="white-text" style="font-weight:200">What will you do today?</span></h5>
