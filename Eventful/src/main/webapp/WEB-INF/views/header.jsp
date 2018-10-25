@@ -3,14 +3,14 @@
 
 <nav>
 	<div class="nav-wrapper">
-		<a href="/dashboard" class="brand-logo"><i class="material-icons">cloud</i>eventful</a>
+		<a href="/dashboard" class="brand-logo" style="font-weight:200"><i class="material-icons">all_inclusive</i>eventful</a>
 		<ul class="hide-on-med-and-down right">
 			<li>
 				<div class="center row">
 					<div class="col s12 ">
 						<div class="row" id="topbarsearch">
 							<div class="input-field col s6 s12">
-								<i class="material-icons prefix" style="top: 0">search</i> <input
+								<i class="material-icons prefix" style="top:0">search</i> <input
 									type="text" placeholder="search" id="autocomplete-input"
 									class="autocomplete">
 							</div>
