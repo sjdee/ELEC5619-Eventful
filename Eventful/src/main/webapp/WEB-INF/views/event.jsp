@@ -10,15 +10,11 @@
 
 <div class="center">
 	
-	<h1> Event: ${model.event.title} </h1>
+	<h1> ${model.event.title} </h1>
 	
-	<a class="waves-effect waves-light btn-large"
+	<a class="waves-effect waves-light btn-large ${model.ability}"
 	style="margin-top: 1em; margin-bottom: 1em;"
-	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">${model.subscribeIcon}</i>${model.buttonValue}</a>
-	
-	<a class="waves-effect waves-light btn-large"
-	style="margin-top: 1em; margin-bottom: 1em;"
-	href="<c:url value="/event/cancel/${model.event.id}" />"><i class="material-icons left">cancel</i>Cancel</a>
+	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">${model.buttonIcon}</i>${model.buttonValue}</a>
 	
 	
 	<h6> <b>Location:</b> ${model.event.location} </h6>

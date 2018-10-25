@@ -60,6 +60,10 @@ public class Event implements Serializable {
 	@Column(name="numPosts")
 	public int numPosts;
 	
+	// 0 = false; 1 = true
+	@Column(name="cancelled")
+	public boolean cancelled;
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="event")
 	public List<Post> posts;
 
@@ -76,7 +80,8 @@ public class Event implements Serializable {
     )
     private Set<User> subscribedUsers;
 
-    
+
+    //    methods
 	public int getId() {
 		return id;
 	}
@@ -137,6 +142,14 @@ public class Event implements Serializable {
 		this.eventImage = eventImage;
 	}
 	
+	public boolean getCancelled(){
+		return this.cancelled;
+	}
+	
+	public void setCancelled(boolean cancelled){
+		this.cancelled =cancelled;
+	}
+	
 	public List<Post> getPosts() {
 		return posts;
 	}
@@ -144,6 +157,10 @@ public class Event implements Serializable {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}	
+	
+	public User getOrganiser() {
+		return this.organiser;
+	}
 	
 	public void setOrganiser(User organiser) {
 		this.organiser = organiser;

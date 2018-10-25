@@ -82,4 +82,14 @@ public class EventDaoImpl implements EventDao {
 		
 		return query.getResultList();
 	}
+	
+	@Transactional
+	@Override
+	public void cancelEvent(User user, Event event) {
+		
+		if(event.getOrganiser().getEmail().equals(user.getEmail())) {
+			event.setTitle("[CANCELLED] " + event.getTitle());
+			event.setCancelled(true);
+		}
+	}
 }

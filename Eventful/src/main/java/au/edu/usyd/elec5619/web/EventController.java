@@ -103,18 +103,46 @@ public class EventController {
 		Map<String, Object> model = new HashMap<String, Object>();
 
 		Event event = eventService.getEventById(id);
+		User user = userService.getUserByEmail(principal.getName());
 
 		model.put("event", event);
 		
-		if(eventService.checkSubscription(userService.getUserByEmail(principal.getName()),event)) {
-			model.put("buttonValue", "Unsubscribe");
-			model.put("function", "unsubscribe");
-			model.put("subscribeIcon", "remove_circle");
+		//if event is cancelled
+		if(event.getCancelled()) {
+			model.put("ability", "disabled");
+			model.put("buttonValue", "Cancelled");
+			model.put("buttonIcon", "cancel");
 		}
+		
+		//if active event
 		else {
-			model.put("buttonValue", "Subscribe");
-			model.put("function", "subscribe");
-			model.put("subscribeIcon", "add_circle");
+			
+			model.put("ability", "");
+			
+			//organiser
+			//cancel button
+			if(event.getOrganiser().getEmail().equals(user.getEmail())) {
+				model.put("buttonValue", "Cancel");
+				model.put("function", "cancelEvent");
+				model.put("buttonIcon", "close");
+			}
+			// regular user
+			//
+			else {
+				
+				//if already subscribed
+				if(eventService.checkSubscription(user,event)) {
+					model.put("buttonValue", "Unsubscribe");
+					model.put("function", "unsubscribe");
+					model.put("buttonIcon", "remove_circle");
+				}
+				//if not yet subscribed
+				else {
+					model.put("buttonValue", "Subscribe");
+					model.put("function", "subscribe");
+					model.put("buttonIcon", "add_circle");
+				}
+			}
 		}
 
 		return new ModelAndView("event", "model", model);
@@ -133,6 +161,7 @@ public class EventController {
 	public String createEvent(HttpServletRequest httpServletRequest, Principal principal) throws Exception {
 
 		Event event = new Event();
+		User user = userService.getUserByEmail(principal.getName());
 
 		event.setTitle(httpServletRequest.getParameter("title"));
 		event.setDescription(httpServletRequest.getParameter("description"));
@@ -140,11 +169,26 @@ public class EventController {
 		event.setMaxPeople(Integer.parseInt(httpServletRequest.getParameter("maxPeople")));
 		event.setLocation(httpServletRequest.getParameter("location"));
 		event.setRepetition(Integer.parseInt(httpServletRequest.getParameter("repetition")));
-		event.setOrganiser(userService.getUserByEmail(principal.getName()));
+		event.setOrganiser(user);
 
 		eventService.createEvent(event);
+//		Giving issues		
+//		eventService.subscribeEvent(user, event);
 
 		return "redirect:/event/" + event.getId();
+	}
+	
+	@RequestMapping(value="/event/cancelEvent/{eventId}", method=RequestMethod.GET)
+	public String cancelEvent(@PathVariable("eventId") int eventId,  Principal principal) throws Exception {
+
+		Event event = eventService.getEventById(eventId);
+		User user = userService.getUserByEmail(principal.getName());
+		
+		eventService.unsubscribeEvent(user, event);
+		eventService.cancelEvent(user, event);
+			
+		return "redirect:/event/" + eventId;
+		
 	}
 	
 	@RequestMapping(value="/event/subscribe/{eventId}", method=RequestMethod.GET)
@@ -153,8 +197,11 @@ public class EventController {
 		Event event = eventService.getEventById(eventId);
 		
 		String userId = principal.getName();
-		eventService.subscribeEvent(userService.getUserByEmail(userId), event);
 		
+		if(!event.getCancelled()) {
+			eventService.subscribeEvent(userService.getUserByEmail(userId), event);
+		}
+			
 		return "redirect:/event/" + eventId;
 		
 	}

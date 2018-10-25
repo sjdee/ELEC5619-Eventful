@@ -68,4 +68,10 @@ public class EventServiceImpl implements EventService {
 	public List<Event> getCreatedEvents(User user) {
 		return eventDao.getEventsByOrganiser(user);
 	}
+	
+	@Override
+	public void cancelEvent(User user, Event event){
+		eventDao.cancelEvent(user, event);
+	}
+	
 }

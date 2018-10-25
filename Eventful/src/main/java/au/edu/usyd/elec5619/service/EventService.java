@@ -18,4 +18,6 @@ public interface EventService {
 	public void unsubscribeEvent(User user, Event event);
 	
 	public boolean checkSubscription(User user, Event event);
+	
+	public void cancelEvent(User user, Event event);
 }

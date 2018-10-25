@@ -16,7 +16,6 @@ public interface EventDao {
 	public Event getEventById(int id);
 		
 	public void createEvent(Event event);
-	
 
 	public void subscribe(User user, Event event);
 	
@@ -25,5 +24,7 @@ public interface EventDao {
 	public boolean isSubscribed(User user, Event event);
 
 	public List<Event> getEventsByOrganiser(User user);
+	
+	public void cancelEvent(User user, Event event);
 		
 }
