@@ -1,0 +1,17 @@
+package au.edu.usyd.elec5619.payload;
+
+import javax.validation.constraints.NotBlank;
+
+public class LikeRequest {
+
+    int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}    
+    
+}

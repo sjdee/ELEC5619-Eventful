@@ -38,7 +38,10 @@ public class EventDaoImpl implements EventDao {
 //		
 //		return event;
 		
-		return entityManager.find(Event.class, id);
+		Event event = entityManager.find(Event.class, id);
+		event.setPosts(null);
+		
+		return event;
 	}
 	
 	@Override

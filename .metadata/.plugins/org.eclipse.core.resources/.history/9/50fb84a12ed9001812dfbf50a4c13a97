@@ -1,0 +1,11 @@
+package au.edu.usyd.elec5619.payload;
+
+import javax.validation.constraints.NotBlank;
+
+public class LikeRequest {
+
+    //@NotBlank(message = "username can't empty!")
+    int id;
+
+    
+}

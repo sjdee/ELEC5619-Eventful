@@ -12,11 +12,19 @@ public interface PostDao {
 	
 	public void incrementNumCommentLikes(int commentId);
 	
+	public void decrementNumCommentLikes(int commentId);
+	
 	public void incrementNumPostLikes(int postId);
+	
+	public void decrementNumPostLikes(int postId);
 	
 	public void saveCommentLike(int commentId, long userId);
 	
+	public void removeCommentLike(int commentId, long userId);
+	
 	public void savePostLike(int postId, long userId);
+	
+	public void removePostLike(int postId, long userId);
 	
 	public void createComment(Comment comment);
 	

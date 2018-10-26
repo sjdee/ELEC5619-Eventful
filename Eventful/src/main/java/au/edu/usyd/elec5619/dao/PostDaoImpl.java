@@ -86,12 +86,36 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
+	public void decrementNumCommentLikes(int commentId) {
+		// TODO Auto-generated method stub
+				
+		String hql = "UPDATE Comment c set c.numLikes = c.numLikes - 1 WHERE c.id = ?1";
+				
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, commentId);
+		
+		query.executeUpdate();
+	}
+	
+	@Override
 	public void saveCommentLike(int commentId, long userId) {
 
 		Comment comment = entityManager.find(Comment.class, commentId);
 		User user = entityManager.find(User.class, userId);
 				
 		user.getLikedComments().add(comment);
+		
+		entityManager.persist(user);
+	}
+	
+	@Override
+	public void removeCommentLike(int commentId, long userId) {
+
+		Comment comment = entityManager.find(Comment.class, commentId);
+		User user = entityManager.find(User.class, userId);
+		
+		user.getLikedComments().remove(comment);
 		
 		entityManager.persist(user);
 	}
@@ -108,9 +132,32 @@ public class PostDaoImpl implements PostDao {
 	}
 	
 	@Override
+	public void removePostLike(int postId, long userId) {
+
+		Post post = entityManager.find(Post.class, postId);
+		User user = entityManager.find(User.class, userId);
+				
+		user.getLikedPosts().remove(post);
+		
+		entityManager.persist(user);
+	}
+	
+	@Override
 	public void incrementNumPostLikes(int postId) {
 				
 		String hql = "UPDATE Post p set p.numLikes = p.numLikes + 1 WHERE p.id = ?1";
+		
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, postId);
+		
+		query.executeUpdate();
+	}
+	
+	@Override
+	public void decrementNumPostLikes(int postId) {
+						
+		String hql = "UPDATE Post p set p.numLikes = p.numLikes - 1 WHERE p.id = ?1";
 		
 		Query query = entityManager.createQuery(hql);
 		

@@ -1,0 +1,13 @@
+package au.edu.usyd.elec5619.payload;
+
+
+import java.util.List;
+
+public class PostLikeResponse {
+
+    String msg;
+    List<User> result;
+
+    //getters and setters
+
+}

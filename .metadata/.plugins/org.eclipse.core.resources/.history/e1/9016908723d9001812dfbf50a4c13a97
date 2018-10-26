@@ -1,0 +1,17 @@
+package au.edu.usyd.elec5619.payload;
+
+public class PostLikeResponse {
+
+    int numLikes;
+    Boolean isLiked;
+
+	public int getNumLikes() {
+		return numLikes;
+	}
+
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
+	}
+    
+	
+}

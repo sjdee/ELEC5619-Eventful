@@ -40,6 +40,9 @@ public class Post implements Serializable {
 	@Column(name="imagePath")
 	private String imagePath;
 
+	// Non column variable denoting whether current user has liked a post
+	private Boolean isLiked;
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="post")
 	private Set<Comment> comments;
 	
@@ -146,6 +149,14 @@ public class Post implements Serializable {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public Boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setIsLiked(Boolean isLiked) {
+		this.isLiked = isLiked;
 	}
 	
 }

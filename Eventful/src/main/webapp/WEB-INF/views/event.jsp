@@ -11,7 +11,7 @@
 <div class="center">
 	
 	<h1> ${model.event.title} </h1>
-	
+		
 	<a class="waves-effect waves-light btn-large ${model.ability}"
 	style="margin-top: 1em; margin-bottom: 1em;"
 	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">${model.buttonIcon}</i>${model.buttonValue}</a>
@@ -62,8 +62,9 @@
 					<p style="margin-top: 0.5em; margin-bottom: 1.5em;">${post.description}</p>
 					<div class="card-panel row valign-wrapper post-bar">
 						<div class="valign-wrapper col s6 push-s8">
-							<a href="/likePost/${post.id}" onclick="event.preventDefault(); document.getElementById('post-like-form-${post.id}').submit();" ><i class="small material-icons" style="margin-right: 0.5em;">thumb_up</i></a>
-							<span> ${post.numLikes} Likes </span>
+							<!--<a href="/likePost/${post.id}" onclick="event.preventDefault(); document.getElementById('post-like-form-${post.id}').submit();" ><i class="small material-icons" style="margin-right: 0.5em;">thumb-up-outline</i></a>-->
+							<a href="javascript:void(0)" onclick="likePost(${post.id});"><span id="post-like-icon-${post.id}" class="mdi mdi-thumb-up-outline" style="font-size:2em; margin-right: 0.5em;"></span></a>
+							<span id="post-likes-${post.id}"> ${post.numLikes} Likes </span>
 							<form action="/likePost/${post.id}" method="post" id="post-like-form-${post.id}">
 							    <button name="foo" value="Like" style="display: none"></button>
 							</form>
@@ -87,11 +88,8 @@
 						            	<span class="black-text">
 						               		<a href="/profile/${comment.commenter.id}">${comment.commenter.alias}</a><br> ${comment.contents}<br>
 						               		<div class="valign-wrapper">
-							               		<a href="/likeComment/${comment.id}" onclick="event.preventDefault(); document.getElementById('comment-like-form-${comment.id}').submit();" ><i class="material-icons" style="margin-right: 0.5em; font-size: 1.2em;">thumb_up</i></a>
-												<span style="font-size: 0.8em"> ${comment.numLikes} Likes </span>
-												<form action="/likeComment/${comment.id}" method="post" id="comment-like-form-${comment.id}">
-												    <button name="foo" value="Like" style="display: none"></button>
-												</form>
+						               			<a href="javascript:void(0)" onclick="likeComment(${comment.id});"><span id="comment-like-icon-${comment.id}" class="mdi mdi-thumb-up-outline" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
+							               		<span style="font-size: 0.8em" id="comment-likes-${post.id}"> ${comment.numLikes} Likes </span>
 												&nbsp;&middot;&nbsp;<p class="grey-text" style="font-size:0.8em"><fmt:formatDate value="${comment.timePosted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
 						            		</div>
 						            	</span>
@@ -118,6 +116,8 @@
 	</div>
 
 </c:forEach>
+
+<a href="javascript:void(0)" onclick="loadPosts();">Load more posts...</a>
 
 <%@ include file="footer.jsp" %> 
 </body>

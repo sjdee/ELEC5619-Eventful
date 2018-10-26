@@ -9,3 +9,4 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="<c:url value="/css/eventful.css" />" rel="stylesheet">
 <script src="<c:url value="/js/eventful.js" />"></script>
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css">

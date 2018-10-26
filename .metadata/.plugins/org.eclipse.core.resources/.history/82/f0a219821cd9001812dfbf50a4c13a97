@@ -1,0 +1,21 @@
+package au.edu.usyd.elec5619.payload;
+
+
+import java.util.List;
+
+public class PostLikeResponse {
+
+    String msg;
+    //getters and setters
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+    
+    
+}
