@@ -124,6 +124,10 @@ public class User {
 		return this.subscribedEvents;
 	}
 	
+	public byte[] getAvatar() {
+		return this.avatar;
+	}
+	
 	// Setters
 	public void setEmail(String email) {
 		this.email = email;

@@ -78,7 +78,7 @@ public class Event implements Serializable {
         joinColumns = { @JoinColumn(name = "event_id") }, 
         inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
-    private Set<User> subscribedUsers;
+    public Set<User> subscribedUsers;
 
 
     //    methods
@@ -166,11 +166,11 @@ public class Event implements Serializable {
 		this.organiser = organiser;
 	}	
 	
-	public Set<User> getSubcribedUsers() {
-		return subscribedUsers;
+	public Set<User> getSubscribedUsers() {
+		return this.subscribedUsers;
 	}
 	
-	public void setSubcribedUsers(Set<User> subscribedUsers) {
+	public void setSubscribedUsers(Set<User> subscribedUsers) {
 		this.subscribedUsers = subscribedUsers;
 	}
 }

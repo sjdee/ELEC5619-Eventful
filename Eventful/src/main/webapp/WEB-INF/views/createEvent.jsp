@@ -23,28 +23,28 @@
 			<!--Description: <input type="text" name="description"/>-->
 			<div class="row">
 				<div class="input-field col s12">
-		        	<input id="title-field" type="text" class="validate" name="title">
+		        	<input id="title-field" type="text" class="validate" name="title" required>
 		        	<label for="title-field">Event Title*</label>
 		        </div>
 		    	<div class="input-field col s12">
-		        	<textarea id="description-area" class="materialize-textarea" name="description"></textarea>
+		        	<textarea id="description-area" class="materialize-textarea" name="description" required></textarea>
           			<label for="description-area">Description*</label>
 		    	</div>
 		    	<div class="input-field col s12">
-		        	<input id="location-field" type="text" class="validate" name="location">
+		        	<input id="location-field" type="text" class="validate" name="location" required>
 		        	<label for="location-field">Location*</label>
 		        </div>
 				<div class="input-field col s12">
-		        	<input id="people-field" type="number" min="1" class="validate" name="maxPeople">
-		        	<label for="people-field">Maximum People Allowed</label>
+		        	<input id="people-field" type="number" min="1" max="5000" class="validate" name="maxPeople" required>
+		        	<label for="people-field">Maximum People Allowed*</label>
 		        </div>
 		        <div class="input-field col s12">
-		        	<input id="date-field" type="text" class="datepicker" name="date" format="dd mm yyyy">
-		        	<label for="date-field">Pick date of the event</label>
+		        	<input id="date-field" type="text" class="datepicker" name="date" format="dd mm yyyy" required>
+		        	<label for="date-field">Pick date of the event*</label>
 		        </div>
 		        <div class="input-field col s12">
-		        	<input id="time-field" type="text" class="timepicker" name="time">
-		        	<label for="time-field">Pick time of the event</label>
+		        	<input id="time-field" type="text" class="timepicker" name="time" required>
+		        	<label for="time-field">Pick time of the event*</label>
 		        </div>
 		        <div class="input-field col s12">
 		        	<p>

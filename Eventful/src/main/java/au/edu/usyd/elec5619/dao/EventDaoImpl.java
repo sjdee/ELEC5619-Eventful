@@ -52,21 +52,21 @@ public class EventDaoImpl implements EventDao {
 	@Override
 	public void subscribe(User user, Event event) {
 		
-		event.getSubcribedUsers().add(user);
+		event.getSubscribedUsers().add(user);
 		
 	}
 	
 	@Override
 	public void unsubscribe(User user, Event event) {
 		
-		event.getSubcribedUsers().remove(user);
+		event.getSubscribedUsers().remove(user);
 		
 	}
 	
 	@Override
 	public boolean isSubscribed(User user, Event event) {
 		
-		return event.getSubcribedUsers().contains(user);
+		return event.getSubscribedUsers().contains(user);
 		
 	}
 
