@@ -10,4 +10,7 @@
 <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
 <fullyQualifiedTypeName name="org.springframework.security.core.Authentication"/>
 <fullyQualifiedTypeName name="java.security.Principal"/>
+<fullyQualifiedTypeName name="org.springframework.boot.context.properties.EnableConfigurationProperties"/>
+<fullyQualifiedTypeName name="au.edu.usyd.elec5619.property.FileStorageProperties"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.GenericGenerator"/>
 </qualifiedTypeNameHistroy>

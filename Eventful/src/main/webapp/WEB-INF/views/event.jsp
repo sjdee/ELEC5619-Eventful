@@ -37,7 +37,7 @@
 		<div class="col s6 offset-s3">
 			<div class="card">
 			
-				<div class="card-content">
+				<div class="card-content"  style="padding-top: 1.5em; padding-bottom: 0em;">
 					<div class="row valign-wrapper">
 		                <div class="col s2 pull-5">
 		                	<a href="/profile/${post.poster.id}"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
@@ -48,13 +48,17 @@
 		        		</div>
 			    	</div>
 				</div>
-					
-				<div class="card-image">
-					<img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
-					<span class="card-title">${post.title}</span>
-				</div>
-				
-				<div class="card-content">
+				<c:if test="${not empty post.imagePath}">
+					<div class="card-image">
+						<img src="${post.imagePath}">
+						
+						<span class="card-title">${post.title}</span>
+					</div>
+				</c:if>
+				<div class="card-content" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+					<c:if test="${empty post.imagePath}">
+						<span class="card-title grey-text">${post.title}</span>
+					</c:if>
 					<p style="margin-top: 0.5em; margin-bottom: 1.5em;">${post.description}</p>
 					<div class="card-panel row valign-wrapper post-bar">
 						<div class="valign-wrapper col s6 push-s8">
@@ -99,7 +103,7 @@
 	   		 	</div>
 	   		 	
 	   		 	<div class="card-action">
-	        		<form id="comment-form-${post.id}" action="/createComment/${post.id}" method="POST">
+	        		<form class="comment-form" id="comment-form-${post.id}" action="/createComment/${post.id}" method="POST">
 
 						<input type="text" name="contents" placeholder="Comment"/>
 						<input type="submit" value="Comment" style="display: none"/>

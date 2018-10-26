@@ -267,7 +267,8 @@ public class EventController {
 		Post post = new Post();
 		post.setTitle(httpServletRequest.getParameter("title"));
 		post.setDescription(httpServletRequest.getParameter("description"));
-
+		post.setImagePath(httpServletRequest.getParameter("filePath"));
+		
 		String userId = principal.getName();
 
 		postService.createPost(post, eventId, userId);
