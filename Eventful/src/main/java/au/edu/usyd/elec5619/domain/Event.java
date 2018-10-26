@@ -54,8 +54,8 @@ public class Event implements Serializable {
 	// 0 = One off; 1 = Daily; 3 = Weekly; 2= Fortnightly; 4 = Monthly	
 	public int repetition;
 	
-	@Column(name="eventImage")
-	public byte[] eventImage;
+	@Column(name="eventImagePath")
+	public String eventImagePath;
 	
 	@Column(name="numPosts")
 	public int numPosts;
@@ -134,12 +134,12 @@ public class Event implements Serializable {
 		this.repetition = repetition;
 	}
 	
-	public byte[] getEventImage(){
-		return this.eventImage;
+	public String getEventImagePath(){
+		return this.eventImagePath;
 	}
 	
-	public void setEventImage(byte[] eventImage){
-		this.eventImage = eventImage;
+	public void setEventImagePath(String eventImagePath){
+		this.eventImagePath = eventImagePath;
 	}
 	
 	public boolean getCancelled(){

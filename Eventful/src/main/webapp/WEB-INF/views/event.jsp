@@ -10,20 +10,25 @@
 
 <div class="center">
 	
-	<h1> ${model.event.title} </h1>
+	
+	<c:if test="${not empty model.event.eventImagePath}">
+		<div class="card-image">
+			<img src="${model.event.eventImagePath}">
+				<h1 class="card-title">${model.event.title}</h1>
+		</div>
+	</c:if>
 	
 	<a class="waves-effect waves-light btn-large ${model.ability}"
 	style="margin-top: 1em; margin-bottom: 1em;"
 	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">${model.buttonIcon}</i>${model.buttonValue}</a>
-	
+
 	
 	<h6> <b>Location:</b> ${model.event.location} </h6>
 	<h6> <b>When:</b> ${model.event.datetime} </h6>
 	<h6> <b>More info:</b> ${model.event.description} </h6>
 	
 	<h6> Maximum People allowed: ${model.event.maxPeople} </h6>
-	<h6> Frequency: ${model.repetition} </h6>
-	<img src="${model.event.eventImage}" alt="Event Image"> <p>
+	<h6> Frequency: ${model.repetition} </h6> <p>
 	
 	
 	<a class="waves-effect waves-light btn-large"

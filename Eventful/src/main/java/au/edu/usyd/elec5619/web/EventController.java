@@ -191,6 +191,7 @@ public class EventController {
 		event.setLocation(httpServletRequest.getParameter("location"));
 		event.setRepetition(Integer.parseInt(httpServletRequest.getParameter("repetition")));
 		event.setOrganiser(user);
+		event.setEventImagePath(httpServletRequest.getParameter("filePath"));
 
 		//formatting date
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
