@@ -1,0 +1,75 @@
+$(document).ready(function() {
+	
+	var filePath = "";
+	
+	$("#button").click(function(e) {
+	    e.preventDefault();
+	    $.ajax({
+	        type: "POST",
+	        url: "/pages/test/",
+	        data: { 
+	            id: $(this).val(), // < note use of 'this' here
+	            access_token: $("#access_token").val() 
+	        },
+	        success: function(result) {
+	            alert('ok');
+	        },
+	        error: function(result) {
+	            alert('error');
+	        }
+	    });
+	});
+		
+	$('#singleUploadForm').submit(function(event) {
+	    var formElement = this;
+	    // You can directly create form data from the form element
+	    // (Or you could get the files from input element and append them to FormData as we did in vanilla javascript)
+	    var formData = new FormData(formElement);
+
+	    //window.alert("something");
+	    
+	    $.ajax({
+	        type: "POST",
+	        enctype: 'multipart/form-data',
+	        url: "/uploadFile",
+	        data: formData,
+	        processData: false,
+	        contentType: false,
+	        success: function (response) {
+	            console.log(response);
+	            // process response
+	            //var singleFileUploadError = document.getElementById('uploaded-image');
+	            filePath = response.fileDownloadUri;
+	            //singleFileUploadError.innerHTML = filePath;
+	            document.getElementById('uploaded-image').setAttribute("src", filePath); 
+	            window.alert("Image uploaded successfully!");
+	        },
+	        error: function (error) {
+	            console.log(error);
+	            // process error
+	        }
+	    });
+
+	    event.preventDefault();
+	});
+	
+	$('#create-post').submit(function(event) {
+			
+	    //event.preventDefault();
+						
+		$(this).append('<input type="hidden" name="filePath" value="' + filePath + '">');
+		
+	    //window.alert(filePath);
+	    
+	});
+
+    // File Input Path
+    $(document).on('change', '.file-field input[type="file"]', function () {
+    	//window.alert("Selected file");
+    	
+    	$('#singleUploadForm').submit();
+    });
+	
+    
+    
+});

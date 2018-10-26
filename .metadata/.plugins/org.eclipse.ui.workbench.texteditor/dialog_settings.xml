@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="getCurre" key="selection"/>
+		<item value="file-field" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="getcurre"/>
-			<item value="poster_email"/>
-			<item value="timepo"/>
-			<item value="timeposeted"/>
-			<item value="csr"/>
-			<item value="cs"/>
-			<item value="numpos"/>
-			<item value="numpo"/>
-			<item value="numPosts"/>
-			<item value="registerurl"/>
-			<item value="return new ModelAndView(&quot;home&quot;);"/>
-			<item value="register"/>
-			<item value="/eventful"/>
-			<item value="eventdao"/>
-			<item value="redirect"/>
+			<item value="file-field"/>
+			<item value="input-field"/>
+			<item value="file-path"/>
+			<item value="input"/>
+			<item value="&lt;img"/>
+			<item value="&lt;img&gt;"/>
+			<item value="singleFileUploadError"/>
+			<item value="key"/>
+			<item value="innuo"/>
+			<item value="dbFileRepository"/>
+			<item value="filestorage"/>
+			<item value="dbfi"/>
+			<item value="storefile"/>
+			<item value="dbfile"/>
+			<item value="DBFile"/>
 		</list>
 		<list key="replacehistory">
+			<item value="File"/>
 			<item value=""/>
 		</list>
 	</section>
