@@ -32,9 +32,9 @@
 	<!-- Subscribed users avatars -->
 	<c:if test="${not empty model.event.subscribedUsers}">
 		<c:forEach var="user" items="${model.event.subscribedUsers}">
-			<c:if test="${not empty user.avatar}">
+			<c:if test="${not empty user.filePath}">
 				<div class="card-image">
-					<img src="${user.avatar}">		
+					<img src="${user.filePath}">		
 					<%-- <span class="card-title">${user.alias}</span> --%>
 				</div>
 			</c:if>
