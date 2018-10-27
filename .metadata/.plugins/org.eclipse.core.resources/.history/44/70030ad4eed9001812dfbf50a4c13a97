@@ -122,7 +122,9 @@ function loadPosts(eventId) {
     	  }
     	  
     	  for (i = 0; i < data.posts.length; i++) {
-    		      		  
+    		  
+    		  //window.alert(data.posts[i].isLiked);
+    		  
     		  oldestCommentIds[data.posts[i].id] = -1
     		  
     		  var t = document.querySelector('#test-template');
@@ -132,15 +134,15 @@ function loadPosts(eventId) {
     		  t.content.querySelector('a[class*="poster-alias-link"]').innerHTML = data.posts[i].poster.alias;
     		  t.content.querySelector('p[class*="time-post-posted"]').innerHTML = moment.utc(data.posts[i].timePosted).format('DD/MM/YY h:mm:ss a');
     		  t.content.querySelector('p[class*="post-description"]').innerHTML = data.posts[i].description;
-        	      		      		  
+        	      		  
+    		  window.alert(data.posts[i].imagePath);
+    		  
     		  if (!data.posts[i].imagePath) {
     			  t.content.querySelector('div[class*="post-img-card"]').style.display = "none";
-        		  t.content.querySelector('span[class*="post-text-title"]').style.display = ""
     		  } else {
         		  t.content.querySelector('img[class*="post-img"]').src = data.posts[i].imagePath;
         		  t.content.querySelector('span[class*="post-img-title"]').innerHTML = data.posts[i].title;
         		  t.content.querySelector('span[class*="post-text-title"]').style.display = "none"
-        		  t.content.querySelector('div[class*="post-img-card"]').style.display = "";
     		  }
     		  
     		  t.content.querySelector('span[class*="post-text-title"]').innerHTML = data.posts[i].title;
@@ -164,12 +166,6 @@ function loadPosts(eventId) {
     		  t.content.querySelector('a[class*="create-comment-button"]').setAttribute( "onClick", "event.preventDefault(); document.getElementById('comment-form-" + data.posts[i].id + "').submit();");
     		      		     		 
     		  t.content.querySelector('ul[class*="comments-anchor"]').id = "comment-anchor-" + data.posts[i].id;
-    		  
-    		  if (data.posts[i].comments.length == 0) {
-        		  t.content.querySelector('a[class*="load-comments-link"]').style.display = "none";
-    		  } else {
-        		  t.content.querySelector('a[class*="load-comments-link"]').style.display = ""; 
-    		  }
     		  
     		  t.content.querySelector('a[class*="load-comments-link"]').setAttribute( "onClick", "loadComments(" + data.posts[i].id + ");");
     		  
