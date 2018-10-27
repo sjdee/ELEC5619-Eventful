@@ -32,7 +32,7 @@ $(document).ready(function() {
 	    event.preventDefault();
 	});
 	
-	$('#create-post').submit(function(event) {
+	$('#create-post, #registerUser').submit(function(event) {
 									
 		$(this).append('<input type="hidden" name="filePath" value="' + filePath + '">');
 	    

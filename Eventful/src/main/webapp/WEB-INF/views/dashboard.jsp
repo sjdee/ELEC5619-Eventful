@@ -28,8 +28,17 @@
 						<div class="col s6 offset-s3">
 							<div class="card">
 								<div class="card-image">
-									<img
-										src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
+								<!-- NEW CODE: show event image if it exists, otherwise show stock image  -->
+									<c:if test="${empty event.eventImagePath}">
+										<img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
+									</c:if>
+									<c:if test="${not empty event.eventImagePath}">
+										<img src="${event.eventImagePath}">
+									</c:if>
+									
+									<!-- OLD CODE: Show stock image for all events  -->
+									<!-- <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg"> -->
+									
 									<span class="card-title"><a style="color:white;" href="event/${event.getId()}"><b>Event:</b> ${event.title}</a></span>
 								</div>
 		
@@ -151,8 +160,17 @@
 						<div class="col s6 offset-s3">
 							<div class="card">
 								<div class="card-image">
-									<img
-										src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
+								<!-- NEW CODE: show event image if it exists, otherwise show stock image  -->
+									<c:if test="${empty event.eventImagePath}">
+										<img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
+									</c:if>
+									<c:if test="${not empty event.eventImagePath}">
+										<img src="${event.eventImagePath}">
+									</c:if>
+									
+									<!-- OLD CODE: Show stock image for all events  -->
+									<!-- <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg"> -->
+									
 									<span class="card-title"><a style="color:white;" href="event/${event.getId()}"><b>Event:</b> ${event.title}</a></span>
 								</div>
 		

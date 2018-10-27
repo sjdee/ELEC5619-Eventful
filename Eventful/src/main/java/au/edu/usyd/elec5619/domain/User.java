@@ -40,8 +40,8 @@ public class User {
 	@Column(name = "alias", nullable=false)
 	public String alias;
 
-	@Column(name = "avatar", unique=true)
-	private byte[] avatar;
+	@Column(name = "filePath", unique=true)
+	private String filePath;
 
 	@Column(name = "bio")
 	private String bio;
@@ -124,6 +124,10 @@ public class User {
 		return this.subscribedEvents;
 	}
 	
+	public String getFilePath() {
+		return this.filePath;
+	}
+	
 	// Setters
 	public void setEmail(String email) {
 		this.email = email;
@@ -167,6 +171,9 @@ public class User {
 	
 	public void setSubscribedEvents(Set<Event> subscribedEvents) {
 		this.subscribedEvents = subscribedEvents;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 }

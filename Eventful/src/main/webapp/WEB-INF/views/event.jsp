@@ -3,32 +3,48 @@
 
 <html>
 <head>
-    <title>Event</title>
-    <%@ include file="header.jsp" %> 
+    <title>${model.event.title}</title>
+    <%@ include file="header.jsp" %>
 </head>
 <body>
 
 <div class="center">
-	
-	<h1> ${model.event.title} </h1>
-		
+
+	<c:if test="${not empty model.event.eventImagePath}">
+		<div class="card-image">
+			<img src="${model.event.eventImagePath}">
+		</div>
+	</c:if>
+
+	<h1>${model.event.title}</h1>
+
 	<a class="waves-effect waves-light btn-large ${model.ability}"
 	style="margin-top: 1em; margin-bottom: 1em;"
 	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">${model.buttonIcon}</i>${model.buttonValue}</a>
-	
-	
-	<h6> <b>Location:</b> ${model.event.location} </h6>
-	<h6> <b>When:</b> ${model.event.datetime} </h6>
-	<h6> <b>More info:</b> ${model.event.description} </h6>
-	
+
+	<h6> Location:<b>${model.event.location}</b></h6>
+	<h6> When: <b>${model.event.datetime}</b> </h6>
+	<h6> More info: ${model.event.description} </h6>
 	<h6> Maximum People allowed: ${model.event.maxPeople} </h6>
-	<h6> Frequency: ${model.repetition} </h6>
-	<img src="${model.event.eventImage}" alt="Event Image"> <p>
-	
-	
+	<h6> Frequency: ${model.repetition} </h6> <p>
+
+	<!-- Subscribed users avatars -->
+	<c:if test="${not empty model.event.subscribedUsers}">
+		<c:forEach var="user" items="${model.event.subscribedUsers}">
+			<c:if test="${not empty user.filePath}">
+				<span class="card-image avatar">
+					<img src="${user.filePath}" class="circle">
+				</span>
+				<%-- <span class="card-title">${user.alias}</span> --%>
+			</c:if>
+		</c:forEach>
+	</c:if>
+	<p>
 	<a class="waves-effect waves-light btn-large"
-	style="margin-top: 1em; margin-bottom: 1em;"
-	href="<c:url value="/createPost/${model.event.id}" />"><i class="material-icons left">cloud</i>Create a Post</a>
+		style="margin-top: 1em; margin-bottom: 1em;"
+		href="<c:url value="/createPost/${model.event.id}" />"><i class="material-icons left">cloud</i>Create a Post
+	</a>
+
 </div>
 
 <div id="post-anchor"></div>
@@ -37,7 +53,7 @@
 	<div class="row">
 		<div class="col s6 offset-s3">
 			<div class="card">
-			
+
 				<div class="card-content"  style="padding-top: 1.5em; padding-bottom: 0em;">
 					<div class="row valign-wrapper">
 		                <div class="col s2 pull-5">
@@ -52,7 +68,7 @@
 				<c:if test="${not empty post.imagePath}">
 					<div class="card-image">
 						<img src="${post.imagePath}">
-						
+
 						<span class="card-title">${post.title}</span>
 					</div>
 				</c:if>
@@ -76,8 +92,8 @@
 						</div>
 					</div>
 				</div>
-				
-				<div> 
+
+				<div>
 					<ul class="collection">
 						<c:forEach var="comment" items="${post.comments}">
 							<li>
@@ -100,18 +116,18 @@
 						</c:forEach>
 					</ul>
 	   		 	</div>
-	   		 	
+
 	   		 	<div class="card-action">
 	        		<form class="comment-form" id="comment-form-${post.id}" action="/createComment/${post.id}" method="POST">
 
 						<input type="text" name="contents" placeholder="Comment"/>
 						<input type="submit" value="Comment" style="display: none"/>
-					
+
 					</form>
 					<a href="/createComment/${post.id}"
 					onclick="event.preventDefault(); document.getElementById('comment-form-${post.id}').submit();" >Post Comment</a>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -135,7 +151,7 @@
 			</div>
 			<div class="card-image post-img-card">
 				<img class="post-img" src="#">
-				
+
 				<span class="card-title post-img-title">Post title</span>
 			</div>
 			<div class="card-content" style="padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -152,29 +168,29 @@
 					</div>
 				</div>
 			</div>
-			
-			<div> 
+
+			<div>
 				<ul class="comments-anchor collection" id="comment-anchor-id">
-			
+
 				</ul>
    		 	</div>
-   		 	
+
    		 	<div class="center" style="padding-bottom: 16px;">
    		 		<a class="load-comments-link" href="javascript:void(0)" onclick="loadComments(postId);">Load more comments...</a>
 			</div>
-			
+
 			<div class="card-action">
         		<form class="comment-form" id="comment-form-id" action="/createComment/postId" method="POST">
 
 					<input type="text" name="contents" placeholder="Comment"/>
 					<input type="submit" value="Comment" style="display: none"/>
-				
+
 				</form>
-				
+
 				<a class="create-comment-button" href="/createComment/postId"
 				onclick="event.preventDefault(); document.getElementById('comment-form-postId').submit();" >Post Comment</a>
 			</div>
-			
+
 		</div>
 	</div>
 </div>
@@ -192,13 +208,13 @@
 	          		<a class="commenter-alias-link" href="/profile/userId"> User Alias </a><br><span class="comment-contents">Comment contents</span>
 	          		<div class="valign-wrapper">
 	          			<a class="like-comment-link" href="javascript:void(0)" onclick="likeComment(commentId);"><span id="comment-like-icon-commentIdd" class="mdi mdi-thumb-up comment-like-icon" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
-	           			<span class="num-comment-likes" style="font-size: 0.8em" id="comment-likes-postId"> numLikes Likes </span> &nbsp;&middot;&nbsp;<p class="grey-text comment-date" style="font-size:0.8em"></p> 
+	           			<span class="num-comment-likes" style="font-size: 0.8em" id="comment-likes-postId"> numLikes Likes </span> &nbsp;&middot;&nbsp;<p class="grey-text comment-date" style="font-size:0.8em"></p>
 	        		</div>
 	          </span>
 	  		  </div>
 		</div>
 	</li>
-	
+
 </template>
 
 <center style="padding-bottom: 2em;">
@@ -206,6 +222,6 @@
 </center>
 
 <script>loadPosts(${model.event.id});</script>
-<%@ include file="footer.jsp" %> 
+<%@ include file="footer.jsp" %>
 </body>
 </html>
