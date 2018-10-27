@@ -7,9 +7,10 @@ $(document).ready(function() {
 	$('#singleUploadForm').submit(function(event) {
 	    var formElement = this;
 	    // You can directly create form data from the form element
-	    // (Or you could get the files from input element and append them to FormData as we did in vanilla javascript)
+	    // (Or you could get the files from input element and append them to
+		// FormData as we did in vanilla javascript)
 	    var formData = new FormData(formElement);
-	    
+
 	    $.ajax({
 	        type: "POST",
 	        enctype: 'multipart/form-data',
@@ -47,7 +48,8 @@ $(document).ready(function() {
 	$('#singleUploadForm').submit(function(event) {
 	    var formElement = this;
 	    // You can directly create form data from the form element
-	    // (Or you could get the files from input element and append them to FormData as we did in vanilla javascript)
+	    // (Or you could get the files from input element and append them to
+		// FormData as we did in vanilla javascript)
 	    var formData = new FormData(formElement);
 	    
 	    $.ajax({
@@ -149,7 +151,8 @@ function loadPosts(eventId) {
     		  t.content.querySelector('span[class*="like-post-icon"]').id = "post-like-icon-" + data.posts[i].id;
     		  
     		  t.content.querySelector('span[class*="like-post-icon"]').id = "post-like-icon-" + data.posts[i].id;
-    		  //updateLikeIcon(t.content.querySelector('span[class*="like-post-icon"]'), data.posts[i].isLiked);
+    		  // updateLikeIcon(t.content.querySelector('span[class*="like-post-icon"]'),
+				// data.posts[i].isLiked);
     		  t.content.querySelector('span[class*="post-likes-count"]').id = "post-likes-" + data.posts[i].id;
     		  t.content.querySelector('span[class*="post-likes-count"]').innerHTML = data.posts[i].numLikes + " Likes";
     		  
@@ -176,7 +179,9 @@ function loadPosts(eventId) {
     		  t.content.querySelector('a[class*="load-comments-link"]').id = "load-comments-link-" + data.posts[i].id;
     		  
         	  // add to document DOM
-        	  var clone = document.importNode(t.content, true); // where true means deep copy
+        	  var clone = document.importNode(t.content, true); // where true
+																// means deep
+																// copy
         	  document.getElementById("post-anchor").appendChild(clone);
         	  
         	  var commentAnchor = document.getElementById("comment-anchor-" + data.posts[i].id);
@@ -253,7 +258,8 @@ function loadComment(comment, commentAnchor, postId) {
 			
 	t.content.querySelector('span[class*="comment-like-icon"]').id = "comment-like-icon-" + comment.id;
 
-	//updateLikeIcon(t.content.querySelector('#comment-like-icon-' + comment.id), true);
+	// updateLikeIcon(t.content.querySelector('#comment-like-icon-' +
+	// comment.id), true);
 		
 	t.content.querySelector('span[class*="num-comment-likes"]').id = "comment-likes-" + comment.id;
 	
@@ -263,7 +269,8 @@ function loadComment(comment, commentAnchor, postId) {
 
 	
 	// add to document DOM
-	var clone = document.importNode(t.content, true); // where true means deep copy
+	var clone = document.importNode(t.content, true); // where true means deep
+														// copy
 	commentAnchor.appendChild(clone);
 	
 }

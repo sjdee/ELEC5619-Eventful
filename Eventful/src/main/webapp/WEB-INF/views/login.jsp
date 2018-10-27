@@ -31,8 +31,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<button class="btn waves-effect waves-light" type="submit"
-						name="Submit" value="Login" style="padding-left: 10px; padding-right: 10px;">Login</button>
+					<button id="login" class="btn waves-effect waves-light"
+						type="submit" name="Submit" value="Login"
+						style="padding-left: 10px; padding-right: 10px;">Login</button>
 				</div>
 			</form>
 		</div>
@@ -43,8 +44,6 @@
 			style="margin-top: 1em; margin-bottom: 1em;"
 			href="<c:url value="/forgot" />">Forgot Password</a>
 	</div>
-
-
 	<%@ include file="footer.jsp"%>
 </body>
 </html>

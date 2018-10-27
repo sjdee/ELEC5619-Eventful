@@ -112,11 +112,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Google Mail External API Dependencies -->
+		<!-- Mail External API Dependencies -->
 		<dependency>
-			<groupId>com.google.apis</groupId>
-			<artifactId>google-api-services-gmail</artifactId>
-			<version>v1-rev96-1.25.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
