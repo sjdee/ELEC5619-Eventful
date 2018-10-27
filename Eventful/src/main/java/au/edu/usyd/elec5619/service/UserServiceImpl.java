@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
+	//@Transactional
 	public User getUserByEmail(String email) {
 		return this.userDAO.getUserByEmail(email);
 	}
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
+		
 		return getUserByEmail(auth.getName());
 	}
 

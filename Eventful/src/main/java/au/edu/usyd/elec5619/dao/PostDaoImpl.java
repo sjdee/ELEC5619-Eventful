@@ -1,5 +1,6 @@
 package au.edu.usyd.elec5619.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,7 +15,7 @@ import au.edu.usyd.elec5619.domain.Event;
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 
-@Transactional
+//@Transactional
 @Repository
 public class PostDaoImpl implements PostDao {
 
@@ -29,6 +30,7 @@ public class PostDaoImpl implements PostDao {
 		
 	}
 	
+	@Transactional
 	@Override
 	public List<Post> loadPosts(int eventId, int oldestPostId, int numPosts) {
 		
@@ -49,8 +51,10 @@ public class PostDaoImpl implements PostDao {
 		return postQuery.getResultList();
 	}
 	
+	//@Transactional
 	@Override
 	public List<Comment> loadComments(int postId, int oldestCommentId, int numComments) {
+		
 		
 		String hql = "FROM Comment c WHERE c.id < ?1 and c.post.id = ?2 order by c.id desc";
 		
@@ -69,6 +73,7 @@ public class PostDaoImpl implements PostDao {
 		return commentQuery.getResultList();
 	}
 	
+	@Transactional
 	@Override
 	public void incrementNumPosts(int eventId) {
 		
@@ -82,6 +87,7 @@ public class PostDaoImpl implements PostDao {
 						
 	}
 	
+	@Transactional
 	@Override
 	public void incrementNumComments(int postId) {
 		
@@ -95,6 +101,7 @@ public class PostDaoImpl implements PostDao {
 						
 	}
 	
+	@Transactional
 	@Override
 	public void createComment(Comment comment) {
 				
@@ -102,6 +109,7 @@ public class PostDaoImpl implements PostDao {
 		
 	}
 
+	//@Transactional
 	@Override
 	public boolean getUserLikedComment(int commentId, long userId) {
 		
@@ -115,6 +123,7 @@ public class PostDaoImpl implements PostDao {
 		return (likeQuery.getResultList().size() != 0);
 	}
 	
+	@Transactional
 	@Override
 	public void incrementNumCommentLikes(int commentId) {
 		// TODO Auto-generated method stub
@@ -128,6 +137,7 @@ public class PostDaoImpl implements PostDao {
 		query.executeUpdate();
 	}
 
+	@Transactional
 	@Override
 	public void decrementNumCommentLikes(int commentId) {
 		// TODO Auto-generated method stub
@@ -141,6 +151,7 @@ public class PostDaoImpl implements PostDao {
 		query.executeUpdate();
 	}
 	
+	@Transactional
 	@Override
 	public void saveCommentLike(int commentId, long userId) {
 
@@ -152,6 +163,7 @@ public class PostDaoImpl implements PostDao {
 		entityManager.persist(user);
 	}
 	
+	@Transactional
 	@Override
 	public void removeCommentLike(int commentId, long userId) {
 
@@ -163,6 +175,7 @@ public class PostDaoImpl implements PostDao {
 		entityManager.persist(user);
 	}
 
+	@Transactional
 	@Override
 	public void savePostLike(int postId, long userId) {
 
@@ -174,6 +187,7 @@ public class PostDaoImpl implements PostDao {
 		entityManager.persist(user);
 	}
 	
+	@Transactional
 	@Override
 	public void removePostLike(int postId, long userId) {
 
@@ -185,6 +199,7 @@ public class PostDaoImpl implements PostDao {
 		entityManager.persist(user);
 	}
 	
+	@Transactional
 	@Override
 	public void incrementNumPostLikes(int postId) {
 				
@@ -197,6 +212,7 @@ public class PostDaoImpl implements PostDao {
 		query.executeUpdate();
 	}
 	
+	@Transactional
 	@Override
 	public void decrementNumPostLikes(int postId) {
 						
@@ -210,6 +226,7 @@ public class PostDaoImpl implements PostDao {
 		
 	}
 	
+	//@Transactional
 	@Override
 	public boolean getUserLikedPost(int postId, long userId) {
 		
@@ -223,6 +240,7 @@ public class PostDaoImpl implements PostDao {
 		return (likeQuery.getResultList().size() != 0);
 	}
 	
+	@Transactional
 	@Override
 	public Post getPostById(int id) {
 		
@@ -231,6 +249,7 @@ public class PostDaoImpl implements PostDao {
 		return post;
 	}
 	
+	@Transactional
 	@Override
 	public Comment getCommentById(int id) {
 		Comment comment = entityManager.find(Comment.class, id);

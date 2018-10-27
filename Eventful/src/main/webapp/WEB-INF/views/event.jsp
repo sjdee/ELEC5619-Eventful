@@ -64,7 +64,7 @@
 					<div class="card-panel row valign-wrapper post-bar">
 						<div class="valign-wrapper col s6 push-s8">
 							<!--<a href="/likePost/${post.id}" onclick="event.preventDefault(); document.getElementById('post-like-form-${post.id}').submit();" ><i class="small material-icons" style="margin-right: 0.5em;">thumb-up-outline</i></a>-->
-							<a href="javascript:void(0)" onclick="likePost(${post.id});"><span id="post-like-icon-${post.id}" class="mdi mdi-thumb-up-outline" style="font-size:2em; margin-right: 0.5em;"></span></a>
+							<a href="javascript:void(0)" onclick="likePost(${post.id});"><span id="post-like-icon-${post.id}" class="mdi mdi-thumb-up" style="font-size:2em; margin-right: 0.5em;"></span></a>
 							<span id="post-likes-${post.id}"> ${post.numLikes} Likes </span>
 							<form action="/likePost/${post.id}" method="post" id="post-like-form-${post.id}">
 							    <button name="foo" value="Like" style="display: none"></button>
@@ -89,7 +89,7 @@
 						            	<span class="black-text">
 						               		<a href="/profile/${comment.commenter.id}">${comment.commenter.alias}</a><br> ${comment.contents}<br>
 						               		<div class="valign-wrapper">
-						               			<a href="javascript:void(0)" onclick="likeComment(${comment.id});"><span id="comment-like-icon-${comment.id}" class="mdi mdi-thumb-up-outline" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
+						               			<a href="javascript:void(0)" onclick="likeComment(${comment.id});"><span id="comment-like-icon-${comment.id}" class="mdi mdi-thumb-up" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
 							               		<span style="font-size: 0.8em" id="comment-likes-${post.id}"> ${comment.numLikes} Likes </span>
 												&nbsp;&middot;&nbsp;<p class="grey-text" style="font-size:0.8em"><fmt:formatDate value="${comment.timePosted}" pattern="dd/MM/yy 'at' hh:mm a" /></p>
 						            		</div>
@@ -143,7 +143,7 @@
 				<p class="post-description" style="margin-top: 0.5em; margin-bottom: 1.5em;"> Description </p>
 				<div class="card-panel row valign-wrapper post-bar">
 					<div class="valign-wrapper col s6 push-s8">
-						<a class="like-post-button" href="javascript:void(0)" onclick="likePost(POSTID);"><span id="post-like-icon-postId" class="mdi mdi-thumb-up-outline like-post-icon" style="font-size:2em; margin-right: 0.5em;"></span></a>
+						<a class="like-post-button" href="javascript:void(0)" onclick="likePost(POSTID);"><span id="post-like-icon-postId" class="mdi mdi-thumb-up like-post-icon" style="font-size:2em; margin-right: 0.5em;"></span></a>
 						<span class="post-likes-count" id="post-likes-postId"> NumLikes Likes </span>
 					</div>
 					<div class="valign-wrapper col s6 pull-s4">
@@ -160,7 +160,7 @@
    		 	</div>
    		 	
    		 	<div class="center" style="padding-bottom: 16px;">
-   		 		<a class="like-comment-link" href="javascript:void(0)" onclick="loadComments(postId);">Load more comments...</a>
+   		 		<a class="load-comments-link" href="javascript:void(0)" onclick="loadComments(postId);">Load more comments...</a>
 			</div>
 			
 			<div class="card-action">
@@ -191,7 +191,7 @@
 	       	  <span class="black-text">
 	          		<a class="commenter-alias-link" href="/profile/userId"> User Alias </a><br><span class="comment-contents">Comment contents</span>
 	          		<div class="valign-wrapper">
-	          			<a class="like-comment-link" href="javascript:void(0)" onclick="likeComment(commentId);"><span id="comment-like-icon-commentIdd" class="mdi mdi-thumb-up-outline comment-like-icon" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
+	          			<a class="like-comment-link" href="javascript:void(0)" onclick="likeComment(commentId);"><span id="comment-like-icon-commentIdd" class="mdi mdi-thumb-up comment-like-icon" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
 	           			<span class="num-comment-likes" style="font-size: 0.8em" id="comment-likes-postId"> numLikes Likes </span> &nbsp;&middot;&nbsp;<p class="grey-text comment-date" style="font-size:0.8em"></p> 
 	        		</div>
 	          </span>
@@ -201,10 +201,11 @@
 	
 </template>
 
-<center>
-	<a href="javascript:void(0)" onclick="loadPosts(${model.event.id});">Load more posts...</a>
+<center style="padding-bottom: 2em;">
+	<a id="load-posts-link" href="javascript:void(0)" onclick="loadPosts(${model.event.id});">Load more posts...</a>
 </center>
 
+<script>loadPosts(${model.event.id});</script>
 <%@ include file="footer.jsp" %> 
 </body>
 </html>

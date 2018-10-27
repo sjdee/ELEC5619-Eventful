@@ -35,6 +35,8 @@ import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 import au.edu.usyd.elec5619.payload.LikeRequest;
 import au.edu.usyd.elec5619.payload.LikeResponse;
+import au.edu.usyd.elec5619.payload.LoadCommentResponse;
+import au.edu.usyd.elec5619.payload.LoadCommentsRequest;
 import au.edu.usyd.elec5619.payload.LoadPostResponse;
 import au.edu.usyd.elec5619.payload.LoadPostsRequest;
 import au.edu.usyd.elec5619.service.EventService;
@@ -355,10 +357,6 @@ public class EventController {
         //If error, just return a 400 bad request, along with the error message
         if (errors.hasErrors()) {
 
-            /*result.setMsg(errors.getAllErrors()
-                        .stream().map(x -> x.getDefaultMessage())
-                        .collect(Collectors.joining(",")));*/
-
             return ResponseEntity.badRequest().body(result);
 
         }
@@ -369,7 +367,7 @@ public class EventController {
 	
 	@PostMapping("/loadPosts/")
     public ResponseEntity<?> loadPostsAjax(
-    		@Valid @RequestBody LoadPostsRequest postRequest, Errors errors) {
+    		@Valid @RequestBody LoadPostsRequest postRequest, Errors errors, Principal principal) {
 
 		int oldestPostId = postRequest.getOldestPostId();
 				
@@ -379,18 +377,6 @@ public class EventController {
 		
 		List<Post> postList = postService.loadPosts(postRequest.getEventId(), oldestPostId);
 				
-		Comment comment = new Comment();
-		
-		comment.setContents("Fake contents");
-		comment.setCommenter(userService.getCurrentUser());
-		comment.getTimePosted();
-		comment.setId(1);
-		comment.setNumLikes(69);
-		
-		List<Comment> comments = new ArrayList<Comment>();
-		
-		comments.add(comment);
-		
 		for (int i = 0; i < postList.size(); i ++) {
 			
 			//User poster = new User();
@@ -401,28 +387,64 @@ public class EventController {
 			postList.get(i).setComments(null);
 			postList.get(i).setEvent(null);
 			postList.get(i).setLikedUsers(null);
-			postList.get(i).setComments(new HashSet<Comment>(comments));
-		
-			//postList.get(i).setComments(new HashSet<Comment>(postService.loadComments(postList.get(i).getId(), -1)));
+			
+			Boolean isLiked = false;
+						
+			isLiked = postService.getUserLikedPost(postList.get(i).getId(), 0);
+			
+			postList.get(i).setIsLiked(isLiked);
+			
+			List<Comment> loadedComments = postService.loadComments(postList.get(i).getId(), -1);
+			
+			for (int k = 0; k < loadedComments.size(); k ++) {
+			
+				//loadedComments.get(k).setCommenter(null);
+				loadedComments.get(k).setLikedUsers(null);
+				loadedComments.get(k).setPost(null);
+				
+			}
+			
+			postList.get(i).setComments(loadedComments);
 		}
 		
 		result.setPosts(postList);
 		
-		/*List<Post> postList = new ArrayList<Post>();
-		
-		Post post = new Post();
-		post.setTitle("something");
-		
-		postList.add(post);
-		
-		result.setPosts(postList);*/
-		
         //If error, just return a 400 bad request, along with the error message
         if (errors.hasErrors()) {
 
-            /*result.setMsg(errors.getAllErrors()
-                        .stream().map(x -> x.getDefaultMessage())
-                        .collect(Collectors.joining(",")));*/
+            return ResponseEntity.badRequest().body(result);
+
+        }
+		
+        return ResponseEntity.ok(result);
+
+    }
+	
+	@PostMapping("/loadComments/")
+    public ResponseEntity<?> loadCommentsAjax(
+    		@Valid @RequestBody LoadCommentsRequest commentsRequest, Errors errors) {
+
+		int oldestCommentId = commentsRequest.getOldestCommentId();
+				
+		LoadCommentResponse result = new LoadCommentResponse();
+				
+		List<Comment> loadedComments = postService.loadComments(commentsRequest.getPostId(), oldestCommentId);
+		
+		for (int i = 0; i < loadedComments.size(); i ++) {
+			
+			Boolean isLiked = postService.getUserLikedComment(loadedComments.get(i).getId(), 0);
+
+			loadedComments.get(i).setIsLiked(isLiked);
+			
+			loadedComments.get(i).setLikedUsers(null);
+			loadedComments.get(i).setPost(null);
+				
+		}
+		
+		result.setComments(loadedComments);
+		
+        //If error, just return a 400 bad request, along with the error message
+        if (errors.hasErrors()) {
 
             return ResponseEntity.badRequest().body(result);
 

@@ -30,6 +30,10 @@ public class Comment implements Serializable {
 	@Column(name="numLikes")
 	private int numLikes;
 	
+	// Non column variable denoting whether current user has liked a post
+	@Transient
+	private Boolean isLiked;
+	
 	@JoinColumn(name = "commenter_email")
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private User commenter;
@@ -98,6 +102,14 @@ public class Comment implements Serializable {
 
 	public void setNumLikes(int numLikes) {
 		this.numLikes = numLikes;
+	}
+
+	public Boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setIsLiked(Boolean isLiked) {
+		this.isLiked = isLiked;
 	}
 	
 }

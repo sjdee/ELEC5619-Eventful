@@ -25,6 +25,9 @@ public interface PostService {
 	
 	public Comment getCommentById(int commentId);
 	
-	public Boolean getUserLikedPost(int postId, String userEmail);
+	public Boolean getUserLikedPost(int postId, long userId);
+	
+	public Boolean getUserLikedComment(int commentId, long userId);
+
 	
 }

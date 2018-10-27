@@ -1,0 +1,163 @@
+package au.edu.usyd.elec5619.domain;
+
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Data
+@Entity
+@Table(name="Post")
+public class Post implements Serializable {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="id")
+	private int id;
+	
+	@Column(name="title")
+	private String title;
+	
+	@Column(name="description")
+	private String description;
+	
+	@Column(name="timePosted")
+	private Date timePosted;
+	
+	@Column(name="imagePath")
+	private String imagePath;
+
+	// Non column variable denoting whether current user has liked a post
+	private Boolean isLiked;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="post")
+	private List<Comment> comments;
+	
+	@JoinColumn(name = "event_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Event event;
+	
+	@JoinColumn(name = "poster_email")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private User poster;
+	
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likedPosts")
+    private Set<User> likedUsers;
+	
+	@Column(name="numComments")
+	private int numComments;
+	
+	@Column(name="numLikes")
+	private int numLikes;
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getTimePosted() {
+		return timePosted;
+	}
+
+	public void setTimePosted(Date timePosted) {
+		this.timePosted = timePosted;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public int getNumComments() {
+		return numComments;
+	}
+
+	public void setNumComments(int numComments) {
+		this.numComments = numComments;
+	}
+
+	public int getNumLikes() {
+		return numLikes;
+	}
+
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
+	}
+
+	public User getPoster() {
+		return poster;
+	}
+
+	public void setPoster(User poster) {
+		this.poster = poster;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public Set<User> getLikedUsers() {
+		return likedUsers;
+	}
+
+	public void setLikedUsers(Set<User> likedUsers) {
+		this.likedUsers = likedUsers;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public Boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setIsLiked(Boolean isLiked) {
+		this.isLiked = isLiked;
+	}
+	
+}

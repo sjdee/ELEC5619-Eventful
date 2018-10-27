@@ -15,7 +15,7 @@ import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 import au.edu.usyd.elec5619.payload.LikeResponse;
 
-@Transactional
+//@Transactional
 @Service
 public class PostServiceImpl implements PostService {
 	
@@ -39,11 +39,13 @@ public class PostServiceImpl implements PostService {
 		this.postDao = postDao;
 	}
 	
+	
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	
+	@Transactional
 	@Override
 	public void createPost(Post post, int eventId, String userId) {
 		
@@ -61,6 +63,7 @@ public class PostServiceImpl implements PostService {
 		
 	}
 
+	@Transactional
 	@Override
 	public void createComment(Comment comment, int postId, String userEmail) {
 		// TODO Auto-generated method stub
@@ -79,6 +82,7 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public LikeResponse likePost(int postId, User user) {
 				
@@ -149,15 +153,23 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	
+	//@Transactional
 	@Override
-	public Boolean getUserLikedPost(int postId, String userEmail) {
-						
-		User currentUser = userService.getUserByEmail(userEmail);
-		
-		return postDao.getUserLikedPost(postId, currentUser.getId());
+	public Boolean getUserLikedPost(int postId, long userId) {
+								
+		return postDao.getUserLikedPost(postId, userId);
 				
 	}
-
+	
+	//@Transactional
+	@Override
+	public Boolean getUserLikedComment(int commentId, long userId) {
+								
+		return postDao.getUserLikedComment(commentId, userId);
+				
+	}
+	
+	@Transactional
 	@Override
 	public Post getPostById(int postId) {
 		
@@ -165,6 +177,7 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public Comment getCommentById(int commentId) {
 		
@@ -172,6 +185,7 @@ public class PostServiceImpl implements PostService {
 		
 	}
 
+	@Transactional
 	@Override
 	public List<Post> loadPosts(int eventId, int oldestPostId) {
 		

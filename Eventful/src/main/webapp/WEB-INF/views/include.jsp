@@ -3,6 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script src="https://momentjs.com/downloads/moment.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="<c:url value="/materialize/css/materialize.min.css" />" rel="stylesheet">
 <script src="<c:url value="/materialize/js/materialize.min.js" />"></script>

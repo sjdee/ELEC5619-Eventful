@@ -1,5 +1,6 @@
 var filePath = "";
 var oldestPostId = -1;
+var oldestCommentIds = {}
 
 $(document).ready(function() {
 	
@@ -59,7 +60,6 @@ $(document).ready(function() {
 	        success: function (response) {
 	            filePath = response.fileDownloadUri;
 	            
-	            window.alert("Image uploaded successfully!");
 	        },
 	        error: function (error) {
 	            console.log(error);
@@ -115,17 +115,24 @@ function loadPosts(eventId) {
       cache: false,
       timeout: 600000,
       success: function (data) {
+    	            
+    	  if (data.posts.length == 0) {
+    		  
+    		  document.getElementById("load-posts-link").style.display = "none";
+    	  }
     	  
-    	  //window.alert("WEWLAD: " + data.testString);
-    	  //window.alert("WEWEE: " + data.posts[0].title);
-          
     	  for (i = 0; i < data.posts.length; i++) {
+    		  
+    		  //window.alert(data.posts[i].isLiked);
+    		  
+    		  oldestCommentIds[data.posts[i].id] = -1
+    		  
     		  var t = document.querySelector('#test-template');
         	  
     		  t.content.querySelector('a[class*="poster-img-link"]').href = "/profile/" + data.posts[i].poster.id;
     		  t.content.querySelector('a[class*="poster-alias-link"]').href = "/profile/" + data.posts[i].poster.id;
     		  t.content.querySelector('a[class*="poster-alias-link"]').innerHTML = data.posts[i].poster.alias;
-    		  t.content.querySelector('p[class*="time-post-posted"]').innerHTML = data.posts[i].timePosted;
+    		  t.content.querySelector('p[class*="time-post-posted"]').innerHTML = moment.utc(data.posts[i].timePosted).format('DD/MM/YY h:mm:ss a');
     		  t.content.querySelector('p[class*="post-description"]').innerHTML = data.posts[i].description;
         	      		  
     		  if (data.posts[i].imagePath === null || data.posts[i].imagePath == "") {
@@ -142,7 +149,7 @@ function loadPosts(eventId) {
     		  t.content.querySelector('span[class*="like-post-icon"]').id = "post-like-icon-" + data.posts[i].id;
     		  
     		  t.content.querySelector('span[class*="like-post-icon"]').id = "post-like-icon-" + data.posts[i].id;
-    		  updateLikeIcon(t.content.querySelector('span[class*="like-post-icon"]'), data.posts[i].isLiked);
+    		  //updateLikeIcon(t.content.querySelector('span[class*="like-post-icon"]'), data.posts[i].isLiked);
     		  t.content.querySelector('span[class*="post-likes-count"]').id = "post-likes-" + data.posts[i].id;
     		  t.content.querySelector('span[class*="post-likes-count"]').innerHTML = data.posts[i].numLikes + " Likes";
     		  
@@ -158,12 +165,21 @@ function loadPosts(eventId) {
     		      		     		 
     		  t.content.querySelector('ul[class*="comments-anchor"]').id = "comment-anchor-" + data.posts[i].id;
     		  
+    		  t.content.querySelector('a[class*="load-comments-link"]').setAttribute( "onClick", "loadComments(" + data.posts[i].id + ");");
+    		  
+    		  t.content.querySelector('a[class*="load-comments-link"]').id = "load-comments-link-" + data.posts[i].id;
+    		  
         	  // add to document DOM
         	  var clone = document.importNode(t.content, true); // where true means deep copy
         	  document.getElementById("post-anchor").appendChild(clone);
         	  
         	  var commentAnchor = document.getElementById("comment-anchor-" + data.posts[i].id);
-        	  loadComment(data.posts[i].comments[0], commentAnchor);
+        	  
+        	  for (var k = 0; k < data.posts[i].comments.length; k ++) {
+        		  loadComment(data.posts[i].comments[k], commentAnchor, data.posts[i].id);
+        	  }   	
+        	  
+        	  oldestPostId = data.posts[i].id;
         	  
     	  } 
     	  
@@ -178,23 +194,67 @@ function loadPosts(eventId) {
 
 }
 
-function loadComment(comment, commentAnchor) {
+function loadComments(postId) {
+	
+  var commentRequest = {}
+  commentRequest["postId"] = postId;
+  commentRequest["oldestCommentId"] = oldestCommentIds[postId];
+  
+  $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/loadComments/",
+      data: JSON.stringify(commentRequest),
+      dataType: 'json',
+      cache: false,
+      timeout: 600000,
+      success: function (data) {
+    	            
+    	  var commentAnchor = document.getElementById("comment-anchor-" + postId);
+    	  
+    	  for (i = 0; i < data.comments.length; i++) {
+    		  loadComment(data.comments[i], commentAnchor, postId);
+    	  } 
+    	  
+    	  if (data.comments.length == 0) {
+    		  document.getElementById("load-comments-link-" + postId).style.display = "none";
+    	  }
+    	  
+      },
+      error: function (e) {
+
+          window.alert("ERROR : " + JSON.stringify(e));
+    	  console.log(e);
+
+      }
+  });
+
+}
+
+function loadComment(comment, commentAnchor, postId) {
+	
+	oldestCommentIds[postId] = comment.id;
 	
 	var t = document.querySelector('#comment-template');
 	
-	t.content.querySelector('span[class*="comment-contents"]').innerHTML = "something";
+	t.content.querySelector('span[class*="comment-contents"]').innerHTML = comment.contents;
 	t.content.querySelector('a[class*="commenter-img-link"]').href = "/profile/" + comment.commenter.id;
-	t.content.querySelector('a[class*="commenter-alias-link"]').innerHTML = "/profile/" + comment.commenter.id;
+	t.content.querySelector('a[class*="commenter-alias-link"]').href = "/profile/" + comment.commenter.id;
 
 	t.content.querySelector('a[class*="commenter-alias-link"]').innerHTML = comment.commenter.alias;
-		
+
 	t.content.querySelector('a[class*="like-comment-link"]').setAttribute( "onClick", "likeComment(" + comment.id + ");");
-		
+			
 	t.content.querySelector('span[class*="comment-like-icon"]').id = "comment-like-icon-" + comment.id;
 
-	updateLikeIcon(t.content.querySelector('#comment-like-icon-' + comment.id), true);
+	//updateLikeIcon(t.content.querySelector('#comment-like-icon-' + comment.id), true);
 		
+	t.content.querySelector('span[class*="num-comment-likes"]').id = "comment-likes-" + comment.id;
+	
 	t.content.querySelector('span[class*="num-comment-likes"]').innerHTML = comment.numLikes + " Likes";
+	
+	t.content.querySelector('p[class*="comment-date"]').innerHTML = moment.utc(comment.timePosted).format('DD/MM/YY h:mm:ss a');
+
 	
 	// add to document DOM
 	var clone = document.importNode(t.content, true); // where true means deep copy
