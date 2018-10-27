@@ -20,4 +20,8 @@ public interface EventService {
 	public boolean checkSubscription(User user, Event event);
 	
 	public void cancelEvent(User user, Event event);
+	
+	public List<Event> getAllEventResults();
+	
+	public List<Event> getSearchEventResults(String searchQuery);
 }
