@@ -43,7 +43,7 @@ public class Post implements Serializable {
 	// Non column variable denoting whether current user has liked a post
 	private Boolean isLiked;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="post")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="post")
 	private Set<Comment> comments;
 	
 	@JoinColumn(name = "event_id")

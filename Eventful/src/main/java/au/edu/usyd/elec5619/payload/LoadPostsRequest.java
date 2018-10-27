@@ -4,14 +4,23 @@ import java.util.Date;
 
 public class LoadPostsRequest {
 
-    Date oldestPostDate;
+	int eventId;
+    int oldestPostId;
 
-	public Date getOldestPostDate() {
-		return oldestPostDate;
+	public int getOldestPostId() {
+		return oldestPostId;
 	}
 
-	public void setOldestPostDate(Date oldestPostDate) {
-		this.oldestPostDate = oldestPostDate;
+	public void setOldestPostId(int oldestPostId) {
+		this.oldestPostId = oldestPostId;
+	}
+
+	public int getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
     
 }

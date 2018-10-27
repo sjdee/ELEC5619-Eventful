@@ -172,7 +172,7 @@ class MySpringSessionApplication {
       <name>Mark Pollack</name>
     </author>
     <id>tag:spring.io,2018-10-25:3448</id>
-    <updated>2018-10-25T18:32:20Z</updated>
+    <updated>2018-10-25T18:32:00Z</updated>
     <content type="html">&lt;div class="paragraph"&gt;
 &lt;p&gt;The &lt;a href="https://cloud.spring.io/spring-cloud-dataflow/"&gt;Spring Cloud Data Flow&lt;/a&gt; team is pleased to announce the release of &lt;code&gt;1.7.0&lt;/code&gt;. Follow the &lt;em&gt;Getting Started&lt;/em&gt; guides for &lt;a href="https://docs.spring.io/spring-cloud-dataflow/docs/1.7.0.RELEASE/reference/htmlsingle/#getting-started"&gt;Local Server&lt;/a&gt;, &lt;a href="https://docs.spring.io/spring-cloud-dataflow-server-cloudfoundry/docs/1.7.0.RELEASE/reference/htmlsingle/#getting-started"&gt;Cloud Foundry&lt;/a&gt;, and &lt;a href="https://docs.spring.io/spring-cloud-dataflow-server-kubernetes/docs/1.7.0.RELEASE/reference/htmlsingle/#kubernetes-getting-started"&gt;Kubernetes&lt;/a&gt;.  Look for an updated &lt;a href="https://docs.pivotal.io/scdf"&gt;Cloud Foundry Tile for SCDF&lt;/a&gt; release in the coming weeks.&lt;/p&gt;
 &lt;/div&gt;
@@ -249,6 +249,10 @@ app.hotDrinkApp.spring.cloud.stream.bindings.input.destination=hotDrinksDest
 app.coldDrinkApp.spring.cloud.stream.bindings.input.destination=coldDrinksDest&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;Here is a video showcasing this functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/g4A5Qatfln4?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="sect1"&gt;

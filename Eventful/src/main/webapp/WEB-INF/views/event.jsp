@@ -31,6 +31,7 @@
 	href="<c:url value="/createPost/${model.event.id}" />"><i class="material-icons left">cloud</i>Create a Post</a>
 </div>
 
+<div id="post-anchor"></div>
 
 <c:forEach var="post" items="${model.event.posts}">
 	<div class="row">
@@ -82,7 +83,7 @@
 							<li>
 						    	<div class="row valign-wrapper comment-box">
 					                <div class="col s1 pull-11">
-					                	<a href="/profile/${comment.commenter.id}"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
+					                	<a href="/profile/${comment.commenter.id}"><img height="42" width="42" src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
 					                </div>
 					                <div class="col s11 push-1">
 						            	<span class="black-text">
@@ -117,7 +118,92 @@
 
 </c:forEach>
 
-<a href="javascript:void(0)" onclick="loadPosts();">Load more posts...</a>
+<template id="test-template">
+<div class="row">
+	<div class="col s6 offset-s3">
+		<div class="card">
+			<div class="card-content"  style="padding-top: 1.5em; padding-bottom: 0em;">
+				<div class="row valign-wrapper">
+	                <div class="col s2 pull-5">
+	                	<a class="poster-img-link" href="/profile/id"><img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img poster-img"></a>
+	                </div>
+	                <div class="col s10 push-7">
+		                <a class="poster-alias-link" href="/profile/id"><h5> Poster alias </h5></a>
+		                <p id="wtff" class="time-post-posted grey-text">Time</p>
+	        		</div>
+		    	</div>
+			</div>
+			<div class="card-image post-img-card">
+				<img class="post-img" src="#">
+				
+				<span class="card-title post-img-title">Post title</span>
+			</div>
+			<div class="card-content" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+				<span class="card-title grey-text post-text-title"> Title </span>
+				<p class="post-description" style="margin-top: 0.5em; margin-bottom: 1.5em;"> Description </p>
+				<div class="card-panel row valign-wrapper post-bar">
+					<div class="valign-wrapper col s6 push-s8">
+						<a class="like-post-button" href="javascript:void(0)" onclick="likePost(POSTID);"><span id="post-like-icon-postId" class="mdi mdi-thumb-up-outline like-post-icon" style="font-size:2em; margin-right: 0.5em;"></span></a>
+						<span class="post-likes-count" id="post-likes-postId"> NumLikes Likes </span>
+					</div>
+					<div class="valign-wrapper col s6 pull-s4">
+						<i class="small material-icons" style="margin-right: 0.5em;">comment</i>
+						<span class="post-num-comments"> NumComment Comments </span>
+					</div>
+				</div>
+			</div>
+			
+			<div> 
+				<ul class="comments-anchor collection" id="comment-anchor-id">
+			
+				</ul>
+   		 	</div>
+   		 	
+   		 	<div class="center" style="padding-bottom: 16px;">
+   		 		<a class="like-comment-link" href="javascript:void(0)" onclick="loadComments(postId);">Load more comments...</a>
+			</div>
+			
+			<div class="card-action">
+        		<form class="comment-form" id="comment-form-id" action="/createComment/postId" method="POST">
+
+					<input type="text" name="contents" placeholder="Comment"/>
+					<input type="submit" value="Comment" style="display: none"/>
+				
+				</form>
+				
+				<a class="create-comment-button" href="/createComment/postId"
+				onclick="event.preventDefault(); document.getElementById('comment-form-postId').submit();" >Post Comment</a>
+			</div>
+			
+		</div>
+	</div>
+</div>
+</template>
+
+<template id="comment-template">
+
+	<li>
+		<div class="row valign-wrapper comment-box">
+	         <div class="col s1 pull-11">
+	         	<a class="commenter-img-link" href="/profile/userId"><img height="42" width="42" class="commenter-img" src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt="" class="circle responsive-img"></a>
+	         </div>
+	         <div class="col s11 push-1">
+	       	  <span class="black-text">
+	          		<a class="commenter-alias-link" href="/profile/userId"> User Alias </a><br><span class="comment-contents">Comment contents</span>
+	          		<div class="valign-wrapper">
+	          			<a class="like-comment-link" href="javascript:void(0)" onclick="likeComment(commentId);"><span id="comment-like-icon-commentIdd" class="mdi mdi-thumb-up-outline comment-like-icon" style="font-size:1.2em; margin-right: 0.5em;"></span></a>
+	           			<span class="num-comment-likes" style="font-size: 0.8em" id="comment-likes-postId"> numLikes Likes </span> &nbsp;&middot;&nbsp;<p class="grey-text comment-date" style="font-size:0.8em"></p> 
+	        		</div>
+	          </span>
+	  		  </div>
+		</div>
+	</li>
+	
+</template>
+
+<center>
+	<a href="javascript:void(0)" onclick="loadPosts(${model.event.id});">Load more posts...</a>
+</center>
 
 <%@ include file="footer.jsp" %> 
 </body>

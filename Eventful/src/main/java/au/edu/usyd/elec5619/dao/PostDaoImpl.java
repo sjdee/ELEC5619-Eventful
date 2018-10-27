@@ -1,5 +1,7 @@
 package au.edu.usyd.elec5619.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import au.edu.usyd.elec5619.domain.Comment;
+import au.edu.usyd.elec5619.domain.Event;
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 
@@ -24,6 +27,46 @@ public class PostDaoImpl implements PostDao {
 		entityManager.persist(post);
 		//sessionFactory.getCurrentSession().save(post);
 		
+	}
+	
+	@Override
+	public List<Post> loadPosts(int eventId, int oldestPostId, int numPosts) {
+		
+		String hql = "FROM Post p WHERE p.id < ?1 and p.event.id = ?2 order by p.id desc";
+		
+		Query postQuery = entityManager.createQuery(hql);
+		
+		if (oldestPostId == -1) {
+			postQuery.setParameter(1, Integer.MAX_VALUE);
+		} else {
+			postQuery.setParameter(1, oldestPostId);
+		}
+		
+		postQuery.setParameter(2, eventId);
+		
+		postQuery.setMaxResults(numPosts);
+		
+		return postQuery.getResultList();
+	}
+	
+	@Override
+	public List<Comment> loadComments(int postId, int oldestCommentId, int numComments) {
+		
+		String hql = "FROM Comment c WHERE c.id < ?1 and c.post.id = ?2 order by c.id desc";
+		
+		Query commentQuery = entityManager.createQuery(hql);
+		
+		if (oldestCommentId == -1) {
+			commentQuery.setParameter(1, Integer.MAX_VALUE);
+		} else {
+			commentQuery.setParameter(1, oldestCommentId);
+		}
+		
+		commentQuery.setParameter(2, postId);
+		
+		commentQuery.setMaxResults(numComments);
+		
+		return commentQuery.getResultList();
 	}
 	
 	@Override

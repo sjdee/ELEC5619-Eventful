@@ -1,5 +1,7 @@
 package au.edu.usyd.elec5619.service;
 
+import java.util.List;
+
 import au.edu.usyd.elec5619.domain.Comment;
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
@@ -16,6 +18,10 @@ public interface PostService {
 	public LikeResponse likeComment(int commentId, User user);
 	
 	public Post getPostById(int postId);
+	
+	public List<Post> loadPosts(int eventId, int oldestPostId);
+	
+	public List<Comment> loadComments(int postId, int oldestCommentId);
 	
 	public Comment getCommentById(int commentId);
 	

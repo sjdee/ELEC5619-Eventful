@@ -1,11 +1,14 @@
 package au.edu.usyd.elec5619.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,13 +35,14 @@ import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 import au.edu.usyd.elec5619.payload.LikeRequest;
 import au.edu.usyd.elec5619.payload.LikeResponse;
+import au.edu.usyd.elec5619.payload.LoadPostResponse;
+import au.edu.usyd.elec5619.payload.LoadPostsRequest;
 import au.edu.usyd.elec5619.service.EventService;
 import au.edu.usyd.elec5619.service.PostService;
 import au.edu.usyd.elec5619.service.UserService;
 
 @Controller
 //@RequestMapping(value="/event/**")
-@Transactional
 public class EventController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -365,11 +369,53 @@ public class EventController {
 	
 	@PostMapping("/loadPosts/")
     public ResponseEntity<?> loadPostsAjax(
-    		@Valid @RequestBody LikeRequest postLike, Errors errors) {
+    		@Valid @RequestBody LoadPostsRequest postRequest, Errors errors) {
 
-		int postId = postLike.getId();
+		int oldestPostId = postRequest.getOldestPostId();
+				
+		LoadPostResponse result = new LoadPostResponse();
 		
-		LikeResponse result = postService.likePost(postId, userService.getCurrentUser());
+		result.setTestString(String.valueOf(oldestPostId));
+		
+		List<Post> postList = postService.loadPosts(postRequest.getEventId(), oldestPostId);
+				
+		Comment comment = new Comment();
+		
+		comment.setContents("Fake contents");
+		comment.setCommenter(userService.getCurrentUser());
+		comment.getTimePosted();
+		comment.setId(1);
+		comment.setNumLikes(69);
+		
+		List<Comment> comments = new ArrayList<Comment>();
+		
+		comments.add(comment);
+		
+		for (int i = 0; i < postList.size(); i ++) {
+			
+			//User poster = new User();
+			//poster.alias = postList.get(i).getPoster().alias;
+			//postList.get(i).setPoster(poster);
+			postList.get(i).getPoster().setLikedPosts(null);
+			postList.get(i).getPoster().setLikedComments(null);
+			postList.get(i).setComments(null);
+			postList.get(i).setEvent(null);
+			postList.get(i).setLikedUsers(null);
+			postList.get(i).setComments(new HashSet<Comment>(comments));
+		
+			//postList.get(i).setComments(new HashSet<Comment>(postService.loadComments(postList.get(i).getId(), -1)));
+		}
+		
+		result.setPosts(postList);
+		
+		/*List<Post> postList = new ArrayList<Post>();
+		
+		Post post = new Post();
+		post.setTitle("something");
+		
+		postList.add(post);
+		
+		result.setPosts(postList);*/
 		
         //If error, just return a 400 bad request, along with the error message
         if (errors.hasErrors()) {

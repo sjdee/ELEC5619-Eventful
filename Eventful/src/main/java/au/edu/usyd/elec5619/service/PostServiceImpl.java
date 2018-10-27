@@ -1,6 +1,7 @@
 package au.edu.usyd.elec5619.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -23,6 +24,10 @@ public class PostServiceImpl implements PostService {
 	private PostDao postDao;
 	
 	private UserService userService;
+	
+	public static int NUM_POSTS = 5;
+	
+	public static int NUM_COMMENTS = 5;
 	
 	@Autowired
 	public void setEventDao(EventDao eventDao) {
@@ -166,4 +171,23 @@ public class PostServiceImpl implements PostService {
 		return postDao.getCommentById(commentId);
 		
 	}
+
+	@Override
+	public List<Post> loadPosts(int eventId, int oldestPostId) {
+		
+		List<Post> postList = postDao.loadPosts(eventId, oldestPostId, NUM_POSTS);
+		
+		return postList;
+		
+	}
+	
+	@Override
+	public List<Comment> loadComments(int postId, int oldestCommentId) {
+		
+		List<Comment> commentList = postDao.loadComments(postId, oldestCommentId, NUM_COMMENTS);
+		
+		return commentList;
+		
+	}
+	
 }
