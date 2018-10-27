@@ -48,14 +48,10 @@
 						<form:label path="bio" rows="3">Bio</form:label>
 					</div>
 				</div>
-				<div class="row">
-					<button class="btn waves-effect waves-light" type="submit"
-						value="Submit">Register</button>
-				</div>
-				<a href="<c:url value="/login"/>">Already a user?</a>
+
 			</form:form>
 			<form id="singleUploadForm" name="singleUploadForm">
-				<div class="row">
+				<div class="row" style="width: 50%;">
 					<div class="col s12">
 						<div class="row">
 							<div class="input-field col s12">
@@ -90,6 +86,14 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="row">
+				<button class="btn waves-effect waves-light" type="submit"
+					value="Submit" form="registerUser">Register</button>
+			</div>
+			<div class="row">
+				<a class="col s12" href="<c:url value="/login"/>">Already a
+					user?</a>
 			</div>
 		</div>
 	</div>

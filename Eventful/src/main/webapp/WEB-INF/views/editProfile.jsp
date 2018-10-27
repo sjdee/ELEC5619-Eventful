@@ -42,7 +42,7 @@
 						</div>
 					</div>
 				</form>
-				<%-- <form:form class="col s12" method="post" action="#" modelAttribute="user" >
+				<%-- <form:form class="col s12" method="post" id="changePassword" action="#" modelAttribute="user" >
 					<div class="row">
 						<div class="input-field col s12">
 							<form:password path="oldPassword" cssClass="validate" />
