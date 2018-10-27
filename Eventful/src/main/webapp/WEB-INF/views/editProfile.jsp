@@ -52,7 +52,7 @@
 				<form class="col s12" method="post" id="changeAlias">
 					<div class="row">
 						<div class="input-field col s12">
-							<input type="text" id="alias" class="validate col s10"/>
+							<input type="text" id="alias" class="validate col s10" maxlength="50"/>
 							<label for="alias">New Alias</label>
 							<button class="btn waves-effect waves-light col s2" type="submit"
 								value="Submit">Submit</button>
@@ -95,7 +95,7 @@
 				<form class="col s12" method="post" id="changeBio">
 					<div class="row">
 						<div class="input-field col s12">
-							<textarea id="bio" class="materialize-textarea col s10"></textarea>
+							<textarea id="bio" class="materialize-textarea col s10" maxlength="255"></textarea>
 							<label for="bio" rows="3">New Bio</label>
 							<button class="btn waves-effect waves-light col s2" type="submit"
 								value="Submit">Submit</button>

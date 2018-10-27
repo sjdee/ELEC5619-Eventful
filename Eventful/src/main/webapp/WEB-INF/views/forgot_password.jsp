@@ -1,19 +1,17 @@
-<%@ include file="/WEB-INF/views/include.jsp" %>
+<%@ include file="/WEB-INF/views/include.jsp"%>
 <html>
 <head>
-    <title>Forgot Password</title>
-    <%@ include file="header.jsp" %>  
+<title>Forgot Password</title>
+<%@ include file="publicHeader.jsp"%>
 </head>
 <body>
 
-<div class="center">
-	<h1>
-		Forgot Password
-	</h1>
-	suck it!
-</div>
+	<div class="center">
+		<h1>Forgot Password</h1>
+		<input>Enter email</input>
+	</div>
 
 
-<%@ include file="footer.jsp" %> 
+	<%@ include file="footer.jsp"%>
 </body>
 </html>
