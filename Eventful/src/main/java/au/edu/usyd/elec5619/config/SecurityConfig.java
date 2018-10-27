@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/register").permitAll()
 				.antMatchers("/forgot").permitAll()
 				.antMatchers("/uploadFile").permitAll()
-				.antMatchers("/downloadFile").permitAll()
+				.antMatchers("/downloadFile/**").permitAll()
 				.antMatchers("/createFake/fake").permitAll() // TODO:: to be removed
 				.anyRequest().authenticated().and().csrf().disable()
 				.formLogin()

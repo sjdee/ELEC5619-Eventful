@@ -30,7 +30,7 @@ $(document).ready(function() {
 	    event.preventDefault();
 	});
 	
-	$('#create-post, #registerUser').submit(function(event) {
+	$('#create-post, #registerUser, #changeAvatar').submit(function(event) {
 									
 		$(this).append('<input type="hidden" name="filePath" value="' + filePath + '">');
 	    

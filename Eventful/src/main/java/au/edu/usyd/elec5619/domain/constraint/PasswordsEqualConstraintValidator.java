@@ -16,8 +16,6 @@ public class PasswordsEqualConstraintValidator implements ConstraintValidator<Pa
 	@Override
 	public boolean isValid(Object candidate, ConstraintValidatorContext arg1) {
 		User user = (User) candidate;
-		System.out.println(user.getConfirmPassword());
-		System.out.println(user.getPassword());
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder.matches(user.getConfirmPassword(), user.getPassword()) || user.getConfirmPassword().equals(user.getPassword());
 	}

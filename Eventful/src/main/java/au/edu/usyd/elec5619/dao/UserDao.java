@@ -12,7 +12,13 @@ public interface UserDao {
 	 */
 	public void addUser(User user);
 	
-	public void updateUser(User user);
+	public void updateUserAlias(String alias, Long id);
+	
+	public void updateUserBio(String bio, Long id);
+	
+	public void updateUserPassword(String password, Long id);
+	
+	public void updateUserAvatar(String filePath, Long id);
 	
 	public List<User> listUsers();
 	
