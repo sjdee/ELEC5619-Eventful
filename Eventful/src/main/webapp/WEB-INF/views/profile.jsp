@@ -18,7 +18,8 @@
 		<div class="row">
 			<div class="col s7 push-s5">
 				<h1 class="col s12" style="text-align: center;">${model.user.alias}</h1>
-				<table class="col s10 offset-s2"> <!-- TODO:: FIX THIS -->
+				<table class="col s10 offset-s2">
+					<!-- TODO:: FIX THIS -->
 					<tbody>
 						<c:if test="${model.selfProfile}">
 							<tr style="border: none;">
@@ -39,8 +40,13 @@
 				</table>
 			</div>
 			<div class="col s5 pull-s7" style="text-align: right;">
-				<img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt=""
-					class="circle responsive-img" style="width: 300px;">
+				<c:if test="${not empty model.user.filePath}">
+					<img src="${model.user.filePath}" alt="" class="circle responsive-img" style="width: 300px;">
+				</c:if>
+				<c:if test="${empty model.user.filePath}">
+					<img src="https://cdn.onlinewebfonts.com/svg/img_191958.png" alt=""
+						class="circle responsive-img" style="width: 300px;">
+				</c:if>
 			</div>
 		</div>
 		<div class="row">
