@@ -74,4 +74,14 @@ public class EventServiceImpl implements EventService {
 		eventDao.cancelEvent(user, event);
 	}
 	
+	@Override
+	public List<Event> getAllEventResults() {
+		return eventDao.allEvents();
+	}
+	
+	@Override
+	public List<Event> getSearchEventResults(String searchQuery) {
+		return eventDao.searchEvents(searchQuery);
+	}
+	
 }
