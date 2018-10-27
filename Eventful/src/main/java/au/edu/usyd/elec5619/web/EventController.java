@@ -55,51 +55,6 @@ public class EventController {
 		this.postService = postService;
 	}
 
-	@RequestMapping(value="/createFake/{eventTitle}")
-	public ModelAndView createFakeEvent(@PathVariable("eventTitle") String eventTitle) throws Exception {
-
-		Map<String, Object> model = new HashMap<String, Object>();
-
-		User user = new User();
-
-		user.alias = "John";
-		user.email = "john@gmail.com";
-		user.password = "password";
-		user.confirmPassword = "password";
-
-		userService.createUser(user);
-
-		Event event = new Event();
-
-		event.title = eventTitle;
-		event.description = "This is a fake event";
-		event.location = "Fakeville";
-		event.organiser = user;
-
-		eventService.createEvent(event);
-
-		Post post = new Post();
-
-		post.setTitle("Fake post");
-		post.setDescription("This is a fake post");
-		post.setEvent(event);
-		post.setPoster(user);
-
-		postService.createPost(post, event.getId(), user.email);
-
-		Comment comment = new Comment();
-
-		comment.setContents("Fake comment");
-		comment.setCommenter(user);
-		comment.setPost(post);
-
-		postService.createComment(comment, post.getId(), user.email);
-
-		model.put("event", event);
-
-		return new ModelAndView("createPost", "model", model);
-	}
-
 	@RequestMapping(value="/event/{id}")
 	public ModelAndView viewEvent(@PathVariable("id") int id, Principal principal) throws Exception {
 
