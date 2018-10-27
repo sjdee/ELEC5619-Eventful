@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,15 +28,6 @@ public class UserDaoImpl implements UserDao {
 		log.info(user.getAlias() + " " + user.getEmail() + " " + user.getPassword());
 		entityManager.persist(user);
 		log.info("User added successfully, User Details=" + user);
-	}
-
-	@Override
-	public void updateUser(User user) {
-		User u1 = getUserById(user.getId());
-		u1.setAlias(user.getAlias());
-		u1.setBio(user.getBio());
-		entityManager.flush();
-		log.info("User updated successfully, User Details=" + user);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsersByAlias(String alias) {
-		String query = "from User where alias= ?1";
+		String query = "from User u where u.alias= ?1";
 		List<User> users = entityManager.createQuery(query).setParameter(1, alias).getResultList();
 		for (User user : users)
 			log.info("User List:: " + user);
@@ -87,4 +79,51 @@ public class UserDaoImpl implements UserDao {
 		log.info("User deleted successfully, user email=" + email);
 	}
 
+	@Override
+	public void updateUserAlias(String alias, Long id) {
+		String hql = "UPDATE User u SET u.alias = ?1 WHERE u.id = ?2";
+		
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, alias);
+		query.setParameter(2, id);
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void updateUserBio(String bio, Long id) {
+		String hql = "UPDATE User u SET u.bio = ?1 WHERE u.id = ?2";
+		
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, bio);
+		query.setParameter(2, id);
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void updateUserPassword(String password, Long id) {
+		String hql = "UPDATE User u SET u.password = ?1 WHERE u.id = ?2";
+		
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, password);
+		query.setParameter(2, id);
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void updateUserAvatar(String filePath, Long id) {
+		String hql = "UPDATE User u SET u.filePath = ?1 WHERE u.id = ?2";
+		
+		Query query = entityManager.createQuery(hql);
+		
+		query.setParameter(1, filePath);
+		query.setParameter(2, id);
+		
+		query.executeUpdate();
+	}
 }
