@@ -26,5 +26,10 @@ public interface EventDao {
 	public List<Event> getEventsByOrganiser(User user);
 	
 	public void cancelEvent(User user, Event event);
+	
+	public List<Event> allEvents();
+	
+	public List<Event> searchEvents(String searchQuery);
+
 		
 }

@@ -1,6 +1,7 @@
 package au.edu.usyd.elec5619.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -12,8 +13,9 @@ import au.edu.usyd.elec5619.dao.PostDao;
 import au.edu.usyd.elec5619.domain.Comment;
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
+import au.edu.usyd.elec5619.payload.LikeResponse;
 
-@Transactional
+//@Transactional
 @Service
 public class PostServiceImpl implements PostService {
 	
@@ -22,6 +24,10 @@ public class PostServiceImpl implements PostService {
 	private PostDao postDao;
 	
 	private UserService userService;
+	
+	public static int NUM_POSTS = 5;
+	
+	public static int NUM_COMMENTS = 5;
 	
 	@Autowired
 	public void setEventDao(EventDao eventDao) {
@@ -33,11 +39,13 @@ public class PostServiceImpl implements PostService {
 		this.postDao = postDao;
 	}
 	
+	
 	@Autowired
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	
+	@Transactional
 	@Override
 	public void createPost(Post post, int eventId, String userId) {
 		
@@ -55,6 +63,7 @@ public class PostServiceImpl implements PostService {
 		
 	}
 
+	@Transactional
 	@Override
 	public void createComment(Comment comment, int postId, String userEmail) {
 		// TODO Auto-generated method stub
@@ -73,22 +82,94 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	
+	@Transactional
 	@Override
-	public void likePost(int postId, String userEmail) {
-						
-		User currentUser = userService.getUserByEmail(userEmail);
+	public LikeResponse likePost(int postId, User user) {
+				
+		LikeResponse response = new LikeResponse();
+		
+		Boolean isLiked = postDao.getUserLikedPost(postId, user.getId());
+		
+		int numLikes = postDao.getPostById(postId).getNumLikes();
 		
 		// If user hasn't liked post
-		if (!postDao.getUserLikedPost(postId, currentUser.getId())) {
+		if (!isLiked) {
 			
 			postDao.incrementNumPostLikes(postId);
 			
-			postDao.savePostLike(postId,currentUser.getId());
+			postDao.savePostLike(postId, user.getId());
 			
+			numLikes ++;
+			
+		} else {
+			
+			postDao.decrementNumPostLikes(postId);
+			
+			postDao.removePostLike(postId, user.getId());
+			
+			numLikes --;
+		
 		}
+		
+		response.setIsLiked(!isLiked);
+		response.setNumLikes(numLikes);
+			
+		return response;
+	}
+	
+	@Override
+	@Transactional
+	public LikeResponse likeComment(int commentId, User user) {
+		
+		LikeResponse response = new LikeResponse();
+		
+		Boolean isLiked = postDao.getUserLikedComment(commentId, user.getId());
+		
+		int numLikes = postDao.getCommentById(commentId).getNumLikes();
+		
+		// If user hasn't liked post
+		if (!isLiked) {
+			
+			postDao.incrementNumCommentLikes(commentId);
+			
+			postDao.saveCommentLike(commentId, user.getId());
+			
+			numLikes ++;
+			
+		} else {
+			
+			postDao.decrementNumCommentLikes(commentId);
+			
+			postDao.removeCommentLike(commentId, user.getId());
+			
+			numLikes --;
+		
+		}
+		
+		response.setIsLiked(!isLiked);
+		response.setNumLikes(numLikes);
+			
+		return response;
+		
+	}
+	
+	//@Transactional
+	@Override
+	public Boolean getUserLikedPost(int postId, long userId) {
+								
+		return postDao.getUserLikedPost(postId, userId);
 				
 	}
-
+	
+	//@Transactional
+	@Override
+	public Boolean getUserLikedComment(int commentId, long userId) {
+								
+		return postDao.getUserLikedComment(commentId, userId);
+				
+	}
+	
+	@Transactional
 	@Override
 	public Post getPostById(int postId) {
 		
@@ -96,27 +177,31 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public Comment getCommentById(int commentId) {
 		
 		return postDao.getCommentById(commentId);
 		
 	}
-	
-	@Override
+
 	@Transactional
-	public void likeComment(int commentId, String userEmail) {
+	@Override
+	public List<Post> loadPosts(int eventId, int oldestPostId) {
 		
-		User currentUser = userService.getUserByEmail(userEmail);
+		List<Post> postList = postDao.loadPosts(eventId, oldestPostId, NUM_POSTS);
 		
-		// If user hasn't liked post
-		if (!postDao.getUserLikedComment(commentId, currentUser.getId())) {
-			
-			postDao.incrementNumCommentLikes(commentId);
-			
-			postDao.saveCommentLike(commentId, currentUser.getId());
-			
-		}
+		return postList;
 		
 	}
+	
+	@Override
+	public List<Comment> loadComments(int postId, int oldestCommentId) {
+		
+		List<Comment> commentList = postDao.loadComments(postId, oldestCommentId, NUM_COMMENTS);
+		
+		return commentList;
+		
+	}
+	
 }

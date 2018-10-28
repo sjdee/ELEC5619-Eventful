@@ -1,0 +1,24 @@
+package au.edu.usyd.elec5619.service;
+
+import au.edu.usyd.elec5619.domain.Comment;
+import au.edu.usyd.elec5619.domain.Post;
+import au.edu.usyd.elec5619.domain.User;
+import au.edu.usyd.elec5619.payload.PostLikeResponse;
+
+public interface PostService {
+
+	public void createPost(Post post, int eventId, String userEmail);
+	
+	public void createComment(Comment comment, int postId, String userEmail);
+	
+	public PostLikeResponse likePost(int postId, User user);
+	
+	public void likeComment(int commentId, String userEmail);
+	
+	public Post getPostById(int postId);
+	
+	public Comment getCommentById(int commentId);
+	
+	public Boolean getUserLikedPost(int postId, String userEmail);
+	
+}

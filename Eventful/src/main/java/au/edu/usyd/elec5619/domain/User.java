@@ -46,9 +46,6 @@ public class User {
 	@Column(name = "bio")
 	private String bio;
 
-	@Column(name = "avgEventRating", columnDefinition = "double default 0.0")
-	private double avgEventRating;
-
 	private boolean enabled = true;
 
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -103,10 +100,6 @@ public class User {
 		return this.bio;
 	}
 
-	public double getAvgEventRating() {
-		return this.avgEventRating;
-	}
-
 	public boolean getEnabled() {
 		return this.enabled;
 	}
@@ -155,10 +148,6 @@ public class User {
 
 	public void setBio(String bio) {
 		this.bio = bio;
-	}
-
-	public void setAvgEventRating(double avgEventRating) {
-		this.avgEventRating = avgEventRating;
 	}
 
 	public void setEnabled(boolean enabled) {

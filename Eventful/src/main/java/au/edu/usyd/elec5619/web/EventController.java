@@ -1,20 +1,30 @@
 package au.edu.usyd.elec5619.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +34,12 @@ import au.edu.usyd.elec5619.domain.Comment;
 import au.edu.usyd.elec5619.domain.Event;
 import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
+import au.edu.usyd.elec5619.payload.LikeRequest;
+import au.edu.usyd.elec5619.payload.LikeResponse;
+import au.edu.usyd.elec5619.payload.LoadCommentResponse;
+import au.edu.usyd.elec5619.payload.LoadCommentsRequest;
+import au.edu.usyd.elec5619.payload.LoadPostResponse;
+import au.edu.usyd.elec5619.payload.LoadPostsRequest;
 import au.edu.usyd.elec5619.service.EventService;
 import au.edu.usyd.elec5619.service.PostService;
 import au.edu.usyd.elec5619.service.RatingService;
@@ -31,7 +47,6 @@ import au.edu.usyd.elec5619.service.UserService;
 
 @Controller
 //@RequestMapping(value="/event/**")
-@Transactional
 public class EventController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -323,29 +338,7 @@ public class EventController {
 		return "redirect:/event/" + comment.getPost().getEvent().getId();
 	}
 
-	@RequestMapping(value="/likePost/{postId}", method=RequestMethod.POST)
-	public ModelAndView likePost(@PathVariable("postId") int postId, Principal principal) throws Exception {
-		logger.info("got here");
-
-		System.out.println(principal.getName());
-
-		String userId = principal.getName();
-
-		postService.likePost(postId, userId);
-
-		Map<String, Object> model = new HashMap<String, Object>();
-
-		Event event = postService.getPostById(postId).getEvent();
-
-		//event.posts = new ArrayList<Post>();
-
-		model.put("event", event);
-
-		return new ModelAndView("redirect:/event/" + event.getId(), "model", model);
-
-	}
-
-	@RequestMapping(value="/likeComment/{commentId}", method=RequestMethod.POST)
+	/*@RequestMapping(value="/likeComment/{commentId}", method=RequestMethod.POST)
 	public ModelAndView likeComment(@PathVariable("commentId") int commentId, Principal principal) throws Exception {
 
 		String userId = principal.getName();
@@ -362,6 +355,137 @@ public class EventController {
 
 		return new ModelAndView("redirect:/event/" + event.getId(), "model", model);
 
-	}
+	}*/
+	
+	@PostMapping("/likeComment/")
+    public ResponseEntity<?> likeCommentAjax(
+    		@Valid @RequestBody LikeRequest commentLike, Errors errors) {
+
+		User user = userService.getCurrentUser();
+		
+		LikeResponse result = postService.likeComment(commentLike.getId(), user);
+				
+        //If error, just return a 400 bad request, along with the error message
+        if (errors.hasErrors()) {
+
+            /*result.setMsg(errors.getAllErrors()
+                        .stream().map(x -> x.getDefaultMessage())
+                        .collect(Collectors.joining(",")));*/
+
+            return ResponseEntity.badRequest().body(result);
+
+        }
+		
+        return ResponseEntity.ok(result);
+
+    }
+	
+	@PostMapping("/likePost/")
+    public ResponseEntity<?> likePostAjax(
+    		@Valid @RequestBody LikeRequest postLike, Errors errors) {
+
+		int postId = postLike.getId();
+		
+		LikeResponse result = postService.likePost(postId, userService.getCurrentUser());
+		
+        //If error, just return a 400 bad request, along with the error message
+        if (errors.hasErrors()) {
+
+            return ResponseEntity.badRequest().body(result);
+
+        }
+		
+        return ResponseEntity.ok(result);
+
+    }
+	
+	@PostMapping("/loadPosts/")
+    public ResponseEntity<?> loadPostsAjax(
+    		@Valid @RequestBody LoadPostsRequest postRequest, Errors errors, Principal principal) {
+
+		int oldestPostId = postRequest.getOldestPostId();
+				
+		LoadPostResponse result = new LoadPostResponse();
+		
+		result.setTestString(String.valueOf(oldestPostId));
+		
+		List<Post> postList = postService.loadPosts(postRequest.getEventId(), oldestPostId);
+				
+		for (int i = 0; i < postList.size(); i ++) {
+			
+			//User poster = new User();
+			//poster.alias = postList.get(i).getPoster().alias;
+			//postList.get(i).setPoster(poster);
+			postList.get(i).getPoster().setLikedPosts(null);
+			postList.get(i).getPoster().setLikedComments(null);
+			postList.get(i).setComments(null);
+			postList.get(i).setEvent(null);
+			postList.get(i).setLikedUsers(null);
+			
+			Boolean isLiked = false;
+						
+			isLiked = postService.getUserLikedPost(postList.get(i).getId(), 0);
+			
+			postList.get(i).setIsLiked(isLiked);
+			
+			List<Comment> loadedComments = postService.loadComments(postList.get(i).getId(), -1);
+			
+			for (int k = 0; k < loadedComments.size(); k ++) {
+			
+				//loadedComments.get(k).setCommenter(null);
+				loadedComments.get(k).setLikedUsers(null);
+				loadedComments.get(k).setPost(null);
+				
+			}
+			
+			postList.get(i).setComments(loadedComments);
+		}
+		
+		result.setPosts(postList);
+		
+        //If error, just return a 400 bad request, along with the error message
+        if (errors.hasErrors()) {
+
+            return ResponseEntity.badRequest().body(result);
+
+        }
+		
+        return ResponseEntity.ok(result);
+
+    }
+	
+	@PostMapping("/loadComments/")
+    public ResponseEntity<?> loadCommentsAjax(
+    		@Valid @RequestBody LoadCommentsRequest commentsRequest, Errors errors) {
+
+		int oldestCommentId = commentsRequest.getOldestCommentId();
+				
+		LoadCommentResponse result = new LoadCommentResponse();
+				
+		List<Comment> loadedComments = postService.loadComments(commentsRequest.getPostId(), oldestCommentId);
+		
+		for (int i = 0; i < loadedComments.size(); i ++) {
+			
+			Boolean isLiked = postService.getUserLikedComment(loadedComments.get(i).getId(), 0);
+
+			loadedComments.get(i).setIsLiked(isLiked);
+			
+			loadedComments.get(i).setLikedUsers(null);
+			loadedComments.get(i).setPost(null);
+				
+		}
+		
+		result.setComments(loadedComments);
+		
+        //If error, just return a 400 bad request, along with the error message
+        if (errors.hasErrors()) {
+
+            return ResponseEntity.badRequest().body(result);
+
+        }
+		
+        return ResponseEntity.ok(result);
+
+    }
 
 }

@@ -1,22 +1,36 @@
 package au.edu.usyd.elec5619.dao;
 
+import java.util.List;
+
 import au.edu.usyd.elec5619.domain.*;
 
 public interface PostDao {
 	
 	public void createPost(Post post);
 
+	public List<Post> loadPosts(int eventId, int oldestPostId, int numPosts);
+	
+	public List<Comment> loadComments(int postId, int oldestCommentId, int numComments);
+	
 	public void incrementNumPosts(int eventId);
 	
 	public void incrementNumComments(int postId);
 	
 	public void incrementNumCommentLikes(int commentId);
 	
+	public void decrementNumCommentLikes(int commentId);
+	
 	public void incrementNumPostLikes(int postId);
+	
+	public void decrementNumPostLikes(int postId);
 	
 	public void saveCommentLike(int commentId, long userId);
 	
+	public void removeCommentLike(int commentId, long userId);
+	
 	public void savePostLike(int postId, long userId);
+	
+	public void removePostLike(int postId, long userId);
 	
 	public void createComment(Comment comment);
 	

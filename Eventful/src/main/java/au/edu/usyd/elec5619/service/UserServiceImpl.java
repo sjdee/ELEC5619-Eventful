@@ -1,11 +1,11 @@
 package au.edu.usyd.elec5619.service;
 
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.jdt.core.compiler.InvalidInputException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,13 +44,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
-	public void updateUser(User user) {
-		this.userDAO.updateUser(user);		
-	}
-
-	@Override
-	@Transactional
+	//@Transactional
 	public User getUserByEmail(String email) {
 		return this.userDAO.getUserByEmail(email);
 	}
@@ -67,17 +61,47 @@ public class UserServiceImpl implements UserService {
 		if (getUserByEmail(user.getEmail()) != null) 
 			return true;
 		return false;
-		// TODO:: implementation
 	}
 
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
+		
 		return getUserByEmail(auth.getName());
 	}
 
 	@Override
 	public User getUserById(long id) {
 		return userDAO.getUserById(id);
+	}
+
+	@Override
+	public void changeUserAlias(String newAlias) throws InvalidInputException {
+		log.info(userDAO.getUsersByAlias(newAlias));
+		if (newAlias.equals("") || newAlias == null)
+			throw new InvalidInputException("Alias cannot be empty.");
+		if (userDAO.getUsersByAlias(newAlias).size() != 0)
+			throw new InvalidInputException("Alias already exists.");
+		userDAO.updateUserAlias(newAlias, getCurrentUser().getId());
+	}
+	
+	@Override
+	public void changeUserBio(String newBio) {
+		userDAO.updateUserBio(newBio, getCurrentUser().getId());
+	}
+
+	@Override
+	public void changeUserPassword(String oldPassword, String password, String confirmPassword) throws InvalidInputException {
+		password = bCryptPasswordEncoder.encode(password);
+		if (!bCryptPasswordEncoder.matches(oldPassword, getCurrentUser().getPassword()))
+			throw new InvalidInputException("Invalid Password.");
+		else if (bCryptPasswordEncoder.matches(confirmPassword, password))
+			userDAO.updateUserPassword(password, getCurrentUser().getId());
+		else
+			throw new InvalidInputException("Passwords do not match.");
+	}
+
+	@Override
+	public void changeUserAvatar(String filePath) {
+		userDAO.updateUserAvatar(filePath, getCurrentUser().getId());
 	}
 }

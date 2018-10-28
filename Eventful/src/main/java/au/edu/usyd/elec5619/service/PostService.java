@@ -1,7 +1,11 @@
 package au.edu.usyd.elec5619.service;
 
+import java.util.List;
+
 import au.edu.usyd.elec5619.domain.Comment;
 import au.edu.usyd.elec5619.domain.Post;
+import au.edu.usyd.elec5619.domain.User;
+import au.edu.usyd.elec5619.payload.LikeResponse;
 
 public interface PostService {
 
@@ -9,12 +13,21 @@ public interface PostService {
 	
 	public void createComment(Comment comment, int postId, String userEmail);
 	
-	public void likePost(int postId, String userEmail);
+	public LikeResponse likePost(int postId, User user);
 	
-	public void likeComment(int commentId, String userEmail);
+	public LikeResponse likeComment(int commentId, User user);
 	
 	public Post getPostById(int postId);
 	
+	public List<Post> loadPosts(int eventId, int oldestPostId);
+	
+	public List<Comment> loadComments(int postId, int oldestCommentId);
+	
 	public Comment getCommentById(int commentId);
-		
+	
+	public Boolean getUserLikedPost(int postId, long userId);
+	
+	public Boolean getUserLikedComment(int commentId, long userId);
+
+	
 }

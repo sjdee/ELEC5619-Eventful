@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Login</title>
-<%@ include file="header.jsp"%>
+<%@ include file="publicHeader.jsp"%>
 </head>
 <body>
 
@@ -31,12 +31,12 @@
 					</div>
 				</div>
 				<div class="row">
-					<button class="btn waves-effect waves-light" type="submit"
-						name="Submit" value="Login">Login</button>
+					<button id="login" class="btn waves-effect waves-light"
+						type="submit" name="Submit" value="Login"
+						style="padding-left: 10px; padding-right: 10px;">Login</button>
 				</div>
 			</form>
 		</div>
-		<p style="color: red">${msg}</p>
 		<a class="waves-effect waves-light btn-large"
 			style="margin-top: 1em; margin-bottom: 1em;"
 			href="<c:url value="/register" />">Register</a> <a
@@ -44,8 +44,6 @@
 			style="margin-top: 1em; margin-bottom: 1em;"
 			href="<c:url value="/forgot" />">Forgot Password</a>
 	</div>
-
-
 	<%@ include file="footer.jsp"%>
 </body>
 </html>

@@ -38,7 +38,10 @@ public class EventDaoImpl implements EventDao {
 //		
 //		return event;
 		
-		return entityManager.find(Event.class, id);
+		Event event = entityManager.find(Event.class, id);
+		event.setPosts(null);
+		
+		return event;
 	}
 	
 	@Override
@@ -91,5 +94,30 @@ public class EventDaoImpl implements EventDao {
 			event.setTitle("[CANCELLED] " + event.getTitle());
 			event.setCancelled(true);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> allEvents() {
+		String hql = "FROM Event";
+		Query query = entityManager.createQuery(hql);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Event> searchEvents(String searchQuery) {
+		
+//		String hql = "FROM Event e WHERE e.organiser = ?1";
+//		Query query = entityManager.createQuery(hql);
+//		query.setParameter(1, user);
+		
+		String hql = "FROM Event e WHERE (e.title LIKE ?1 OR e.description LIKE ?2 OR e.location LIKE ?3)";
+		Query query = entityManager.createQuery(hql);
+		String parameter = "%"+searchQuery+"%";
+		query.setParameter(1, parameter);
+		query.setParameter(2, parameter);
+		query.setParameter(3, parameter);
+		return query.getResultList();
 	}
 }

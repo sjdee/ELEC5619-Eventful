@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Data
 @Entity
@@ -40,8 +42,12 @@ public class Post implements Serializable {
 	@Column(name="imagePath")
 	private String imagePath;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="post")
-	private Set<Comment> comments;
+	// Non column variable denoting whether current user has liked a post
+	@Transient
+	private Boolean isLiked;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="post")
+	private List<Comment> comments;
 	
 	@JoinColumn(name = "event_id")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -84,11 +90,11 @@ public class Post implements Serializable {
 		this.title = title;
 	}
 
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
@@ -146,6 +152,14 @@ public class Post implements Serializable {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public Boolean getIsLiked() {
+		return isLiked;
+	}
+
+	public void setIsLiked(Boolean isLiked) {
+		this.isLiked = isLiked;
 	}
 	
 }

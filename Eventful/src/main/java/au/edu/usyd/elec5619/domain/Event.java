@@ -64,13 +64,12 @@ public class Event implements Serializable {
 	@Column(name="cancelled")
 	public boolean cancelled;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="event")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="event")
 	public List<Post> posts;
 
 	@JoinColumn(name = "organiser")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public User organiser;
-	
 	
     @ManyToMany(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(

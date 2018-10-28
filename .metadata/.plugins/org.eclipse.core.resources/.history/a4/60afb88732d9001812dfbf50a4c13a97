@@ -1,0 +1,5 @@
+package au.edu.usyd.elec5619.payload;
+
+public class LoadPostsRequest {
+
+}
