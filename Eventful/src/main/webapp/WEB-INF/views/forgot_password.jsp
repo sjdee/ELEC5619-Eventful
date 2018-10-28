@@ -6,15 +6,22 @@
 </head>
 <body>
 
-	<div class="center">
-		<h1>Forgot Password</h1>
-		<label for="email">email</label> <input id="email" name="email"
-			type="email" value="" />
-		<button type="submit" onclick="resetPass()">reset</button>
-
-		<a href="@{/registration.html}"> registration </a> <a href="@{/login}">login</a>
-
-		<script src="jquery.min.js"></script>
+	<div class="container">
+		<h1 class="center">Forgot Password</h1>
+		<form id="resetPassword" class="col s6 push-s3" method="post"
+			action="${registerUrl}">
+			<div class="row">
+				<div class="input-field col s12" id="emailDiv">
+					<input id="email" type="email" name="email" class="validate"
+						maxlength="255" /> <label for="email">Email *</label>
+					<p class="error"></p>
+				</div>
+			</div>
+			<div class="row center">
+				<button class="btn waves-effect waves-light" type="submit"
+					value="Submit" form="registerUser">Reset Password</button>
+			</div>
+		</form>
 		<script>
 			var serverContext = [[@{/}]];
 			function resetPass(){

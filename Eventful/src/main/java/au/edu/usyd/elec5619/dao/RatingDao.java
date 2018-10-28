@@ -1,5 +1,7 @@
 package au.edu.usyd.elec5619.dao;
 
+import java.util.List;
+
 import au.edu.usyd.elec5619.domain.*;
 
 public interface RatingDao {
@@ -9,6 +11,5 @@ public interface RatingDao {
 	public void insertRating(User user, Event event, double ratingValue);
 
 	public int getRatingId(User user, Event event);
-	
 	
 }

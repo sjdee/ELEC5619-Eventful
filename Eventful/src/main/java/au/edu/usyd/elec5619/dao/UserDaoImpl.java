@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import au.edu.usyd.elec5619.domain.Rating;
 import au.edu.usyd.elec5619.domain.User;
 
 import org.apache.commons.logging.Log;

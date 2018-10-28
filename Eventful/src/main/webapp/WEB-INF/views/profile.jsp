@@ -4,6 +4,7 @@
 <title>Profile</title>
 <%@ include file="header.jsp"%>
 <script src="<c:url value="/js/profile.js" />"></script>
+<link href="<c:url value="/css/profile.css" />" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -27,6 +28,11 @@
 								<div class="col s7">${model.user.email}</div>
 							</div>
 						</c:if>
+						<div class="row">
+							<div class="col s12" id="rating" data-value="${model.averageRating}">
+								<div class="stars-outer"><div class="stars-inner"></div></div>
+							</div>
+						</div>
 						<div class="col s11 push-s1" style="text-align: bio;">${model.user.bio}</div>
 					</div>
 				</div>

@@ -7,7 +7,7 @@
 <script src="<c:url value="/js/register.js" />"></script>
 </head>
 <body>
-	<div class="center">
+	<div class="container">
 		<h1>Register as New User</h1>
 		<c:url var="registerUrl" value="/register" />
 		<div class="row" style="width: 50%;">

@@ -34,6 +34,9 @@ $(document).ready(function() {
 	});
 	
 	$('#create-post, #registerUser, #changeAvatar').submit(function(event) {
+		
+		if ($("#emailerror").text() != "")
+			event.preventDefault();
 									
 		$(this).append('<input type="hidden" name="filePath" value="' + filePath + '">');
 	    

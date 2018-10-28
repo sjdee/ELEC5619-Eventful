@@ -2,6 +2,7 @@ package au.edu.usyd.elec5619.dao;
 
 import java.util.List;
 
+import au.edu.usyd.elec5619.domain.Rating;
 import au.edu.usyd.elec5619.domain.User;
 
 public interface UserDao {

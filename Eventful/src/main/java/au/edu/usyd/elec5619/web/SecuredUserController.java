@@ -47,9 +47,9 @@ public class SecuredUserController {
 		model.put("events", events);
 		model.put("user", user);
 		model.put("selfProfile", false);
+		model.put("averageRating", userService.getUserAverageRating(user));
 
 		return new ModelAndView("profile", "model", model);
-
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -64,9 +64,9 @@ public class SecuredUserController {
 		model.put("events", events);
 		model.put("user", user);
 		model.put("selfProfile", true);
+		model.put("averageRating", userService.getUserAverageRating(user));
 
 		return new ModelAndView("profile", "model", model);
-
 	}
 
 	@RequestMapping(value = "/profile/edit", method = RequestMethod.GET)

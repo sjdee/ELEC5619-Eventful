@@ -25,5 +25,7 @@ public interface UserService {
 	public void changeUserPassword(String oldPassword, String password, String confirmPassword) throws InvalidInputException;
 	
 	public void changeUserAvatar(String filePath);
+	
+	public double getUserAverageRating(User user);
 }
 
