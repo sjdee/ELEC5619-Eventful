@@ -16,6 +16,33 @@
 	<h1>Create Event</h1>
 </div>
 
+<form id="singleUploadForm" name="singleUploadForm">
+	<div class="row">
+		<div class="col s6 offset-s3">
+			<div class="row">
+		    	<div class="input-field col s12">
+			    	<div class="file-field">
+					<div class="btn">
+					    <span>Upload Image</span>
+					    <input id="singleFileUploadInput" type="file" name="file" class="file-input">
+					</div>
+					<div class="file-path-wrapper">
+					    <input class="file-path validate" type="text" placeholder="Event Image">
+						</div>
+					</div>
+				</div>
+		    </div>
+		    
+        </div>
+			<!--<input type="submit" value="Post"/>-->
+		<div class="center">
+			<button class="btn waves-effect waves-light" type="submit" name="action" style="display: none;">Create Event
+			 	<i class="material-icons right">send</i>	
+			</button>
+        </div>
+	</div>
+</form>
+
 <form action="/createEvent" method="POST" id="create-post">
 	<div class="row">
 		<div class="col s6 offset-s3">
@@ -82,35 +109,7 @@
 		</div>
 	</div>
 </form>
-
-
-<form id="singleUploadForm" name="singleUploadForm">
-	<div class="row">
-		<div class="col s6 offset-s3">
-			<div class="row">
-		    	<div class="input-field col s12">
-			    	<div class="file-field">
-					<div class="btn">
-					    <span>Upload Image</span>
-					    <input id="singleFileUploadInput" type="file" name="file" class="file-input">
-					</div>
-					<div class="file-path-wrapper">
-					    <input class="file-path validate" type="text" placeholder="Event Image">
-						</div>
-					</div>
-				</div>
-		    </div>
-		    
-        </div>
-			<!--<input type="submit" value="Post"/>-->
-		<div class="center">
-			<button class="btn waves-effect waves-light" type="submit" name="action" style="display: none;">Create Event
-			 	<i class="material-icons right">send</i>	
-			</button>
-        </div>
-	</div>
-</form>
-
+<br>
 
 <%@ include file="footer.jsp" %> 
 

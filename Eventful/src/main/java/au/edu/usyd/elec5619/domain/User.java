@@ -75,6 +75,9 @@ public class User {
 	@ManyToMany(mappedBy = "subscribedUsers", cascade = CascadeType.MERGE,  fetch = FetchType.EAGER)
 	private Set<Event> subscribedEvents;
 	
+	@OneToMany(mappedBy = "user")
+	private Set<Rating> ratings;
+	
 	// Getters
 	public Long getId() {
 		return this.id;
@@ -128,6 +131,11 @@ public class User {
 		return this.filePath;
 	}
 	
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+ 
+	
 	// Setters
 	public void setEmail(String email) {
 		this.email = email;
@@ -176,4 +184,7 @@ public class User {
 		this.filePath = filePath;
 	}
 
+    public void setRatings(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }

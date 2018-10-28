@@ -13,7 +13,7 @@
 	
 	<c:if test="${not empty model.event.eventImagePath}">
 		<div class="card-image">
-			<img src="${model.event.eventImagePath}">	
+			<img id="eventImage" src="${model.event.eventImagePath}">	
 		</div>
 	</c:if>
 	
@@ -23,12 +23,28 @@
 	style="margin-top: 1em; margin-bottom: 1em;"
 	href="<c:url value="/event/${model.function}/${model.event.id}" />"><i class="material-icons left">${model.buttonIcon}</i>${model.buttonValue}</a>
 	
-	<h6> Location:<b>${model.event.location}</b></h6>
+	<h6> Location: <b>${model.event.location}</b></h6>
 	<h6> When: <b>${model.event.datetime}</b> </h6>
 	<h6> More info: ${model.event.description} </h6>	
 	<h6> Maximum People allowed: ${model.event.maxPeople} </h6>
 	<h6> Frequency: ${model.repetition} </h6> <p>
 
+<!--onclick="location.href='/event/rate/${model.event.id}'"  -->
+ <form action="#" >
+ 	<fieldset class="rating" onChange="javascript:submit()" ${model.ratingVisibility}>
+	    <input type="radio" id="star5" name="rating" value="5" ${model.check50}/><label class = "full" for="star5" title="Awesome! - 5 stars"></label>
+	    <input type="radio" id="star4half" name="rating" value="4.5" ${model.check45}/><label class="half" for="star4half" title="Excellent- 4.5 stars"></label>
+	    <input type="radio" id="star4" name="rating" value="4" ${model.check40}/><label class = "full" for="star4" title="Very Good- 4 stars"></label>
+	    <input type="radio" id="star3half" name="rating" value="3.5" ${model.check35}/><label class="half" for="star3half" title="Good - 3.5 stars"></label>
+	    <input type="radio" id="star3" name="rating" value="3" ${model.check30}/><label class = "full" for="star3" title="Above Average - 3 stars"></label>
+	    <input type="radio" id="star2half" name="rating" value="2.5" ${model.check25}/><label class="half" for="star2half" title="Average - 2.5 stars"></label>
+	    <input type="radio" id="star2" name="rating" value="2" ${model.check20}/><label class = "full" for="star2" title="Poor- 2 stars"></label>
+	    <input type="radio" id="star1half" name="rating" value="1.5" ${model.check15}/><label class="half" for="star1half" title="Very Poor - 1.5 stars"></label>
+	    <input type="radio" id="star1" name="rating" value="1" ${model.check10}/><label class = "full" for="star1" title="Unacceptable- 1 star"></label>
+	    <input type="radio" id="starhalf" name="rating" value=".5" ${model.check5}/><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+	</fieldset>
+</form>	
+	<p>
 	<!-- Subscribed users avatars -->
 	<c:if test="${not empty model.event.subscribedUsers}">
 		<c:forEach var="user" items="${model.event.subscribedUsers}">

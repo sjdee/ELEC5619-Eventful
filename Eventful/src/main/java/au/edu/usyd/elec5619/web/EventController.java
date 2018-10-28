@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import au.edu.usyd.elec5619.domain.Comment;
@@ -25,6 +26,7 @@ import au.edu.usyd.elec5619.domain.Post;
 import au.edu.usyd.elec5619.domain.User;
 import au.edu.usyd.elec5619.service.EventService;
 import au.edu.usyd.elec5619.service.PostService;
+import au.edu.usyd.elec5619.service.RatingService;
 import au.edu.usyd.elec5619.service.UserService;
 
 @Controller
@@ -39,6 +41,8 @@ public class EventController {
 	private PostService postService;
 
 	private UserService userService;
+	
+	private RatingService ratingService;
 
 	@Autowired
 	public void setEventService(EventService eventService) {
@@ -55,6 +59,11 @@ public class EventController {
 		this.postService = postService;
 	}
 
+	@Autowired
+	public void setRatingService(RatingService ratingService) {
+		this.ratingService = ratingService;
+	}
+	
 	@RequestMapping(value="/event/{id}")
 	public ModelAndView viewEvent(@PathVariable("id") int id, Principal principal) throws Exception {
 
@@ -64,6 +73,7 @@ public class EventController {
 		User user = userService.getUserByEmail(principal.getName());
 
 		model.put("event", event);
+		
 		
 		int rep = event.getRepetition();
 		
@@ -89,6 +99,8 @@ public class EventController {
 			model.put("ability", "disabled");
 			model.put("buttonValue", "Cancelled");
 			model.put("buttonIcon", "cancel");
+			model.put("ratingVisibility", "hidden");
+			
 		}
 		
 		//if active event
@@ -102,6 +114,7 @@ public class EventController {
 				model.put("buttonValue", "Cancel");
 				model.put("function", "cancelEvent");
 				model.put("buttonIcon", "close");
+				model.put("ratingVisibility", "hidden");
 			}
 			// regular user
 			//
@@ -112,12 +125,64 @@ public class EventController {
 					model.put("buttonValue", "Unsubscribe");
 					model.put("function", "unsubscribe");
 					model.put("buttonIcon", "remove_circle");
+					model.put("ratingVisibility", "");
+					
+					
+					//if rated already
+					double ratingValue = ratingService.getRating(user, event);
+					
+					model.put("check5", "");
+					model.put("check10", "");
+					model.put("check15", "");
+					model.put("check20", "");
+					model.put("check25", "");
+					model.put("check30", "");
+					model.put("check35", "");
+					model.put("check40", "");
+					model.put("check45", "");
+					model.put("check50", "");
+					
+					if(ratingValue == 0.5) {
+						model.put("check5", "checked");
+					}
+					else if(ratingValue == 1.0) {
+						model.put("check10", "checked");
+					}
+					else if(ratingValue == 1.5) {
+						model.put("check15", "checked");
+					}
+					else if(ratingValue == 2.0) {
+						model.put("check20", "checked");
+					}
+					else if(ratingValue == 2.5) {
+						model.put("check25", "checked");
+					}
+					else if(ratingValue == 3.0) {
+						model.put("check30", "checked");
+					}
+					else if(ratingValue == 3.5) {
+						model.put("check35", "checked");
+					}
+					else if(ratingValue == 4.0) {
+						model.put("check40", "checked");
+					}
+					else if(ratingValue == 4.5) {
+						model.put("check45", "checked");
+					}
+					else if(ratingValue == 5.0) {
+						model.put("check50", "checked");
+					}
+					else {
+						//if no rating -> do nothing						
+					} 
+					
 				}
 				//if not yet subscribed
 				else {
 					model.put("buttonValue", "Subscribe");
 					model.put("function", "subscribe");
 					model.put("buttonIcon", "add_circle");
+					model.put("ratingVisibility", "hidden");
 				}
 			}
 		}
@@ -203,6 +268,19 @@ public class EventController {
 		
 	}
 	
+	@RequestMapping(value="/event/{eventId}", params = "rating")
+	public String rate(@PathVariable("eventId") int eventId, @RequestParam("rating") double ratingValue, Principal principal, HttpServletRequest httpServletRequest) throws Exception {
+
+		Event event = eventService.getEventById(eventId);
+		User user = userService.getUserByEmail(principal.getName());
+		
+		if(eventService.checkSubscription(user, event) && !event.getCancelled()) {
+			ratingService.insertRating(user, event, ratingValue);
+		}
+		
+		return "redirect:/event/" + eventId;
+		
+	}
 
 	@RequestMapping(value="/createPost/{eventId}")
 	public ModelAndView createPost(@PathVariable("eventId") int eventId) throws Exception {

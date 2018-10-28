@@ -79,7 +79,9 @@ public class Event implements Serializable {
         inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
     public Set<User> subscribedUsers;
-
+	
+    @OneToMany(mappedBy = "event")
+    private Set<Rating> ratings;
 
     //    methods
 	public int getId() {
@@ -173,4 +175,12 @@ public class Event implements Serializable {
 	public void setSubscribedUsers(Set<User> subscribedUsers) {
 		this.subscribedUsers = subscribedUsers;
 	}
+	
+    public Set<Rating> getRatings() {
+        return ratings;
+    }
+ 
+    public void setUserGroups(Set<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }
