@@ -11,7 +11,7 @@ $(document).ready(function() {
 			},
 			success : function(response) {
 				console.log(response);
-				if (response.ValidAddress)
+				if (response.Success)
 					$("#emailerror").remove();
 				else if ($("#emailerror").text() == "")
 					$("#emailDiv").append("<p id='emailerror' style='color:red;'>Invalid email.</p>");

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Register as New User</h1>
+		<h1 class="center">Register as New User</h1>
 		<c:url var="registerUrl" value="/register" />
 		<div class="row" style="width: 50%;">
 			<form:form id="registerUser" class="col s6 push-s3" method="post"
@@ -86,11 +86,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row center">
 				<button class="btn waves-effect waves-light" type="submit"
 					value="Submit" form="registerUser">Register</button>
 			</div>
-			<div class="row">
+			<div class="row center">
 				<a class="col s12" href="<c:url value="/login"/>">Already a
 					user?</a>
 			</div>
