@@ -3,16 +3,18 @@
 
 <nav>
 	<div class="nav-wrapper">
-		<a href="/dashboard" class="brand-logo" style="font-weight:200"><i class="material-icons">all_inclusive</i>eventful</a>
+		<a href="/dashboard" class="brand-logo" style="font-weight: 200"><i
+			class="material-icons">all_inclusive</i>eventful</a>
 		<ul class="hide-on-med-and-down right">
 			<li>
 				<div class="center row">
 					<div class="col s12 ">
 						<div class="row" id="topbarsearch">
 							<div class="input-field col s6 s12">
-								<i class="material-icons prefix" onclick="getQueryText()" style="top:0">search</i> <input
-									type="text" placeholder="search" id="searchQuery"
-									class="autocomplete" name="searchQuery">
+								<i class="material-icons prefix" onclick="getQueryText()"
+									style="top: 0">search</i> <input type="text"
+									placeholder="search" id="searchQuery" class="autocomplete"
+									name="searchQuery">
 							</div>
 						</div>
 					</div>
@@ -21,7 +23,8 @@
 			<li><a href="/allEvents"><i class="material-icons">dashboard</i></a></li>
 			<li><a href="/createEvent"><i class="material-icons">event</i></a></li>
 			<li><a href="/profile"><i class="material-icons">perm_contact_calendar</i></a></li>
-			<li><a href="/logout"><i class="material-icons">subdirectory_arrow_right</i></a></li>
+			<li><a href="#logoutModal" class="modal-trigger"><i
+					class="material-icons">subdirectory_arrow_right</i></a></li>
 		</ul>
 	</div>
 </nav>
@@ -31,4 +34,19 @@
 		var full = "/search=" + text;
 		window.location.href = full;
 	}
+	$(document).ready(function() {
+		$('.modal').modal();
+	});
 </script>
+
+<!-- Logout Modal -->
+<div id="logoutModal" class="modal">
+	<div class="modal-content center">
+		<h4>Are you sure you want to logout?</h4>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+		<a href="/logout"
+			class="modal-close waves-effect waves-green btn-flat">Ok</a>
+	</div>
+</div>

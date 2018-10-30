@@ -37,12 +37,13 @@
 				</div>
 			</form>
 		</div>
-		<a class="waves-effect waves-light btn-large"
+		<div class="row"><a class=""
 			style="margin-top: 1em; margin-bottom: 1em;"
-			href="<c:url value="/register" />">Register</a> <a
+			href="<c:url value="/register" />">Register As New User</a></div>
+		<%--  <a
 			class="waves-effect waves-light btn-large"
 			style="margin-top: 1em; margin-bottom: 1em;"
-			href="<c:url value="/forgot" />">Forgot Password</a>
+			href="<c:url value="/forgot" />">Forgot Password</a> --%>
 	</div>
 	<%@ include file="footer.jsp"%>
 </body>
