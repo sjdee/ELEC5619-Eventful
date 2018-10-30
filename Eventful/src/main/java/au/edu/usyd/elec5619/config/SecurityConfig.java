@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/forgot").permitAll()
 				.antMatchers("/uploadFile").permitAll()
 				.antMatchers("/downloadFile/**").permitAll()
-				.anyRequest().authenticated().and().csrf().disable()
+				.anyRequest().authenticated().and()
 				.formLogin()
 					.loginPage("/login")
 					.failureUrl("/login?error=true")
