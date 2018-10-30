@@ -416,8 +416,11 @@ public class EventController {
 			//User poster = new User();
 			//poster.alias = postList.get(i).getPoster().alias;
 			//postList.get(i).setPoster(poster);
+			postList.get(i).getPoster().setRoles(null);
+			postList.get(i).getPoster().setSubscribedEvents(null);
 			postList.get(i).getPoster().setLikedPosts(null);
 			postList.get(i).getPoster().setLikedComments(null);
+			postList.get(i).getPoster().setRatings(null);
 			postList.get(i).setComments(null);
 			postList.get(i).setEvent(null);
 			postList.get(i).setLikedUsers(null);
@@ -435,7 +438,11 @@ public class EventController {
 				//loadedComments.get(k).setCommenter(null);
 				loadedComments.get(k).setLikedUsers(null);
 				loadedComments.get(k).setPost(null);
-				
+				loadedComments.get(k).getCommenter().setLikedComments(null);
+				loadedComments.get(k).getCommenter().setRatings(null);
+				loadedComments.get(k).getCommenter().setLikedPosts(null);
+				loadedComments.get(k).getCommenter().setRoles(null);
+				loadedComments.get(k).getCommenter().setSubscribedEvents(null);
 			}
 			
 			postList.get(i).setComments(loadedComments);
@@ -472,7 +479,11 @@ public class EventController {
 			
 			loadedComments.get(i).setLikedUsers(null);
 			loadedComments.get(i).setPost(null);
-				
+			loadedComments.get(i).getCommenter().setLikedComments(null);
+			loadedComments.get(i).getCommenter().setRatings(null);
+			loadedComments.get(i).getCommenter().setLikedPosts(null);
+			loadedComments.get(i).getCommenter().setRoles(null);
+			loadedComments.get(i).getCommenter().setSubscribedEvents(null);
 		}
 		
 		result.setComments(loadedComments);

@@ -32,6 +32,8 @@ public class UserServiceImpl implements UserService {
 	private EventDao eventDAO;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	private String DEFAULT_AVATAR = "https://cdn.onlinewebfonts.com/svg/img_191958.png";
+	
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@Autowired
@@ -45,6 +47,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void createUser(User user) {
+		
+		if (user.getFilePath() == null || user.getFilePath() == "") {
+			user.setFilePath(DEFAULT_AVATAR);
+		}
+		
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		Role userRole = roleDAO.findByRole("USER");
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
@@ -52,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	//@Transactional
+	@Transactional
 	public User getUserByEmail(String email) {
 		return this.userDAO.getUserByEmail(email);
 	}

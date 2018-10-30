@@ -131,7 +131,9 @@ function loadPosts(eventId) {
     		  oldestCommentIds[data.posts[i].id] = -1
     		  
     		  var t = document.querySelector('#test-template');
-        	  
+        	      		  
+    		  t.content.querySelector('div[class*="poster-img"]').setAttribute("style", "background-image:url('" + data.posts[i].poster.filePath + "');");
+    		  
     		  t.content.querySelector('a[class*="poster-img-link"]').href = "/profile/" + data.posts[i].poster.id;
     		  t.content.querySelector('a[class*="poster-alias-link"]').href = "/profile/" + data.posts[i].poster.id;
     		  t.content.querySelector('a[class*="poster-alias-link"]').innerHTML = data.posts[i].poster.alias;
@@ -253,6 +255,7 @@ function loadComment(comment, commentAnchor, postId) {
 	
 	t.content.querySelector('span[class*="comment-contents"]').innerHTML = comment.contents;
 	t.content.querySelector('a[class*="commenter-img-link"]').href = "/profile/" + comment.commenter.id;
+	t.content.querySelector('div[class*="commenter-img"]').setAttribute("style", "background-image:url('" + comment.commenter.filePath + "');");
 	t.content.querySelector('a[class*="commenter-alias-link"]').href = "/profile/" + comment.commenter.id;
 
 	t.content.querySelector('a[class*="commenter-alias-link"]').innerHTML = comment.commenter.alias;
