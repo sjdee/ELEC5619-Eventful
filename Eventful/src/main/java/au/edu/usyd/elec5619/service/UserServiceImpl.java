@@ -1,10 +1,8 @@
 package au.edu.usyd.elec5619.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,20 +22,21 @@ import au.edu.usyd.elec5619.domain.Rating;
 import au.edu.usyd.elec5619.domain.Role;
 import au.edu.usyd.elec5619.domain.User;
 
-@Service(value="userService")
+@Service(value = "userService")
 public class UserServiceImpl implements UserService {
-	
+
 	private UserDao userDAO;
 	private RoleDao roleDAO;
 	private EventDao eventDAO;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	private String DEFAULT_AVATAR = "https://cdn.onlinewebfonts.com/svg/img_191958.png";
-	
+
 	protected final Log log = LogFactory.getLog(getClass());
-	
+
 	@Autowired
-	public UserServiceImpl(UserDao userDAO, RoleDao roleDAO, EventDao eventDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserServiceImpl(UserDao userDAO, RoleDao roleDAO, EventDao eventDAO,
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userDAO = userDAO;
 		this.roleDAO = roleDAO;
 		this.eventDAO = eventDAO;
@@ -47,11 +46,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void createUser(User user) {
-		
+
 		if (user.getFilePath() == null || user.getFilePath() == "") {
 			user.setFilePath(DEFAULT_AVATAR);
 		}
-		
+
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		Role userRole = roleDAO.findByRole("USER");
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
@@ -69,18 +68,19 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(String email) {
 		this.userDAO.removeUser(email);
 	}
-	
+
 	@Override
 	@Transactional
 	public boolean isUserExist(User user) {
-		if (getUserByEmail(user.getEmail()) != null) 
+		User tempUser = getUserByEmail(user.getEmail());
+		if (tempUser != null && tempUser.getEnabled())
 			return true;
 		return false;
 	}
 
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
+
 		return getUserByEmail(auth.getName());
 	}
 
@@ -98,14 +98,15 @@ public class UserServiceImpl implements UserService {
 			throw new InvalidInputException("Alias already exists.");
 		userDAO.updateUserAlias(newAlias, getCurrentUser().getId());
 	}
-	
+
 	@Override
 	public void changeUserBio(String newBio) {
 		userDAO.updateUserBio(newBio, getCurrentUser().getId());
 	}
 
 	@Override
-	public void changeUserPassword(String oldPassword, String password, String confirmPassword) throws InvalidInputException {
+	public void changeUserPassword(String oldPassword, String password, String confirmPassword)
+			throws InvalidInputException {
 		password = bCryptPasswordEncoder.encode(password);
 		if (!bCryptPasswordEncoder.matches(oldPassword, getCurrentUser().getPassword()))
 			throw new InvalidInputException("Invalid Password.");
@@ -129,7 +130,7 @@ public class UserServiceImpl implements UserService {
 		if (events.size() == 0) {
 			return 0.0;
 		}
-		
+
 		double sum = 0.0;
 		int ratingCount = 0;
 		for (Event event : events) {
@@ -139,7 +140,7 @@ public class UserServiceImpl implements UserService {
 				ratingCount++;
 			}
 		}
-		
-		return sum/ratingCount;
+
+		return sum / ratingCount;
 	}
 }

@@ -7,10 +7,6 @@ import au.edu.usyd.elec5619.domain.User;
 
 public interface UserDao {
 	
-	/**
-	 * Register user = add user
-	 * @param user
-	 */
 	public void addUser(User user);
 	
 	public void updateUserAlias(String alias, Long id);
