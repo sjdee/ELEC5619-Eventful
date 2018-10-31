@@ -6,61 +6,71 @@
 </head>
 <body>
 	<div class="row" style="text-align: center;">
-	    <h2>Hello there, ${model.user.alias}!</h2>
-		<h4>It is currently ${model.serverTime}. </h4>
-    </div>
-    
-	<div class="container" style="display: flex; justify-content: center; align-content: center;">
-		<div>	
-		<div class="row">
-			<div class="col s12">
-				<h5 style="text-align: center;">Here's the events you've created:</h5>
+		<h2>Hello there, ${model.user.alias}!</h2>
+		<h4>It is currently ${model.serverTime}.</h4>
+	</div>
+
+	<div class="container"
+		style="display: flex; justify-content: center; align-content: center;">
+		<div>
+			<div class="row">
+				<div class="col s12">
+					<h5 style="text-align: center;">Here's the events you've
+						created:</h5>
+				</div>
 			</div>
-		</div>		
-		<c:choose>
-			<c:when test="${empty model.events}">
-				<p style="text-align: center;">You haven't created any events yet! Create an event <a href="<c:url value="/createEvent"/>">here.</a></p>
-			</c:when>
-			<c:otherwise>
-				<div style="width: 700px; height: 400px; overflow: scroll; overflow-x: scroll; overflow-y: scroll;">			
-				<c:forEach var="event" items="${model.events}">
-					<div class="row">
-						<div class="col s6 offset-s3">
-							<div class="card">
-								<div class="card-image">
-								<!-- NEW CODE: show event image if it exists, otherwise show stock image  -->
-									<c:if test="${empty event.eventImagePath}">
-										<img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
-									</c:if>
-									<c:if test="${not empty event.eventImagePath}">
-										<img src="${event.eventImagePath}">
-									</c:if>
-									
-									<!-- OLD CODE: Show stock image for all events  -->
-									<!-- <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg"> -->
-									
-									<span class="card-title"><a style="color:white;" href="event/${event.getId()}"><b>Event:</b> ${event.title}</a></span>
-								</div>
-		
-								<div class="card-content">
-									<p style="margin-top: 0.5em; margin-bottom: 1.5em;"><b>Description:</b><br>${event.description}</p>
-									<div class="card-panel row valign-wrapper post-bar">
-										<ul>
-											<li>Location: ${event.location}</li>
-											<li>Time: ${event.datetime}</li>
-											<li>Maximum people: ${event.maxPeople} </li>
-											<li>Frequency: ${event.repetition}</li>
-										</ul>
+			<c:choose>
+				<c:when test="${empty model.events}">
+					<p style="text-align: center;">
+						You haven't created any events yet! Create an event <a
+							href="<c:url value="/createEvent"/>">here.</a>
+					</p>
+				</c:when>
+				<c:otherwise>
+					<div
+						style="width: 700px; height: 400px; overflow: scroll; overflow-x: scroll; overflow-y: scroll;">
+						<c:forEach var="event" items="${model.events}">
+							<div class="row">
+								<div class="col s6 offset-s3">
+									<div class="card">
+										<div class="card-image">
+											<!-- NEW CODE: show event image if it exists, otherwise show stock image  -->
+											<c:if test="${empty event.eventImagePath}">
+												<img
+													src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
+											</c:if>
+											<c:if test="${not empty event.eventImagePath}">
+												<img src="${event.eventImagePath}">
+											</c:if>
+
+											<!-- OLD CODE: Show stock image for all events  -->
+											<!-- <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg"> -->
+
+											<span class="card-title"><a style="color: white;"
+												href="event/${event.getId()}"><b>Event:</b>
+													${event.title}</a></span>
+										</div>
+
+										<div class="card-content">
+											<p style="margin-top: 0.5em; margin-bottom: 1.5em;">
+												<b>Description:</b><br>${event.description}</p>
+											<div class="card-panel row valign-wrapper post-bar">
+												<ul>
+													<li>Location: ${event.location}</li>
+													<li>Time: ${event.datetime}</li>
+													<li>Maximum people: ${event.maxPeople}</li>
+													<li>Frequency: ${event.repetition}</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+
+						</c:forEach>
 					</div>
-		
-				</c:forEach>
-			</div>
-			
-<%-- 			<c:forEach var="post" items="${model.event.posts}">
+
+					<%-- 			<c:forEach var="post" items="${model.event.posts}">
 				<div class="row">
 					<div class="col s6 offset-s3">
 						<div class="card">
@@ -139,65 +149,71 @@
 					`
 				</div>
 		</c:forEach> --%>
-	</c:otherwise>
-</c:choose>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<div>
-		<div class="row">
-			<div class="col s12">
-				<h5 style="text-align: center;">Here's the events you've subscribed to:</h5>
+			<div class="row">
+				<div class="col s12">
+					<h5 style="text-align: center;">Here's the events you've
+						subscribed to:</h5>
+				</div>
 			</div>
-		</div>		
-		<c:choose>
-			<c:when test="${empty model.user.subscribedEvents}">
-				<p style="text-align: center;">You haven't subscribed to any events yet!</p>
-			</c:when>
-			<c:otherwise>
-				<div style="width: 700px; height: 400px; overflow: scroll; overflow-x: scroll; overflow-y: scroll;">			
-				<c:forEach var="event" items="${model.user.subscribedEvents}">
-					<div class="row">
-						<div class="col s6 offset-s3">
-							<div class="card">
-								<div class="card-image">
-								<!-- NEW CODE: show event image if it exists, otherwise show stock image  -->
-									<c:if test="${empty event.eventImagePath}">
-										<img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
-									</c:if>
-									<c:if test="${not empty event.eventImagePath}">
-										<img src="${event.eventImagePath}">
-									</c:if>
-									
-									<!-- OLD CODE: Show stock image for all events  -->
-									<!-- <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg"> -->
-									
-									<span class="card-title"><a style="color:white;" href="event/${event.getId()}"><b>Event:</b> ${event.title}</a></span>
-								</div>
-		
-								<div class="card-content">
-									<p style="margin-top: 0.5em; margin-bottom: 1.5em;"><b>Description:</b><br>${event.description}</p>
-									<div class="card-panel row valign-wrapper post-bar">
-										<ul>
-											<li>Location: ${event.location}</li>
-											<li>Time: ${event.datetime}</li>
-											<li>Maximum people: ${event.maxPeople} </li>
-											<li>Frequency: ${event.repetition}</li>
-										</ul>
+			<c:choose>
+				<c:when test="${empty model.user.subscribedEvents}">
+					<p style="text-align: center;">You haven't subscribed to any
+						events yet!</p>
+				</c:when>
+				<c:otherwise>
+					<div
+						style="width: 700px; height: 400px; overflow: scroll; overflow-x: scroll; overflow-y: scroll;">
+						<c:forEach var="event" items="${model.user.subscribedEvents}">
+							<div class="row">
+								<div class="col s6 offset-s3">
+									<div class="card">
+										<div class="card-image">
+											<!-- NEW CODE: show event image if it exists, otherwise show stock image  -->
+											<c:if test="${empty event.eventImagePath}">
+												<img
+													src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg">
+											</c:if>
+											<c:if test="${not empty event.eventImagePath}">
+												<img src="${event.eventImagePath}">
+											</c:if>
+
+											<!-- OLD CODE: Show stock image for all events  -->
+											<!-- <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg"> -->
+
+											<span class="card-title"><a style="color: white;"
+												href="event/${event.getId()}"><b>Event:</b>
+													${event.title}</a></span>
+										</div>
+
+										<div class="card-content">
+											<p style="margin-top: 0.5em; margin-bottom: 1.5em;">
+												<b>Description:</b><br>${event.description}</p>
+											<div class="card-panel row valign-wrapper post-bar">
+												<ul>
+													<li>Location: ${event.location}</li>
+													<li>Time: ${event.datetime}</li>
+													<li>Maximum people: ${event.maxPeople}</li>
+													<li>Frequency: ${event.repetition}</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+
+						</c:forEach>
 					</div>
-		
-				</c:forEach>
-			</div>
-			
-	</c:otherwise>
-</c:choose>
-</div>
+
+				</c:otherwise>
+			</c:choose>
+		</div>
 
 	</div>
-	    
-	<%@ include file="footer.jsp"%>
+<%@ include file="footer.jsp"%>
 </body>
 </html>
