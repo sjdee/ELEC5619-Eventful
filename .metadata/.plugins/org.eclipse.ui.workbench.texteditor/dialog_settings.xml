@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="LikedPosts" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="i"/>
-			<item value="image uploaded"/>
-			<item value="something"/>
-			<item value="window.aler"/>
+			<item value="likedposts"/>
+			<item value="createus"/>
+			<item value="g"/>
+			<item value="background-im"/>
+			<item value="poster-img"/>
+			<item value="post-img"/>
+			<item value="serg"/>
 			<item value="file"/>
-			<item value=".submit"/>
-			<item value="fiel"/>
-			<item value="create-post"/>
-			<item value="src"/>
-			<item value="singleUploadForm"/>
-			<item value="comment-form"/>
-			<item value="alert"/>
-			<item value="form"/>
-			<item value="file-field"/>
-			<item value="input-field"/>
+			<item value="&quot;load-comments-link&quot;"/>
+			<item value="load more comments"/>
+			<item value="window.alert"/>
+			<item value="format"/>
+			<item value="data.posts[i].timePosted"/>
+			<item value="timeposted"/>
+			<item value="timePosted"/>
 		</list>
 		<list key="replacehistory">
 			<item value="File"/>
@@ -33,7 +33,7 @@
 		<item value="304" key="DIALOG_WIDTH"/>
 		<item value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont" key="DIALOG_FONT_NAME"/>
 		<item value="410" key="DIALOG_HEIGHT"/>
-		<item value="46" key="DIALOG_X_ORIGIN"/>
-		<item value="249" key="DIALOG_Y_ORIGIN"/>
+		<item value="999" key="DIALOG_X_ORIGIN"/>
+		<item value="304" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
