@@ -33,7 +33,7 @@
 
 
 #eventImage{
-	max-height: 480px;
+	max-height: 400px;
     width: 100%;
     overflow: hidden;
 }

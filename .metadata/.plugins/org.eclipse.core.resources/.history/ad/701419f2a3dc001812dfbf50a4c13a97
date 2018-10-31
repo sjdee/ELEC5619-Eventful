@@ -32,10 +32,8 @@
 	<div class="center">
 
 		<c:if test="${not empty model.event.eventImagePath}">
-			<div class="row center">
-				<div class="col s12 center card-image">
-					<img id="eventImage" src="${model.event.eventImagePath}">
-				</div>
+			<div class="card-image">
+				<img id="eventImage" src="${model.event.eventImagePath}">
 			</div>
 		</c:if>
 
@@ -92,8 +90,8 @@
 			<c:if test="${not empty model.event.subscribedUsers}">
 				<c:forEach var="user" items="${model.event.subscribedUsers}">
 					<c:if test="${not empty user.filePath}">
-						<span class="card-image avatar" > <img
-							src="${user.filePath}" class="circle" id="eventAvatarImage">
+						<span class="card-image avatar"> <img
+							src="${user.filePath}" class="circle">
 						</span>
 						<%-- <span class="card-title">${user.alias}</span> --%>
 					</c:if>
@@ -304,8 +302,8 @@
 			</div>
 			<div class="col s11 push-1">
 				<span class="black-text"> <a class="commenter-alias-link"
-					href="/profile/userId"> User Alias </a><br> <span
-					class="comment-contents">Comment contents</span>
+					href="/profile/userId"> User Alias </a><br>
+				<span class="comment-contents">Comment contents</span>
 					<div class="valign-wrapper">
 						<a class="like-comment-link" href="javascript:void(0)"
 							onclick="likeComment(commentId);"><span

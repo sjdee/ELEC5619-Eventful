@@ -33,14 +33,9 @@
 
 
 #eventImage{
-	max-height: 480px;
-    width: 100%;
+	max-height: 400px;
+    max-width: 100%;
     overflow: hidden;
-}
-
-#eventAvatarImage{
-	height:80px;
-	weight:80px;
 }
 
 /****** Style Star Rating Widget *****/

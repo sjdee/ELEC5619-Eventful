@@ -92,8 +92,8 @@
 			<c:if test="${not empty model.event.subscribedUsers}">
 				<c:forEach var="user" items="${model.event.subscribedUsers}">
 					<c:if test="${not empty user.filePath}">
-						<span class="card-image avatar" > <img
-							src="${user.filePath}" class="circle" id="eventAvatarImage">
+						<span class="card-image avatar"> <img
+							src="${user.filePath}" class="circle">
 						</span>
 						<%-- <span class="card-title">${user.alias}</span> --%>
 					</c:if>
